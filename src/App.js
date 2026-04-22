@@ -66,7 +66,6 @@ function Collapsible({ title, children }) {
 }
 
 function BeehiivEmbed() {
-  const containerRef = useRef(null);
   const loadedRef = useRef(false);
 
   useEffect(() => {
@@ -82,15 +81,17 @@ function BeehiivEmbed() {
   }, []);
 
   return (
-    <div ref={containerRef} style={{ display: "flex", justifyContent: "center", width: "100%", overflow: "hidden" }}>
-      <iframe
-        src="https://subscribe-forms.beehiiv.com/e102bd3a-8d94-49db-90dd-4cbec7418e82"
-        className="beehiiv-embed"
-        data-test-id="beehiiv-embed"
-        frameBorder="0"
-        scrolling="no"
-        style={{ width: "100%", maxWidth: 560, height: 339, margin: 0, borderRadius: 0, backgroundColor: "transparent", boxShadow: "none", border: "none", display: "block" }}
-      />
+    <div className="pai-beehiiv-outer" style={{ display: "flex", justifyContent: "center", width: "100%", overflow: "hidden" }}>
+      <div className="pai-beehiiv-scaler" style={{ width: 560, maxWidth: "100%" }}>
+        <iframe
+          src="https://subscribe-forms.beehiiv.com/e102bd3a-8d94-49db-90dd-4cbec7418e82"
+          className="beehiiv-embed"
+          data-test-id="beehiiv-embed"
+          frameBorder="0"
+          scrolling="no"
+          style={{ width: 560, height: 339, margin: 0, borderRadius: 0, backgroundColor: "transparent", boxShadow: "none", border: "none", display: "block" }}
+        />
+      </div>
     </div>
   );
 }
@@ -400,7 +401,13 @@ export default function PriorAuthIndex() {
         @media (max-width: 600px) {
           .pai-nav-btn { padding: 10px 10px !important; font-size: 11px !important; }
           .pai-embed-wrap { padding: 14px 10px !important; }
-          .pai-embed-wrap iframe { height: 380px !important; }
+          .pai-beehiiv-scaler {
+            transform: scale(calc((100vw - 48px) / 560));
+            transform-origin: top center;
+          }
+          .pai-beehiiv-outer {
+            height: calc(339px * ((100vw - 48px) / 560));
+          }
         }
       `}</style>
 
