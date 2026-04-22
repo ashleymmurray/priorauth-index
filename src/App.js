@@ -65,57 +65,8 @@ function Collapsible({ title, children }) {
   );
 }
 
-function BeehiivModal({ open, onClose }) {
-  if (!open) return null;
-  return (
-    <div
-      onClick={onClose}
-      style={{
-        position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
-        background: "rgba(0,0,0,0.5)", zIndex: 9999,
-        display: "flex", alignItems: "center", justifyContent: "center",
-        padding: 16,
-      }}
-    >
-      <div
-        onClick={e => e.stopPropagation()}
-        className="pai-modal-inner"
-        style={{
-          background: "#fff", borderRadius: 10, padding: "20px 16px",
-          width: "100%", maxWidth: 580, maxHeight: "90vh",
-          overflowY: "auto", overflowX: "hidden", position: "relative",
-          boxSizing: "border-box",
-        }}
-      >
-        <button
-          onClick={onClose}
-          style={{
-            position: "absolute", top: 10, right: 14,
-            background: "none", border: "none", fontSize: 22,
-            color: "#999", cursor: "pointer", lineHeight: 1,
-            fontWeight: 300,
-          }}
-        >
-          &times;
-        </button>
-        <div style={{ marginTop: 8, overflow: "hidden", width: "100%" }}>
-          <iframe
-            src="https://subscribe-forms.beehiiv.com/e102bd3a-8d94-49db-90dd-4cbec7418e82"
-            className="beehiiv-embed pai-modal-iframe"
-            data-test-id="beehiiv-embed"
-            frameBorder="0"
-            scrolling="no"
-            style={{ width: "100%", maxWidth: "100%", height: 339, margin: 0, borderRadius: 0, backgroundColor: "transparent", boxShadow: "none", border: "none", display: "block" }}
-          />
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function BeehiivEmbed() {
   const loadedRef = useRef(false);
-  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     if (loadedRef.current) return;
@@ -143,30 +94,36 @@ function BeehiivEmbed() {
         />
       </div>
 
-      {/* Mobile: show CTA + modal */}
-      <div className="pai-beehiiv-mobile" style={{ display: "none", textAlign: "center", padding: "8px 0" }}>
-        <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 14 }}>
-          Join the waitlist for first access to The Prior Auth Report.
+      {/* Mobile: CTA that opens Beehiiv in new tab */}
+      <div className="pai-beehiiv-mobile" style={{ display: "none", textAlign: "center", padding: "12px 0" }}>
+        <div style={{ fontSize: 15, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>The Prior Auth Report</div>
+        <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 16 }}>
+          Data-driven insights on how health plans actually behave.
         </div>
-        <button
-          onClick={() => setModalOpen(true)}
+        <a
+          href="https://subscribe-forms.beehiiv.com/e102bd3a-8d94-49db-90dd-4cbec7418e82"
+          target="_blank"
+          rel="noopener noreferrer"
           style={{
-            padding: "10px 24px",
+            display: "block",
+            width: "100%",
+            padding: "12px 0",
             background: "#1a365d",
             color: "#fff",
             border: "none",
             borderRadius: 6,
-            fontSize: 13,
+            fontSize: 14,
             fontWeight: 600,
             cursor: "pointer",
             fontFamily: "'IBM Plex Sans', sans-serif",
+            textDecoration: "none",
+            textAlign: "center",
+            boxSizing: "border-box",
           }}
         >
           Join the Waitlist
-        </button>
+        </a>
       </div>
-
-      <BeehiivModal open={modalOpen} onClose={() => setModalOpen(false)} />
     </>
   );
 }
@@ -478,9 +435,6 @@ export default function PriorAuthIndex() {
           .pai-embed-wrap { padding: 14px 10px !important; }
           .pai-beehiiv-desktop { display: none !important; }
           .pai-beehiiv-mobile { display: block !important; }
-          .pai-modal-inner { max-width: 90vw !important; padding: 16px 12px !important; }
-          .pai-modal-iframe { width: 100% !important; max-width: 100% !important; min-width: 0 !important; }
-        }
         }
       `}</style>
 
