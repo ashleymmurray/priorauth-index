@@ -65,8 +65,55 @@ function Collapsible({ title, children }) {
   );
 }
 
+function BeehiivModal({ open, onClose }) {
+  if (!open) return null;
+  return (
+    <div
+      onClick={onClose}
+      style={{
+        position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
+        background: "rgba(0,0,0,0.5)", zIndex: 9999,
+        display: "flex", alignItems: "center", justifyContent: "center",
+        padding: 16,
+      }}
+    >
+      <div
+        onClick={e => e.stopPropagation()}
+        style={{
+          background: "#fff", borderRadius: 10, padding: "20px 16px",
+          width: "100%", maxWidth: 580, maxHeight: "90vh",
+          overflowY: "auto", position: "relative",
+        }}
+      >
+        <button
+          onClick={onClose}
+          style={{
+            position: "absolute", top: 10, right: 14,
+            background: "none", border: "none", fontSize: 22,
+            color: "#999", cursor: "pointer", lineHeight: 1,
+            fontWeight: 300,
+          }}
+        >
+          &times;
+        </button>
+        <div style={{ marginTop: 8 }}>
+          <iframe
+            src="https://subscribe-forms.beehiiv.com/e102bd3a-8d94-49db-90dd-4cbec7418e82"
+            className="beehiiv-embed"
+            data-test-id="beehiiv-embed"
+            frameBorder="0"
+            scrolling="no"
+            style={{ width: "100%", height: 339, margin: 0, borderRadius: 0, backgroundColor: "transparent", boxShadow: "none", border: "none", display: "block" }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function BeehiivEmbed() {
   const loadedRef = useRef(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     if (loadedRef.current) return;
@@ -81,8 +128,9 @@ function BeehiivEmbed() {
   }, []);
 
   return (
-    <div className="pai-beehiiv-outer" style={{ display: "flex", justifyContent: "center", width: "100%", overflow: "hidden" }}>
-      <div className="pai-beehiiv-scaler" style={{ width: 560, maxWidth: "100%" }}>
+    <>
+      {/* Desktop: show iframe directly */}
+      <div className="pai-beehiiv-desktop" style={{ display: "flex", justifyContent: "center", width: "100%", overflow: "hidden" }}>
         <iframe
           src="https://subscribe-forms.beehiiv.com/e102bd3a-8d94-49db-90dd-4cbec7418e82"
           className="beehiiv-embed"
@@ -92,7 +140,32 @@ function BeehiivEmbed() {
           style={{ width: 560, height: 339, margin: 0, borderRadius: 0, backgroundColor: "transparent", boxShadow: "none", border: "none", display: "block" }}
         />
       </div>
-    </div>
+
+      {/* Mobile: show CTA + modal */}
+      <div className="pai-beehiiv-mobile" style={{ display: "none", textAlign: "center", padding: "8px 0" }}>
+        <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 14 }}>
+          Join the waitlist for first access to The Prior Auth Report.
+        </div>
+        <button
+          onClick={() => setModalOpen(true)}
+          style={{
+            padding: "10px 24px",
+            background: "#1a365d",
+            color: "#fff",
+            border: "none",
+            borderRadius: 6,
+            fontSize: 13,
+            fontWeight: 600,
+            cursor: "pointer",
+            fontFamily: "'IBM Plex Sans', sans-serif",
+          }}
+        >
+          Join the Waitlist
+        </button>
+      </div>
+
+      <BeehiivModal open={modalOpen} onClose={() => setModalOpen(false)} />
+    </>
   );
 }
 
@@ -401,13 +474,8 @@ export default function PriorAuthIndex() {
         @media (max-width: 600px) {
           .pai-nav-btn { padding: 10px 10px !important; font-size: 11px !important; }
           .pai-embed-wrap { padding: 14px 10px !important; }
-          .pai-beehiiv-scaler {
-            transform: scale(calc((100vw - 48px) / 560));
-            transform-origin: top center;
-          }
-          .pai-beehiiv-outer {
-            height: calc(339px * ((100vw - 48px) / 560));
-          }
+          .pai-beehiiv-desktop { display: none !important; }
+          .pai-beehiiv-mobile { display: block !important; }
         }
       `}</style>
 
