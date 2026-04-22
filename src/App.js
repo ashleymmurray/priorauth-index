@@ -79,10 +79,12 @@ function BeehiivModal({ open, onClose }) {
     >
       <div
         onClick={e => e.stopPropagation()}
+        className="pai-modal-inner"
         style={{
           background: "#fff", borderRadius: 10, padding: "20px 16px",
           width: "100%", maxWidth: 580, maxHeight: "90vh",
-          overflowY: "auto", position: "relative",
+          overflowY: "auto", overflowX: "hidden", position: "relative",
+          boxSizing: "border-box",
         }}
       >
         <button
@@ -96,14 +98,14 @@ function BeehiivModal({ open, onClose }) {
         >
           &times;
         </button>
-        <div style={{ marginTop: 8 }}>
+        <div style={{ marginTop: 8, overflow: "hidden", width: "100%" }}>
           <iframe
             src="https://subscribe-forms.beehiiv.com/e102bd3a-8d94-49db-90dd-4cbec7418e82"
-            className="beehiiv-embed"
+            className="beehiiv-embed pai-modal-iframe"
             data-test-id="beehiiv-embed"
             frameBorder="0"
             scrolling="no"
-            style={{ width: "100%", height: 339, margin: 0, borderRadius: 0, backgroundColor: "transparent", boxShadow: "none", border: "none", display: "block" }}
+            style={{ width: "100%", maxWidth: "100%", height: 339, margin: 0, borderRadius: 0, backgroundColor: "transparent", boxShadow: "none", border: "none", display: "block" }}
           />
         </div>
       </div>
@@ -476,6 +478,9 @@ export default function PriorAuthIndex() {
           .pai-embed-wrap { padding: 14px 10px !important; }
           .pai-beehiiv-desktop { display: none !important; }
           .pai-beehiiv-mobile { display: block !important; }
+          .pai-modal-inner { max-width: 90vw !important; padding: 16px 12px !important; }
+          .pai-modal-iframe { width: 100% !important; max-width: 100% !important; min-width: 0 !important; }
+        }
         }
       `}</style>
 
