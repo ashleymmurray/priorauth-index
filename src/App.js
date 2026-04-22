@@ -82,14 +82,14 @@ function BeehiivEmbed() {
   }, []);
 
   return (
-    <div ref={containerRef} style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+    <div ref={containerRef} style={{ display: "flex", justifyContent: "center", width: "100%", overflow: "hidden" }}>
       <iframe
         src="https://subscribe-forms.beehiiv.com/e102bd3a-8d94-49db-90dd-4cbec7418e82"
         className="beehiiv-embed"
         data-test-id="beehiiv-embed"
         frameBorder="0"
         scrolling="no"
-        style={{ width: "100%", maxWidth: 560, height: 339, margin: 0, borderRadius: 0, backgroundColor: "transparent", boxShadow: "none", border: "none" }}
+        style={{ width: "100%", maxWidth: 560, height: 339, margin: 0, borderRadius: 0, backgroundColor: "transparent", boxShadow: "none", border: "none", display: "block" }}
       />
     </div>
   );
@@ -353,7 +353,13 @@ function ComplianceTracker() {
 function NewsletterPage({ onNavigate }) {
   return (
     <div>
-      <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: "24px 20px", marginBottom: 20 }}>
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7 }}>This isn't another healthcare newsletter.</div>
+        <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7 }}>It tracks what health plans actually publish — and what they don't.</div>
+        <div style={{ fontSize: 12, color: "#999", lineHeight: 1.7, marginTop: 6, fontFamily: "'IBM Plex Mono', monospace" }}>No spin. No vendor agenda. Just the data.</div>
+      </div>
+
+      <div className="pai-embed-wrap" style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: "24px 20px", marginBottom: 20 }}>
         <BeehiivEmbed />
       </div>
 
@@ -390,6 +396,13 @@ export default function PriorAuthIndex() {
   return (
     <div style={{ minHeight: "100vh", background: "#f7f8fa", color: "#1a1a2e", fontFamily: "'IBM Plex Sans', -apple-system, system-ui, sans-serif" }}>
       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+      <style>{`
+        @media (max-width: 600px) {
+          .pai-nav-btn { padding: 10px 10px !important; font-size: 11px !important; }
+          .pai-embed-wrap { padding: 14px 10px !important; }
+          .pai-embed-wrap iframe { height: 380px !important; }
+        }
+      `}</style>
 
       {/* Top nav */}
       <div style={{ background: "#1a365d", padding: "0 20px" }}>
@@ -398,6 +411,7 @@ export default function PriorAuthIndex() {
             <button
               key={item.id}
               onClick={() => handleNavigate(item.id)}
+              className="pai-nav-btn"
               style={{
                 padding: "12px 16px",
                 background: page === item.id ? "rgba(255,255,255,0.12)" : "transparent",
@@ -437,7 +451,7 @@ export default function PriorAuthIndex() {
         {page === "home" && (
           <>
             {/* Newsletter embed */}
-            <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: "22px 20px", marginBottom: 20 }}>
+            <div className="pai-embed-wrap" style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: "22px 20px", marginBottom: 20 }}>
               <BeehiivEmbed />
             </div>
 
