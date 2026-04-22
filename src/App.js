@@ -353,18 +353,6 @@ function ComplianceTracker() {
 function NewsletterPage({ onNavigate }) {
   return (
     <div>
-      <div style={{ marginBottom: 28 }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
-          <div style={{ width: 18, height: 3, background: "#1a365d", borderRadius: 2 }} />
-          <span style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: 2.5, color: "#1a365d", fontWeight: 700, fontFamily: "'IBM Plex Mono', monospace" }}>Newsletter</span>
-        </div>
-        <h2 style={{ fontSize: 24, fontWeight: 700, color: "#1a365d", margin: "0 0 12px" }}>The Prior Auth Report</h2>
-        <p style={{ fontSize: 14, color: "#555", lineHeight: 1.7, margin: 0, maxWidth: 540 }}>
-          A focused read on prior authorization behavior across US health plans. What's being published, what's changing, and what deserves attention.
-        </p>
-        <p style={{ fontSize: 12, color: "#999", marginTop: 8, fontFamily: "'IBM Plex Mono', monospace" }}>No spin. No fluff. Just the data.</p>
-      </div>
-
       <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: "24px 20px", marginBottom: 20 }}>
         <BeehiivEmbed />
       </div>
@@ -448,37 +436,9 @@ export default function PriorAuthIndex() {
         {/* HOME PAGE */}
         {page === "home" && (
           <>
-            {/* Newsletter CTA section */}
+            {/* Newsletter embed */}
             <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: "22px 20px", marginBottom: 20 }}>
-              <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
-                <div style={{ flex: 1, minWidth: 240 }}>
-                  <div style={{ fontSize: 16, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>The Prior Auth Report</div>
-                  <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 4 }}>What's being published, what's missing, and what it actually means.</div>
-                  <div style={{ fontSize: 11, color: "#999", fontFamily: "'IBM Plex Mono', monospace" }}>No spin. No fluff. Just the data.</div>
-                </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-end", justifyContent: "center" }}>
-                  <button
-                    onClick={() => handleNavigate("newsletter")}
-                    style={{
-                      padding: "9px 18px",
-                      background: "#1a365d",
-                      color: "#fff",
-                      border: "none",
-                      borderRadius: 6,
-                      fontSize: 12,
-                      fontWeight: 600,
-                      cursor: "pointer",
-                      fontFamily: "'IBM Plex Sans', sans-serif",
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    Subscribe
-                  </button>
-                </div>
-              </div>
-              <div style={{ marginTop: 16 }}>
-                <BeehiivEmbed />
-              </div>
+              <BeehiivEmbed />
             </div>
 
             <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 18, marginBottom: 8 }}>
