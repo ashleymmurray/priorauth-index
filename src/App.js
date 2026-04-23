@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 const MA_2024 = [
   { insurer: "UnitedHealthcare", denialRate: 12.8, approvalRate: 87.2, appealOverturnRate: 80.7, sourceUrl: "https://www.kff.org/medicare/medicare-advantage-insurers-made-nearly-53-million-prior-authorization-determinations-in-2024/" },
@@ -62,69 +62,6 @@ function Collapsible({ title, children }) {
       </button>
       {open && <div style={{ padding: "0 18px 16px", fontSize: 13, color: "#555", lineHeight: 1.7 }}>{children}</div>}
     </div>
-  );
-}
-
-function BeehiivEmbed() {
-  const loadedRef = useRef(false);
-
-  useEffect(() => {
-    if (loadedRef.current) return;
-    loadedRef.current = true;
-    const script = document.createElement("script");
-    script.src = "https://subscribe-forms.beehiiv.com/embed.js";
-    script.async = true;
-    document.body.appendChild(script);
-    return () => {
-      try { document.body.removeChild(script); } catch(e) {}
-    };
-  }, []);
-
-  return (
-    <>
-      {/* Desktop: show iframe directly */}
-      <div className="pai-beehiiv-desktop" style={{ display: "flex", justifyContent: "center", width: "100%", overflow: "hidden" }}>
-        <iframe
-          src="https://subscribe-forms.beehiiv.com/e102bd3a-8d94-49db-90dd-4cbec7418e82"
-          className="beehiiv-embed"
-          data-test-id="beehiiv-embed"
-          frameBorder="0"
-          scrolling="no"
-          style={{ width: 560, height: 339, margin: 0, borderRadius: 0, backgroundColor: "transparent", boxShadow: "none", border: "none", display: "block" }}
-        />
-      </div>
-
-      {/* Mobile: CTA that opens Beehiiv in new tab */}
-      <div className="pai-beehiiv-mobile" style={{ display: "none", textAlign: "center", padding: "12px 0" }}>
-        <div style={{ fontSize: 15, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>The Prior Auth Report</div>
-        <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 16 }}>
-          Data-driven insights on how health plans actually behave.
-        </div>
-        <a
-          href="https://subscribe-forms.beehiiv.com/e102bd3a-8d94-49db-90dd-4cbec7418e82"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{
-            display: "block",
-            width: "100%",
-            padding: "12px 0",
-            background: "#1a365d",
-            color: "#fff",
-            border: "none",
-            borderRadius: 6,
-            fontSize: 14,
-            fontWeight: 600,
-            cursor: "pointer",
-            fontFamily: "'IBM Plex Sans', sans-serif",
-            textDecoration: "none",
-            textAlign: "center",
-            boxSizing: "border-box",
-          }}
-        >
-          Join the Waitlist
-        </a>
-      </div>
-    </>
   );
 }
 
@@ -393,7 +330,7 @@ function NewsletterPage({ onNavigate }) {
       </div>
 
       <div className="pai-embed-wrap" style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: "24px 20px", marginBottom: 20 }}>
-        <BeehiivEmbed />
+        <form   onSubmit={async (e) => {     e.preventDefault();     const email = e.target.email.value;      try {       const res = await fetch("/api/subscribe", {         method: "POST",         headers: {           "Content-Type": "application/json",         },         body: JSON.stringify({ email }),       });        const data = await res.json();        if (!res.ok) {         alert(data.error || "Something went wrong");         return;       }        alert("You're subscribed!");       e.target.reset();     } catch (err) {       alert("Something went wrong");     }   }}   style={{ display: "flex", flexDirection: "column", gap: 10 }} >   <input     name="email"     type="email"     placeholder="Enter your email"     required     style={{       padding: "12px",       borderRadius: 6,       border: "1px solid #d1d5db",       fontSize: 14,     }}   />    <button     type="submit"     style={{       padding: "12px",       background: "#1a365d",       color: "#fff",       border: "none",       borderRadius: 6,       fontWeight: 600,       cursor: "pointer",     }}   >     Join the Waitlist   </button> </form>
       </div>
 
       <div style={{ textAlign: "center", marginTop: 16 }}>
@@ -486,7 +423,7 @@ export default function PriorAuthIndex() {
           <>
             {/* Newsletter embed */}
             <div className="pai-embed-wrap" style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: "22px 20px", marginBottom: 20 }}>
-              <BeehiivEmbed />
+              <form   onSubmit={async (e) => {     e.preventDefault();     const email = e.target.email.value;      try {       const res = await fetch("/api/subscribe", {         method: "POST",         headers: {           "Content-Type": "application/json",         },         body: JSON.stringify({ email }),       });        const data = await res.json();        if (!res.ok) {         alert(data.error || "Something went wrong");         return;       }        alert("You're subscribed!");       e.target.reset();     } catch (err) {       alert("Something went wrong");     }   }}   style={{ display: "flex", flexDirection: "column", gap: 10 }} >   <input     name="email"     type="email"     placeholder="Enter your email"     required     style={{       padding: "12px",       borderRadius: 6,       border: "1px solid #d1d5db",       fontSize: 14,     }}   />    <button     type="submit"     style={{       padding: "12px",       background: "#1a365d",       color: "#fff",       border: "none",       borderRadius: 6,       fontWeight: 600,       cursor: "pointer",     }}   >     Join the Waitlist   </button> </form>
             </div>
 
             <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 18, marginBottom: 8 }}>
