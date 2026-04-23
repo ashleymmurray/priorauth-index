@@ -29,9 +29,10 @@ export default async function handler(req, res) {
     const data = await beehiivRes.json().catch(() => null);
 
     if (!beehiivRes.ok) {
+      console.log("Beehiiv error:", data);
       return res
         .status(beehiivRes.status)
-        .json({ error: data?.message || "Subscription failed. Please try again." });
+        .json({ error: JSON.stringify(data) || "Subscription failed" });
     }
 
     return res.status(200).json({ success: true, data });
