@@ -333,7 +333,7 @@ function NewsletterPage({ onNavigate, status, setStatus }) {
 </div>
 
 <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 14 }}>
-  Weekly, data-backed analysis of prior authorization trends across U.S. health plans.
+  Weekly, data-backed analysis of prior authorization trends across U.S. health plans.  <div style={{ fontSize: 12, color: "#777", marginTop: 6 }}>   Launching July 2026. Early subscribers get the first issue. </div>  <div style={{ fontSize: 12, color: "#777", marginTop: 6 }}>   Launching July 2026. Early subscribers get the first issue. </div>
 </div>
       </div>
 
@@ -394,7 +394,7 @@ function NewsletterPage({ onNavigate, status, setStatus }) {
       cursor: "pointer",
     }}
   >
-    {status === "loading" ? "Joining..." : "Join the Waitlist"}
+    {status === "loading" ? "Joining..." : "Join the Report Waitlist"}
   </button>
 
   {status === "success" && (
@@ -510,7 +510,7 @@ export default function PriorAuthIndex() {
 </div>
 
 <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 14 }}>
-  Weekly, data-backed analysis of prior authorization trends across U.S. health plans.
+  Weekly, data-backed analysis of prior authorization trends across U.S. health plans.  <div style={{ fontSize: 12, color: "#777", marginTop: 6 }}>   Launching July 2026. Early subscribers get the first issue. </div>  <div style={{ fontSize: 12, color: "#777", marginTop: 6 }}>   Launching July 2026. Early subscribers get the first issue. </div>
 </div>
             <div className="pai-embed-wrap" style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: "22px 20px", marginBottom: 20 }}>
              <form
@@ -569,7 +569,7 @@ export default function PriorAuthIndex() {
       cursor: "pointer",
     }}
   >
-    {status === "loading" ? "Joining..." : "Join the Waitlist"}
+    {status === "loading" ? "Joining..." : "Join the Report Waitlist"}
   </button>
 
   {status === "success" && (
