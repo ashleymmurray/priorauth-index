@@ -573,6 +573,7 @@ function NewsletterPage({ onNavigate, status, setStatus }) {
 export default function PriorAuthIndex() {
   const [status, setStatus] = useState(null);
   const [page, setPage] = useState("home");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems = [
     { id: "home", label: "Home" },
@@ -583,6 +584,7 @@ export default function PriorAuthIndex() {
 
   const handleNavigate = (pageId) => {
     setPage(pageId);
+    setMobileMenuOpen(false);
     window.scrollTo(0, 0);
   };
 
@@ -591,37 +593,103 @@ export default function PriorAuthIndex() {
       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
       <style>{`
         @media (max-width: 600px) {
-          .pai-nav-btn { padding: 10px 8px !important; font-size: 11px !important; }
-          .pai-embed-wrap { padding: 14px 10px !important; }
+          .pai-nav-desktop {
+            display: none !important;
+          }
+          .pai-nav-hamburger {
+            display: block !important;
+          }
+          .pai-embed-wrap {
+            padding: 14px 10px !important;
+          }
         }
       `}</style>
 
       {/* Top nav */}
-      <div style={{ background: "#1a365d", padding: "0 20px" }}>
-        <div style={{ maxWidth: 720, margin: "0 auto", display: "flex", gap: 0, flexWrap: "wrap" }}>
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => handleNavigate(item.id)}
-              className="pai-nav-btn"
-              style={{
-                padding: "12px 16px",
-                background: page === item.id ? "rgba(255,255,255,0.12)" : "transparent",
-                border: "none",
-                borderBottom: page === item.id ? "2px solid #fff" : "2px solid transparent",
-                color: page === item.id ? "#fff" : "rgba(255,255,255,0.65)",
-                fontSize: 12,
-                fontWeight: 600,
-                cursor: "pointer",
-                fontFamily: "'IBM Plex Sans', sans-serif",
-                transition: "all 0.15s ease",
-                whiteSpace: "nowrap",
-              }}
-            >
-              {item.label}
-            </button>
-          ))}
+      <div style={{ background: "#1a365d", padding: "0 20px", position: "relative" }}>
+        <div style={{ maxWidth: 720, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <div className="pai-nav-desktop" style={{ display: "flex", gap: 0, flexWrap: "wrap" }}>
+            {navItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => handleNavigate(item.id)}
+                className="pai-nav-btn"
+                style={{
+                  padding: "12px 16px",
+                  background: page === item.id ? "rgba(255,255,255,0.12)" : "transparent",
+                  border: "none",
+                  borderBottom: page === item.id ? "2px solid #fff" : "2px solid transparent",
+                  color: page === item.id ? "#fff" : "rgba(255,255,255,0.65)",
+                  fontSize: 12,
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  fontFamily: "'IBM Plex Sans', sans-serif",
+                  transition: "all 0.15s ease",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+
+          <button
+            className="pai-nav-hamburger"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Open navigation menu"
+            aria-expanded={mobileMenuOpen}
+            style={{
+              display: "none",
+              background: "transparent",
+              border: "none",
+              color: "#fff",
+              fontSize: 24,
+              lineHeight: 1,
+              padding: "12px 0",
+              cursor: "pointer",
+              fontFamily: "'IBM Plex Sans', sans-serif",
+            }}
+          >
+            ☰
+          </button>
         </div>
+
+        {mobileMenuOpen && (
+          <div style={{
+            position: "absolute",
+            top: "100%",
+            left: 0,
+            right: 0,
+            background: "#1a365d",
+            borderTop: "1px solid rgba(255,255,255,0.12)",
+            zIndex: 100,
+            boxShadow: "0 8px 18px rgba(15,23,42,0.18)"
+          }}>
+            <div style={{ maxWidth: 720, margin: "0 auto", padding: "4px 20px 10px" }}>
+              {navItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => handleNavigate(item.id)}
+                  style={{
+                    width: "100%",
+                    padding: "13px 0",
+                    background: "transparent",
+                    border: "none",
+                    borderBottom: "1px solid rgba(255,255,255,0.10)",
+                    color: page === item.id ? "#fff" : "rgba(255,255,255,0.78)",
+                    textAlign: "left",
+                    fontSize: 13,
+                    fontWeight: page === item.id ? 700 : 600,
+                    cursor: "pointer",
+                    fontFamily: "'IBM Plex Sans', sans-serif",
+                  }}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Header */}
