@@ -398,8 +398,8 @@ function NewsletterPage({ onNavigate, status, setStatus }) {
   </button>
 
   {status === "success" && (
-    <p style={{ color: "green", fontSize: 13 }}>
-      You're subscribed.
+    <p style={{ color: "#1a7f37", fontSize: 13, fontWeight: 500 }}>
+      You're in. First issue drops July 2026.
     </p>
   )}
 
@@ -573,8 +573,8 @@ export default function PriorAuthIndex() {
   </button>
 
   {status === "success" && (
-    <p style={{ color: "green", fontSize: 13 }}>
-      You're subscribed.
+    <p style={{ color: "#1a7f37", fontSize: 13, fontWeight: 500 }}>
+      You're in. First issue drops July 2026.
     </p>
   )}
 
