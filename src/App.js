@@ -58,7 +58,7 @@ function Collapsible({ title, children }) {
     <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, marginBottom: 8, overflow: "hidden" }}>
       <button onClick={() => setOpen(!open)} style={{ width: "100%", padding: "14px 18px", background: "none", border: "none", display: "flex", justifyContent: "space-between", alignItems: "center", cursor: "pointer", textAlign: "left" }}>
         <span style={{ fontSize: 14, fontWeight: 700, color: "#1a365d" }}>{title}</span>
-        <span style={{ fontSize: 18, color: "#999", fontWeight: 300, transition: "transform 0.2s", transform: open ? "rotate(45deg)" : "none" }}>+</span>
+        <span style={{ fontSize: 17, color: "#999", fontWeight: 300, transition: "transform 0.2s", transform: open ? "rotate(45deg)" : "none" }}>+</span>
       </button>
       {open && <div style={{ padding: "0 18px 16px", fontSize: 13, color: "#555", lineHeight: 1.7 }}>{children}</div>}
     </div>
@@ -180,7 +180,7 @@ function ComplianceTracker() {
   if (loading) {
     return (
       <div style={{ padding: 40, textAlign: "center", color: "#888", fontSize: 14 }}>
-        <div style={{ marginBottom: 12, fontSize: 18, color: "#1a365d" }}>Loading compliance data...</div>
+        <div style={{ marginBottom: 12, fontSize: 17, color: "#1a365d" }}>Loading compliance data...</div>
         <div style={{ width: 40, height: 40, border: "3px solid #e2e8f0", borderTop: "3px solid #1a365d", borderRadius: "50%", margin: "0 auto", animation: "spin 1s linear infinite" }} />
         <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
       </div>
@@ -324,11 +324,11 @@ function NewsletterPage({ onNavigate, status, setStatus }) {
   return (
     <div>
       <div style={{ marginBottom: 16 }}>
-<div style={{ fontSize: 16, fontWeight: 700, color: "#1a365d", marginBottom: 4 }}>
+<div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", marginBottom: 4 }}>
   The Prior Auth Report
 </div>
 
-<div style={{ fontSize: 18, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>
+<div style={{ fontSize: 17, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>
   How health plans actually behave.
 </div>
 
@@ -501,11 +501,11 @@ export default function PriorAuthIndex() {
         {page === "home" && (
           <>
             {/* Newsletter embed */}
-          <div style={{ fontSize: 16, fontWeight: 700, color: "#1a365d", marginBottom: 4 }}>
+          <div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", marginBottom: 4 }}>
   The Prior Auth Report
 </div>
 
-<div style={{ fontSize: 18, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>
+<div style={{ fontSize: 17, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>
   How health plans actually behave.
 </div>
 
@@ -706,7 +706,7 @@ export default function PriorAuthIndex() {
 
                 {CY2025_DATA.map((plan, i) => (
                   <div key={i} style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 18, marginBottom: 10 }}>
-                    <div style={{ fontWeight: 700, fontSize: 16, color: "#1a365d", marginBottom: 10 }}>{plan.insurer}</div>
+                    <div style={{ fontWeight: 700, fontSize: 20, color: "#1a365d", marginBottom: 10 }}>{plan.insurer}</div>
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginBottom: 12 }}>
                       <div style={{ padding: 10, background: "#f7f8fa", borderRadius: 6, border: "1px solid #eef0f4" }}>
                         <div style={{ fontSize: 10, color: "#888", fontFamily: "'IBM Plex Mono', monospace", marginBottom: 2 }}>Approval Rate</div>
@@ -718,7 +718,7 @@ export default function PriorAuthIndex() {
                       </div>
                       <div style={{ padding: 10, background: "#f7f8fa", borderRadius: 6, border: "1px solid #eef0f4" }}>
                         <div style={{ fontSize: 10, color: "#888", fontFamily: "'IBM Plex Mono', monospace", marginBottom: 2 }}>Avg Decision Time</div>
-                        <div style={{ fontSize: 16, fontWeight: 700, color: "#1a365d", fontFamily: "'IBM Plex Mono', monospace" }}>{plan.avgDecisionTime}</div>
+                        <div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", fontFamily: "'IBM Plex Mono', monospace" }}>{plan.avgDecisionTime}</div>
                       </div>
                     </div>
                     <div style={{ fontSize: 12, color: "#555", lineHeight: 1.6, marginBottom: 6 }}>{plan.note}</div>
