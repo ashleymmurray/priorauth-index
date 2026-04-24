@@ -225,13 +225,11 @@ function ComplianceTracker() {
         <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 16 }}>
           On March 31, 2026, health plans were required to begin publicly reporting prior authorization data under CMS rule CMS-0057-F. This tracker monitors which payers have published their data and whether it is machine-readable.
         </div>
-
         <div style={{ padding: 14, background: "#f0f4f8", border: "1px solid #e2e8f0", borderRadius: 8, marginBottom: 16, fontSize: 12, color: "#555", lineHeight: 1.6 }}>
           <strong>Regularly updated.</strong>
           {generatedAt && <span> Last dataset refresh: {new Date(generatedAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}.</span>}
           <span> Tracking {totalCount.toLocaleString()} payers.</span>
         </div>
-
         <input
           type="text"
           placeholder="Search payers..."
@@ -239,7 +237,6 @@ function ComplianceTracker() {
           onChange={e => setSearch(e.target.value)}
           style={{ width: "100%", padding: "10px 14px", borderRadius: 6, border: "1px solid #d1d5db", background: "#fff", fontSize: 13, color: "#1a365d", marginBottom: 12, boxSizing: "border-box" }}
         />
-
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 16 }}>
           <select value={statusFilter} onChange={e => setStatusFilter(e.target.value)} style={selectStyle}>
             <option value="all">All statuses</option>
@@ -256,7 +253,6 @@ function ComplianceTracker() {
           </div>
         </div>
       </div>
-
       {filtered.length === 0 ? (
         <div style={{ padding: 28, background: "#f7f8fa", border: "1px solid #e2e8f0", borderRadius: 10, textAlign: "center", color: "#999", fontSize: 13 }}>
           No payers match your current search or filters.
@@ -312,9 +308,187 @@ function ComplianceTracker() {
           </table>
         </div>
       )}
-
       <div style={{ marginTop: 16, padding: 12, background: "#fafbfc", border: "1px solid #eef0f4", borderRadius: 6, fontSize: 11, color: "#999", lineHeight: 1.7, textAlign: "center" }}>
         Compliance data powered by <a href="https://artificerhealth.com" target="_blank" rel="noopener noreferrer" style={{ color: "#1a365d", textDecoration: "underline" }}>Artificer Health</a>
+      </div>
+    </div>
+  );
+}
+
+function MetricsPage({ onNavigate }) {
+  const [activeTab, setActiveTab] = useState("denials");
+  const tabs = [
+    { id: "denials", label: "Denial Rates" },
+    { id: "appeals", label: "Appeal Success" },
+    { id: "compare", label: "Compare Plans" },
+    { id: "cy2025", label: "2025 Data (New)" },
+  ];
+
+  return (
+    <div>
+      <div style={{ marginBottom: 16 }}>
+        <button onClick={() => onNavigate("home")} style={{ background: "none", border: "none", color: "#1a365d", fontSize: 12, fontFamily: "'IBM Plex Mono', monospace", cursor: "pointer", textDecoration: "underline", padding: 0, marginBottom: 12, display: "block" }}>
+          &larr; Back to the Index
+        </button>
+        <div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>Prior Authorization Metrics</div>
+        <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6 }}>Compare denial rates, appeal success, and published 2025 metrics across major U.S. health plans.</div>
+      </div>
+
+      <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 18, marginBottom: 16 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: "#1a365d", marginBottom: 12 }}>At a glance: Medicare Advantage, calendar year 2024</div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+          {[
+            { value: "52.8M", label: "Total prior authorization decisions made" },
+            { value: "4.1M", label: "Requests denied fully or partially (7.7% of all requests)" },
+            { value: "80.7%", label: "Of appealed denials were overturned, meaning the initial denial did not hold up" },
+            { value: "11.5%", label: "Of denied requests were ever actually appealed by patients or providers" },
+          ].map((stat, i) => (
+            <div key={i} style={{ padding: 14, background: "#f7f8fa", borderRadius: 6, border: "1px solid #eef0f4" }}>
+              <div style={{ fontSize: 22, fontWeight: 700, color: "#1a365d", fontFamily: "'IBM Plex Mono', monospace" }}>{stat.value}</div>
+              <div style={{ fontSize: 12, color: "#666", lineHeight: 1.5, marginTop: 4 }}>{stat.label}</div>
+            </div>
+          ))}
+        </div>
+        <div style={{ fontSize: 10, color: "#aaa", marginTop: 10, fontFamily: "'IBM Plex Mono', monospace" }}>
+          Source: <a href="https://www.kff.org/medicare/medicare-advantage-insurers-made-nearly-53-million-prior-authorization-determinations-in-2024/" target="_blank" rel="noopener noreferrer" style={{ color: "#1a365d" }}>KFF analysis of CMS Medicare Advantage data, January 2026</a>
+        </div>
+      </div>
+
+      <div style={{ display: "flex", gap: 0, marginBottom: 20, borderRadius: 8, overflow: "hidden", border: "1px solid #d1d5db", flexWrap: "wrap" }}>
+        {tabs.map((tab, i) => (
+          <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{
+            flex: 1, minWidth: 100, padding: "12px 8px", border: "none",
+            borderRight: i < tabs.length - 1 ? "1px solid #d1d5db" : "none",
+            background: activeTab === tab.id ? "#1a365d" : "#fff",
+            color: activeTab === tab.id ? "#fff" : "#555",
+            fontSize: 12, fontWeight: 600, cursor: "pointer"
+          }}>{tab.label}</button>
+        ))}
+      </div>
+
+      {activeTab === "denials" && (
+        <div>
+          <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 20 }}>The percentage of prior authorization requests each plan denied in calendar year 2024. A higher number means more requests were rejected. Plans are listed from highest denial rate to lowest.</div>
+          <div style={{ background: "#1a365d", color: "#fff", padding: "10px 16px", borderRadius: "8px 8px 0 0", fontSize: 14, fontWeight: 700 }}>Medicare Advantage Plans</div>
+          <div style={{ background: "#eef2f7", padding: "6px 16px", borderBottom: "1px solid #e2e8f0", fontSize: 11, color: "#666", fontFamily: "'IBM Plex Mono', monospace" }}>For people 65+ or with certain disabilities | Calendar year 2024 | Source: KFF / CMS</div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 1, marginBottom: 28 }}>
+            {[...MA_2024].sort((a, b) => b.denialRate - a.denialRate).map((plan, i) => (
+              <div key={i} style={{ background: "#fff", border: "1px solid #e2e8f0", padding: "14px 16px" }}>
+                <div style={{ fontWeight: 600, fontSize: 14, color: "#1a365d", marginBottom: 8 }}>{plan.insurer}</div>
+                <Bar rate={plan.denialRate} />
+              </div>
+            ))}
+          </div>
+          <div style={{ background: "#1a365d", color: "#fff", padding: "10px 16px", borderRadius: "8px 8px 0 0", fontSize: 14, fontWeight: 700 }}>ACA Marketplace Plans</div>
+          <div style={{ background: "#eef2f7", padding: "6px 16px", borderBottom: "1px solid #e2e8f0", fontSize: 11, color: "#666", fontFamily: "'IBM Plex Mono', monospace" }}>For people under 65 buying insurance through HealthCare.gov | Plan Year 2024 | Source: CMS Transparency in Coverage</div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 1 }}>
+            {[...ACA_2024].sort((a, b) => b.denialRate - a.denialRate).map((plan, i) => (
+              <div key={i} style={{ background: "#fff", border: "1px solid #e2e8f0", padding: "14px 16px" }}>
+                <div style={{ fontWeight: 600, fontSize: 14, color: "#1a365d", marginBottom: 8 }}>{plan.insurer}</div>
+                <Bar rate={plan.denialRate} />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {activeTab === "appeals" && (
+        <div>
+          <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 12 }}>When a prior authorization request is denied, patients and providers can file an appeal asking the plan to reconsider. This shows how often those appeals succeeded, meaning the original denial was reversed. A higher percentage means more denials were overturned.</div>
+          <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 20 }}>Appeal data is currently only available for Medicare Advantage plans.</div>
+          <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderLeft: "4px solid #1a365d", borderRadius: 4, padding: 14, marginBottom: 20 }}>
+            <div style={{ fontSize: 13, color: "#444", lineHeight: 1.7 }}>Across all Medicare Advantage plans in 2024, <strong>80.7%</strong> of appealed denials were overturned. However, only <strong>11.5%</strong> of denied requests were ever actually appealed. This means millions of patients accepted denials that may have been reversed if challenged.</div>
+            <div style={{ fontSize: 10, color: "#999", marginTop: 6, fontFamily: "'IBM Plex Mono', monospace" }}>Source: <a href="https://www.kff.org/medicare/medicare-advantage-insurers-made-nearly-53-million-prior-authorization-determinations-in-2024/" target="_blank" rel="noopener noreferrer" style={{ color: "#1a365d" }}>KFF, Jan 2026</a></div>
+          </div>
+          <div style={{ background: "#1a365d", color: "#fff", padding: "10px 16px", borderRadius: "8px 8px 0 0", fontSize: 14, fontWeight: 700 }}>Medicare Advantage Plans: Appeal Overturn Rates</div>
+          <div style={{ background: "#eef2f7", padding: "6px 16px", borderBottom: "1px solid #e2e8f0", fontSize: 11, color: "#666", fontFamily: "'IBM Plex Mono', monospace" }}>Calendar year 2024 | Ranked highest to lowest</div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 1 }}>
+            {[...MA_2024].sort((a, b) => b.appealOverturnRate - a.appealOverturnRate).map((plan, i) => (
+              <div key={i} style={{ background: "#fff", border: "1px solid #e2e8f0", padding: "14px 16px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+                  <div style={{ fontWeight: 600, fontSize: 14, color: "#1a365d" }}>{plan.insurer}</div>
+                  <div style={{ fontSize: 11, color: "#888", fontFamily: "'IBM Plex Mono', monospace" }}>Denial rate: {plan.denialRate}%</div>
+                </div>
+                <div>
+                  <div style={{ fontSize: 10, color: "#888", marginBottom: 4, fontFamily: "'IBM Plex Mono', monospace" }}>Percentage of appeals overturned</div>
+                  <GreenBar rate={plan.appealOverturnRate} />
+                </div>
+              </div>
+            ))}
+          </div>
+          <div style={{ marginTop: 14, padding: 12, background: "#f7f8fa", border: "1px solid #eef0f4", borderRadius: 6, fontSize: 11, color: "#888", lineHeight: 1.6 }}>
+            <strong>Note:</strong> Centene (93.6%) and CVS Health (89.7%) reflect plan-specific appeal data reported by KFF and Kiplinger. All other plans display the Medicare Advantage-wide average of 80.7% and are labeled accordingly. As plan-specific appeal data becomes available, it will replace these averages.
+          </div>
+        </div>
+      )}
+
+      {activeTab === "compare" && (
+        <div>
+          <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 8 }}>Select two health plans to see how they compare. Each plan is labeled with its type so you can tell them apart, even if the same company appears in both categories.</div>
+          <div style={{ fontSize: 12, color: "#999", lineHeight: 1.6, marginBottom: 20 }}>Tip: You can compare two plans of the same type, or compare the same company across different plan types to see how their numbers differ.</div>
+          <CompareSection />
+        </div>
+      )}
+
+      {activeTab === "cy2025" && (
+        <div>
+          <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 12 }}>On March 31, 2026, health plans were required to begin publicly reporting their prior authorization metrics for calendar year 2025. The data below reflects what has been published so far by individual plans. This section will be updated as more plans post their reports.</div>
+          <div style={{ padding: 14, background: "#f0f4f8", border: "1px solid #e2e8f0", borderRadius: 8, marginBottom: 20, fontSize: 12, color: "#555", lineHeight: 1.6 }}>
+            <strong>Important:</strong> The data below comes from different plan types and reporting formats. These numbers are not directly comparable to each other or to the 2024 data shown in the other tabs. A standardized comparison tool for 2025 data will be added once enough plans have reported to allow for accurate, consistent comparisons.
+          </div>
+          {CY2025_DATA.map((plan, i) => (
+            <div key={i} style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 18, marginBottom: 10 }}>
+              <div style={{ fontWeight: 700, fontSize: 20, color: "#1a365d", marginBottom: 10 }}>{plan.insurer}</div>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginBottom: 12 }}>
+                <div style={{ padding: 10, background: "#f7f8fa", borderRadius: 6, border: "1px solid #eef0f4" }}>
+                  <div style={{ fontSize: 10, color: "#888", fontFamily: "'IBM Plex Mono', monospace", marginBottom: 2 }}>Approval Rate</div>
+                  <div style={{ fontSize: 20, fontWeight: 700, color: "#16a34a", fontFamily: "'IBM Plex Mono', monospace" }}>{plan.approvalRate}%</div>
+                </div>
+                <div style={{ padding: 10, background: "#f7f8fa", borderRadius: 6, border: "1px solid #eef0f4" }}>
+                  <div style={{ fontSize: 10, color: "#888", fontFamily: "'IBM Plex Mono', monospace", marginBottom: 2 }}>Denial Rate</div>
+                  <div style={{ fontSize: 20, fontWeight: 700, color: plan.denialRate > 15 ? "#dc2626" : plan.denialRate > 8 ? "#ea580c" : "#d97706", fontFamily: "'IBM Plex Mono', monospace" }}>{plan.denialRate}%</div>
+                </div>
+                <div style={{ padding: 10, background: "#f7f8fa", borderRadius: 6, border: "1px solid #eef0f4" }}>
+                  <div style={{ fontSize: 10, color: "#888", fontFamily: "'IBM Plex Mono', monospace", marginBottom: 2 }}>Avg Decision Time</div>
+                  <div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", fontFamily: "'IBM Plex Mono', monospace" }}>{plan.avgDecisionTime}</div>
+                </div>
+              </div>
+              <div style={{ fontSize: 12, color: "#555", lineHeight: 1.6, marginBottom: 6 }}>{plan.note}</div>
+              <a href={plan.sourceUrl} target="_blank" rel="noopener noreferrer" style={{ fontSize: 11, color: "#1a365d", textDecoration: "underline", fontFamily: "'IBM Plex Mono', monospace" }}>{plan.sourceLabel}</a>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div style={{ marginTop: 32, padding: 20, background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8 }}>
+        <h3 style={{ fontSize: 15, fontWeight: 700, color: "#1a365d", marginBottom: 10 }}>Where does this data come from?</h3>
+        <div style={{ fontSize: 12, color: "#555", lineHeight: 1.8 }}>
+          <p>The Denial Rates, Appeal Success, and Compare Plans tabs use <strong>calendar year 2024 data</strong>. Medicare Advantage data comes from the Kaiser Family Foundation's (KFF) analysis of CMS Medicare Advantage Prior Authorization data, published in January 2026. ACA Marketplace data comes from CMS Transparency in Coverage Public Use Files for Plan Year 2024.</p>
+          <p style={{ marginTop: 8 }}>The 2025 Data tab contains metrics that individual plans have published on their own websites to comply with CMS rule CMS-0057-F, which required plans to post calendar year 2025 metrics by March 31, 2026. This section will be updated as more plans publish their reports.</p>
+          <p style={{ marginTop: 8 }}>ACA Marketplace data covers in-network claims for plans sold on HealthCare.gov only and does not include employer-sponsored plans, Medicare, Medicaid, or off-marketplace plans.</p>
+          <p style={{ marginTop: 8 }}><strong>BCBS note:</strong> The BCBS figure shown is a national average across 36 independent affiliates. Individual state rates vary significantly. For example, Alabama BCBS has been reported at approximately 34%, while some affiliates report below 10%.</p>
+        </div>
+        <h4 style={{ fontSize: 13, fontWeight: 700, color: "#1a365d", marginTop: 16, marginBottom: 8 }}>Sources</h4>
+        <div style={{ fontSize: 12, lineHeight: 2.2 }}>
+          {[
+            { label: "KFF: Medicare Advantage Prior Authorization Determinations, 2024", url: "https://www.kff.org/medicare/medicare-advantage-insurers-made-nearly-53-million-prior-authorization-determinations-in-2024/" },
+            { label: "KFF: First Look at Insurer Prior Auth Reporting (Apr 2026)", url: "https://www.kff.org/quick-take/insurers-prior-authorization-data-offers-little-insight-into-what-gets-approved-or-denied/" },
+            { label: "Muni Health: Denial Rate Comparison by Insurer (2026)", url: "https://muni.health/blog/insurance-denial-rate-by-company-2026" },
+            { label: "AMA: Physician Prior Authorization Survey (Feb 2025)", url: "https://www.ama-assn.org/press-center/ama-press-releases/physicians-concerned-ai-increases-prior-authorization-denials" },
+            { label: "CMS: Interoperability and Prior Authorization Final Rule (CMS-0057-F)", url: "https://www.cms.gov/newsroom/fact-sheets/cms-interoperability-prior-authorization-final-rule-cms-0057-f" },
+            { label: "Becker's Hospital Review: Prior Auth Denial Rates Go Public (Mar 2026)", url: "https://www.beckershospitalreview.com/legal-regulatory-issues/payers-prior-authorization-denial-rates-go-public-5-notes/" },
+            { label: "Kiplinger: Medicare Advantage Prior Authorization Denial Rates", url: "https://www.kiplinger.com/retirement/medicare/medicare-advantage-plans-prior-authorization-denial-rates" },
+            { label: "UnitedHealthcare: CMS Interoperability and Prior Authorization Page", url: "https://www.uhc.com/legal/cms-interoperability-prior-authorization" },
+            { label: "Cigna: CMS Annual Prior Authorization Statistics CY2025 (PDF)", url: "https://www.cigna.com/static/www-cigna-com/docs/cms-annual-prior-authorization-statistics-2025.pdf" },
+            { label: "CVS Health: Prior Authorization and Affordability Update (Jan 2026)", url: "https://www.cvshealth.com/news/company-news/cvs-health-makes-health-insurance-simpler-and-more-affordable-for-americans.html" },
+          ].map((s, i) => (
+            <div key={i}>• <a href={s.url} target="_blank" rel="noopener noreferrer" style={{ color: "#1a365d", textDecoration: "underline" }}>{s.label}</a></div>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ marginTop: 14, padding: 14, background: "#fafbfc", border: "1px solid #eef0f4", borderRadius: 6 }}>
+        <div style={{ fontSize: 11, color: "#999", lineHeight: 1.7 }}><strong>Disclaimer:</strong> This database is for informational and research purposes only. It does not constitute medical, legal, or financial advice. Denial rates are aggregated national figures that vary by state, plan, and service type. Individual experiences may differ. Always verify current metrics directly with your health plan.</div>
       </div>
     </div>
   );
@@ -324,91 +498,67 @@ function NewsletterPage({ onNavigate, status, setStatus }) {
   return (
     <div>
       <div style={{ marginBottom: 16 }}>
-<div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", marginBottom: 4 }}>
-  The Prior Auth Report
-</div>
-
-<div style={{ fontSize: 17, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>
-  How health plans actually behave.
-</div>
-
-<div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 14 }}>
-  Weekly, data-backed analysis of prior authorization trends across U.S. health plans.  <div style={{ fontSize: 12, color: "#777", marginTop: 6 }}>   Launching July 2026. Early subscribers get the first issue. </div>
-</div>
+        <div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", marginBottom: 4 }}>
+          The Prior Auth Report
+        </div>
+        <div style={{ fontSize: 17, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>
+          How health plans actually behave.
+        </div>
+        <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 14 }}>
+          Weekly, data-backed analysis of prior authorization trends across U.S. health plans.
+          <div style={{ fontSize: 12, color: "#777", marginTop: 6 }}>Launching July 2026. Early subscribers get the first issue.</div>
+        </div>
       </div>
 
       <div className="pai-embed-wrap" style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: "24px 20px", marginBottom: 20 }}>
         <form
-  onSubmit={async (e) => {
-    e.preventDefault();
-    const email = e.target.email.value;
-
-    setStatus("loading");
-
-    try {
-      const res = await fetch("/api/subscribe", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        setStatus("error");
-        return;
-      }
-
-      setStatus("success");
-      e.target.reset();
-    } catch (err) {
-      setStatus("error");
-    }
-  }}
-  style={{ display: "flex", flexDirection: "column", gap: 10 }}
->
-  <input
-    name="email"
-    type="email"
-    placeholder="Enter your email"
-    required
-    style={{
-      padding: "12px",
-      borderRadius: 6,
-      border: "1px solid #d1d5db",
-      fontSize: 14,
-    }}
-  />
-
-  <button
-    type="submit"
-    style={{
-      padding: "12px",
-      background: "#1a365d",
-      color: "#fff",
-      border: "none",
-      borderRadius: 6,
-      fontWeight: 600,
-      cursor: "pointer",
-    }}
-  >
-    {status === "loading" ? "Joining..." : "Join the Report Waitlist"}
-  </button>
-
-  {status === "success" && (
-    <p style={{ color: "#1a7f37", fontSize: 13, fontWeight: 500 }}>
-      You're in. First issue drops July 2026.
-    </p>
-  )}
-
-  {status === "error" && (
-    <p style={{ color: "red", fontSize: 13 }}>
-      Something went wrong. Try again.
-    </p>
-  )}
-</form>
+          onSubmit={async (e) => {
+            e.preventDefault();
+            const email = e.target.email.value;
+            setStatus("loading");
+            try {
+              const res = await fetch("/api/subscribe", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email }),
+              });
+              const data = await res.json();
+              if (!res.ok) {
+                setStatus("error");
+                return;
+              }
+              setStatus("success");
+              e.target.reset();
+            } catch (err) {
+              setStatus("error");
+            }
+          }}
+          style={{ display: "flex", flexDirection: "column", gap: 10 }}
+        >
+          <input
+            name="email"
+            type="email"
+            placeholder="Enter your email"
+            required
+            style={{ padding: "12px", borderRadius: 6, border: "1px solid #d1d5db", fontSize: 14 }}
+          />
+          <button
+            type="submit"
+            style={{ padding: "12px", background: "#1a365d", color: "#fff", border: "none", borderRadius: 6, fontWeight: 600, cursor: "pointer" }}
+          >
+            {status === "loading" ? "Joining..." : "Join the Report Waitlist"}
+          </button>
+          {status === "success" && (
+            <p style={{ color: "#1a7f37", fontSize: 13, fontWeight: 500 }}>
+              You're in. First issue drops July 2026.
+            </p>
+          )}
+          {status === "error" && (
+            <p style={{ color: "red", fontSize: 13 }}>
+              Something went wrong. Try again.
+            </p>
+          )}
+        </form>
       </div>
 
       <div style={{ textAlign: "center", marginTop: 16 }}>
@@ -423,16 +573,10 @@ function NewsletterPage({ onNavigate, status, setStatus }) {
 export default function PriorAuthIndex() {
   const [status, setStatus] = useState(null);
   const [page, setPage] = useState("home");
-  const [activeTab, setActiveTab] = useState("denials");
-  const tabs = [
-    { id: "denials", label: "Denial Rates" },
-    { id: "appeals", label: "Appeal Success" },
-    { id: "compare", label: "Compare Plans" },
-    { id: "cy2025", label: "2025 Data (New)" },
-  ];
 
   const navItems = [
     { id: "home", label: "Home" },
+    { id: "metrics", label: "Metrics" },
     { id: "tracker", label: "CMS Compliance Tracker" },
     { id: "newsletter", label: "The Prior Auth Report" },
   ];
@@ -447,10 +591,8 @@ export default function PriorAuthIndex() {
       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
       <style>{`
         @media (max-width: 600px) {
-          .pai-nav-btn { padding: 10px 10px !important; font-size: 11px !important; }
+          .pai-nav-btn { padding: 10px 8px !important; font-size: 11px !important; }
           .pai-embed-wrap { padding: 14px 10px !important; }
-          .pai-beehiiv-desktop { display: none !important; }
-          .pai-beehiiv-mobile { display: block !important; }
         }
       `}</style>
 
@@ -500,90 +642,66 @@ export default function PriorAuthIndex() {
         {/* HOME PAGE */}
         {page === "home" && (
           <>
-            {/* Newsletter embed */}
-          <div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", marginBottom: 4 }}>
-  The Prior Auth Report
-</div>
-
-<div style={{ fontSize: 17, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>
-  How health plans actually behave.
-</div>
-
-<div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 14 }}>
-  Weekly, data-backed analysis of prior authorization trends across U.S. health plans.  <div style={{ fontSize: 12, color: "#777", marginTop: 6 }}>   Launching July 2026. Early subscribers get the first issue. </div>
-</div>
+            {/* Newsletter section */}
+            <div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", marginBottom: 4 }}>
+              The Prior Auth Report
+            </div>
+            <div style={{ fontSize: 17, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>
+              How health plans actually behave.
+            </div>
+            <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 14 }}>
+              Weekly, data-backed analysis of prior authorization trends across U.S. health plans.
+              <div style={{ fontSize: 12, color: "#777", marginTop: 6 }}>Launching July 2026. Early subscribers get the first issue.</div>
+            </div>
             <div className="pai-embed-wrap" style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: "22px 20px", marginBottom: 20 }}>
-             <form
-  onSubmit={async (e) => {
-    e.preventDefault();
-    const email = e.target.email.value;
-
-    setStatus("loading");
-
-    try {
-      const res = await fetch("/api/subscribe", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        setStatus("error");
-        return;
-      }
-
-      setStatus("success");
-      e.target.reset();
-    } catch (err) {
-      setStatus("error");
-    }
-  }}
-  style={{ display: "flex", flexDirection: "column", gap: 10 }}
->
-  <input
-    name="email"
-    type="email"
-    placeholder="Enter your email"
-    required
-    style={{
-      padding: "12px",
-      borderRadius: 6,
-      border: "1px solid #d1d5db",
-      fontSize: 14,
-    }}
-  />
-
-  <button
-    type="submit"
-    style={{
-      padding: "12px",
-      background: "#1a365d",
-      color: "#fff",
-      border: "none",
-      borderRadius: 6,
-      fontWeight: 600,
-      cursor: "pointer",
-    }}
-  >
-    {status === "loading" ? "Joining..." : "Join the Report Waitlist"}
-  </button>
-
-  {status === "success" && (
-    <p style={{ color: "#1a7f37", fontSize: 13, fontWeight: 500 }}>
-      You're in. First issue drops July 2026.
-    </p>
-  )}
-
-  {status === "error" && (
-    <p style={{ color: "red", fontSize: 13 }}>
-      Something went wrong. Try again.
-    </p>
-  )}
-</form>
+              <form
+                onSubmit={async (e) => {
+                  e.preventDefault();
+                  const email = e.target.email.value;
+                  setStatus("loading");
+                  try {
+                    const res = await fetch("/api/subscribe", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ email }),
+                    });
+                    const data = await res.json();
+                    if (!res.ok) {
+                      setStatus("error");
+                      return;
+                    }
+                    setStatus("success");
+                    e.target.reset();
+                  } catch (err) {
+                    setStatus("error");
+                  }
+                }}
+                style={{ display: "flex", flexDirection: "column", gap: 10 }}
+              >
+                <input
+                  name="email"
+                  type="email"
+                  placeholder="Enter your email"
+                  required
+                  style={{ padding: "12px", borderRadius: 6, border: "1px solid #d1d5db", fontSize: 14 }}
+                />
+                <button
+                  type="submit"
+                  style={{ padding: "12px", background: "#1a365d", color: "#fff", border: "none", borderRadius: 6, fontWeight: 600, cursor: "pointer" }}
+                >
+                  {status === "loading" ? "Joining..." : "Join the Report Waitlist"}
+                </button>
+                {status === "success" && (
+                  <p style={{ color: "#1a7f37", fontSize: 13, fontWeight: 500 }}>
+                    You're in. First issue drops July 2026.
+                  </p>
+                )}
+                {status === "error" && (
+                  <p style={{ color: "red", fontSize: 13 }}>
+                    Something went wrong. Try again.
+                  </p>
+                )}
+              </form>
             </div>
 
             <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 18, marginBottom: 8 }}>
@@ -601,171 +719,44 @@ export default function PriorAuthIndex() {
               No. There are hundreds of health plans in the United States. This database currently includes the major national insurers for which public data is available. It does not yet include most regional plans, smaller Medicaid managed care plans, employer-sponsored plans (which are not required to publicly report this data), or individual state-level BCBS affiliates. As more plans publish their data under the new federal reporting rule, this database will be updated. The goal is for this to grow into a comprehensive resource over time.
             </Collapsible>
 
-            <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 18, marginTop: 12, marginBottom: 24 }}>
-              <div style={{ fontSize: 14, fontWeight: 700, color: "#1a365d", marginBottom: 12 }}>At a glance: Medicare Advantage, calendar year 2024</div>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
-                {[
-                  { value: "52.8M", label: "Total prior authorization decisions made" },
-                  { value: "4.1M", label: "Requests denied fully or partially (7.7% of all requests)" },
-                  { value: "80.7%", label: "Of appealed denials were overturned, meaning the initial denial did not hold up" },
-                  { value: "11.5%", label: "Of denied requests were ever actually appealed by patients or providers" },
-                ].map((stat, i) => (
-                  <div key={i} style={{ padding: 14, background: "#f7f8fa", borderRadius: 6, border: "1px solid #eef0f4" }}>
-                    <div style={{ fontSize: 22, fontWeight: 700, color: "#1a365d", fontFamily: "'IBM Plex Mono', monospace" }}>{stat.value}</div>
-                    <div style={{ fontSize: 12, color: "#666", lineHeight: 1.5, marginTop: 4 }}>{stat.label}</div>
-                  </div>
-                ))}
-              </div>
-              <div style={{ fontSize: 10, color: "#aaa", marginTop: 10, fontFamily: "'IBM Plex Mono', monospace" }}>
-                Source: <a href="https://www.kff.org/medicare/medicare-advantage-insurers-made-nearly-53-million-prior-authorization-determinations-in-2024/" target="_blank" rel="noopener noreferrer" style={{ color: "#1a365d" }}>KFF analysis of CMS Medicare Advantage data, January 2026</a>
-              </div>
-            </div>
-
-            <div style={{ display: "flex", gap: 0, marginBottom: 20, borderRadius: 8, overflow: "hidden", border: "1px solid #d1d5db", flexWrap: "wrap" }}>
-              {tabs.map((tab, i) => (
-                <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{
-                  flex: 1, minWidth: 100, padding: "12px 8px", border: "none",
-                  borderRight: i < tabs.length - 1 ? "1px solid #d1d5db" : "none",
-                  background: activeTab === tab.id ? "#1a365d" : "#fff",
-                  color: activeTab === tab.id ? "#fff" : "#555",
-                  fontSize: 12, fontWeight: 600, cursor: "pointer"
-                }}>{tab.label}</button>
-              ))}
-            </div>
-
-            {activeTab === "denials" && (
-              <div>
-                <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 20 }}>The percentage of prior authorization requests each plan denied in calendar year 2024. A higher number means more requests were rejected. Plans are listed from highest denial rate to lowest.</div>
-                <div style={{ background: "#1a365d", color: "#fff", padding: "10px 16px", borderRadius: "8px 8px 0 0", fontSize: 14, fontWeight: 700 }}>Medicare Advantage Plans</div>
-                <div style={{ background: "#eef2f7", padding: "6px 16px", borderBottom: "1px solid #e2e8f0", fontSize: 11, color: "#666", fontFamily: "'IBM Plex Mono', monospace" }}>For people 65+ or with certain disabilities | Calendar year 2024 | Source: KFF / CMS</div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 1, marginBottom: 28 }}>
-                  {[...MA_2024].sort((a, b) => b.denialRate - a.denialRate).map((plan, i) => (
-                    <div key={i} style={{ background: "#fff", border: "1px solid #e2e8f0", padding: "14px 16px" }}>
-                      <div style={{ fontWeight: 600, fontSize: 14, color: "#1a365d", marginBottom: 8 }}>{plan.insurer}</div>
-                      <Bar rate={plan.denialRate} />
-                    </div>
-                  ))}
-                </div>
-                <div style={{ background: "#1a365d", color: "#fff", padding: "10px 16px", borderRadius: "8px 8px 0 0", fontSize: 14, fontWeight: 700 }}>ACA Marketplace Plans</div>
-                <div style={{ background: "#eef2f7", padding: "6px 16px", borderBottom: "1px solid #e2e8f0", fontSize: 11, color: "#666", fontFamily: "'IBM Plex Mono', monospace" }}>For people under 65 buying insurance through HealthCare.gov | Plan Year 2024 | Source: CMS Transparency in Coverage</div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 1 }}>
-                  {[...ACA_2024].sort((a, b) => b.denialRate - a.denialRate).map((plan, i) => (
-                    <div key={i} style={{ background: "#fff", border: "1px solid #e2e8f0", padding: "14px 16px" }}>
-                      <div style={{ fontWeight: 600, fontSize: 14, color: "#1a365d", marginBottom: 8 }}>{plan.insurer}</div>
-                      <Bar rate={plan.denialRate} />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {activeTab === "appeals" && (
-              <div>
-                <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 12 }}>When a prior authorization request is denied, patients and providers can file an appeal asking the plan to reconsider. This shows how often those appeals succeeded, meaning the original denial was reversed. A higher percentage means more denials were overturned.</div>
-                <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 20 }}>Appeal data is currently only available for Medicare Advantage plans.</div>
-                <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderLeft: "4px solid #1a365d", borderRadius: 4, padding: 14, marginBottom: 20 }}>
-                  <div style={{ fontSize: 13, color: "#444", lineHeight: 1.7 }}>Across all Medicare Advantage plans in 2024, <strong>80.7%</strong> of appealed denials were overturned. However, only <strong>11.5%</strong> of denied requests were ever actually appealed. This means millions of patients accepted denials that may have been reversed if challenged.</div>
-                  <div style={{ fontSize: 10, color: "#999", marginTop: 6, fontFamily: "'IBM Plex Mono', monospace" }}>Source: <a href="https://www.kff.org/medicare/medicare-advantage-insurers-made-nearly-53-million-prior-authorization-determinations-in-2024/" target="_blank" rel="noopener noreferrer" style={{ color: "#1a365d" }}>KFF, Jan 2026</a></div>
-                </div>
-                <div style={{ background: "#1a365d", color: "#fff", padding: "10px 16px", borderRadius: "8px 8px 0 0", fontSize: 14, fontWeight: 700 }}>Medicare Advantage Plans: Appeal Overturn Rates</div>
-                <div style={{ background: "#eef2f7", padding: "6px 16px", borderBottom: "1px solid #e2e8f0", fontSize: 11, color: "#666", fontFamily: "'IBM Plex Mono', monospace" }}>Calendar year 2024 | Ranked highest to lowest</div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 1 }}>
-                  {[...MA_2024].sort((a, b) => b.appealOverturnRate - a.appealOverturnRate).map((plan, i) => (
-                    <div key={i} style={{ background: "#fff", border: "1px solid #e2e8f0", padding: "14px 16px" }}>
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                        <div style={{ fontWeight: 600, fontSize: 14, color: "#1a365d" }}>{plan.insurer}</div>
-                        <div style={{ fontSize: 11, color: "#888", fontFamily: "'IBM Plex Mono', monospace" }}>Denial rate: {plan.denialRate}%</div>
-                      </div>
-                      <div>
-                        <div style={{ fontSize: 10, color: "#888", marginBottom: 4, fontFamily: "'IBM Plex Mono', monospace" }}>Percentage of appeals overturned</div>
-                        <GreenBar rate={plan.appealOverturnRate} />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div style={{ marginTop: 14, padding: 12, background: "#f7f8fa", border: "1px solid #eef0f4", borderRadius: 6, fontSize: 11, color: "#888", lineHeight: 1.6 }}>
-                  <strong>Note:</strong> Centene (93.6%) and CVS Health (89.7%) reflect plan-specific appeal data reported by KFF and Kiplinger. All other plans display the Medicare Advantage-wide average of 80.7% and are labeled accordingly. As plan-specific appeal data becomes available, it will replace these averages.
-                </div>
-              </div>
-            )}
-
-            {activeTab === "compare" && (
-              <div>
-                <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 8 }}>Select two health plans to see how they compare. Each plan is labeled with its type so you can tell them apart, even if the same company appears in both categories.</div>
-                <div style={{ fontSize: 12, color: "#999", lineHeight: 1.6, marginBottom: 20 }}>Tip: You can compare two plans of the same type, or compare the same company across different plan types to see how their numbers differ.</div>
-                <CompareSection />
-              </div>
-            )}
-
-            {activeTab === "cy2025" && (
-              <div>
-                <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 12 }}>On March 31, 2026, health plans were required to begin publicly reporting their prior authorization metrics for calendar year 2025. The data below reflects what has been published so far by individual plans. This section will be updated as more plans post their reports.</div>
-                <div style={{ padding: 14, background: "#f0f4f8", border: "1px solid #e2e8f0", borderRadius: 8, marginBottom: 20, fontSize: 12, color: "#555", lineHeight: 1.6 }}>
-                  <strong>Important:</strong> The data below comes from different plan types and reporting formats. These numbers are not directly comparable to each other or to the 2024 data shown in the other tabs. A standardized comparison tool for 2025 data will be added once enough plans have reported to allow for accurate, consistent comparisons.
-                </div>
-
-                {CY2025_DATA.map((plan, i) => (
-                  <div key={i} style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 18, marginBottom: 10 }}>
-                    <div style={{ fontWeight: 700, fontSize: 20, color: "#1a365d", marginBottom: 10 }}>{plan.insurer}</div>
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginBottom: 12 }}>
-                      <div style={{ padding: 10, background: "#f7f8fa", borderRadius: 6, border: "1px solid #eef0f4" }}>
-                        <div style={{ fontSize: 10, color: "#888", fontFamily: "'IBM Plex Mono', monospace", marginBottom: 2 }}>Approval Rate</div>
-                        <div style={{ fontSize: 20, fontWeight: 700, color: "#16a34a", fontFamily: "'IBM Plex Mono', monospace" }}>{plan.approvalRate}%</div>
-                      </div>
-                      <div style={{ padding: 10, background: "#f7f8fa", borderRadius: 6, border: "1px solid #eef0f4" }}>
-                        <div style={{ fontSize: 10, color: "#888", fontFamily: "'IBM Plex Mono', monospace", marginBottom: 2 }}>Denial Rate</div>
-                        <div style={{ fontSize: 20, fontWeight: 700, color: plan.denialRate > 15 ? "#dc2626" : plan.denialRate > 8 ? "#ea580c" : "#d97706", fontFamily: "'IBM Plex Mono', monospace" }}>{plan.denialRate}%</div>
-                      </div>
-                      <div style={{ padding: 10, background: "#f7f8fa", borderRadius: 6, border: "1px solid #eef0f4" }}>
-                        <div style={{ fontSize: 10, color: "#888", fontFamily: "'IBM Plex Mono', monospace", marginBottom: 2 }}>Avg Decision Time</div>
-                        <div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", fontFamily: "'IBM Plex Mono', monospace" }}>{plan.avgDecisionTime}</div>
-                      </div>
-                    </div>
-                    <div style={{ fontSize: 12, color: "#555", lineHeight: 1.6, marginBottom: 6 }}>{plan.note}</div>
-                    <a href={plan.sourceUrl} target="_blank" rel="noopener noreferrer" style={{ fontSize: 11, color: "#1a365d", textDecoration: "underline", fontFamily: "'IBM Plex Mono', monospace" }}>{plan.sourceLabel}</a>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            <div style={{ marginTop: 32, padding: 20, background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8 }}>
-              <h3 style={{ fontSize: 15, fontWeight: 700, color: "#1a365d", marginBottom: 10 }}>Where does this data come from?</h3>
-              <div style={{ fontSize: 12, color: "#555", lineHeight: 1.8 }}>
-                <p>The Denial Rates, Appeal Success, and Compare Plans tabs use <strong>calendar year 2024 data</strong>. Medicare Advantage data comes from the Kaiser Family Foundation's (KFF) analysis of CMS Medicare Advantage Prior Authorization data, published in January 2026. ACA Marketplace data comes from CMS Transparency in Coverage Public Use Files for Plan Year 2024.</p>
-                <p style={{ marginTop: 8 }}>The 2025 Data tab contains metrics that individual plans have published on their own websites to comply with CMS rule CMS-0057-F, which required plans to post calendar year 2025 metrics by March 31, 2026. This section will be updated as more plans publish their reports.</p>
-                <p style={{ marginTop: 8 }}>ACA Marketplace data covers in-network claims for plans sold on HealthCare.gov only and does not include employer-sponsored plans, Medicare, Medicaid, or off-marketplace plans.</p>
-                <p style={{ marginTop: 8 }}><strong>BCBS note:</strong> The BCBS figure shown is a national average across 36 independent affiliates. Individual state rates vary significantly. For example, Alabama BCBS has been reported at approximately 34%, while some affiliates report below 10%.</p>
-              </div>
-              <h4 style={{ fontSize: 13, fontWeight: 700, color: "#1a365d", marginTop: 16, marginBottom: 8 }}>Sources</h4>
-              <div style={{ fontSize: 12, lineHeight: 2.2 }}>
-                {[
-                  { label: "KFF: Medicare Advantage Prior Authorization Determinations, 2024", url: "https://www.kff.org/medicare/medicare-advantage-insurers-made-nearly-53-million-prior-authorization-determinations-in-2024/" },
-                  { label: "KFF: First Look at Insurer Prior Auth Reporting (Apr 2026)", url: "https://www.kff.org/quick-take/insurers-prior-authorization-data-offers-little-insight-into-what-gets-approved-or-denied/" },
-                  { label: "Muni Health: Denial Rate Comparison by Insurer (2026)", url: "https://muni.health/blog/insurance-denial-rate-by-company-2026" },
-                  { label: "AMA: Physician Prior Authorization Survey (Feb 2025)", url: "https://www.ama-assn.org/press-center/ama-press-releases/physicians-concerned-ai-increases-prior-authorization-denials" },
-                  { label: "CMS: Interoperability and Prior Authorization Final Rule (CMS-0057-F)", url: "https://www.cms.gov/newsroom/fact-sheets/cms-interoperability-prior-authorization-final-rule-cms-0057-f" },
-                  { label: "Becker's Hospital Review: Prior Auth Denial Rates Go Public (Mar 2026)", url: "https://www.beckershospitalreview.com/legal-regulatory-issues/payers-prior-authorization-denial-rates-go-public-5-notes/" },
-                  { label: "Kiplinger: Medicare Advantage Prior Authorization Denial Rates", url: "https://www.kiplinger.com/retirement/medicare/medicare-advantage-plans-prior-authorization-denial-rates" },
-                  { label: "UnitedHealthcare: CMS Interoperability and Prior Authorization Page", url: "https://www.uhc.com/legal/cms-interoperability-prior-authorization" },
-                  { label: "Cigna: CMS Annual Prior Authorization Statistics CY2025 (PDF)", url: "https://www.cigna.com/static/www-cigna-com/docs/cms-annual-prior-authorization-statistics-2025.pdf" },
-                  { label: "CVS Health: Prior Authorization and Affordability Update (Jan 2026)", url: "https://www.cvshealth.com/news/company-news/cvs-health-makes-health-insurance-simpler-and-more-affordable-for-americans.html" },
-                ].map((s, i) => (
-                  <div key={i}>• <a href={s.url} target="_blank" rel="noopener noreferrer" style={{ color: "#1a365d", textDecoration: "underline" }}>{s.label}</a></div>
-                ))}
-              </div>
-            </div>
-
-            <div style={{ marginTop: 14, padding: 14, background: "#fafbfc", border: "1px solid #eef0f4", borderRadius: 6 }}>
-              <div style={{ fontSize: 11, color: "#999", lineHeight: 1.7 }}><strong>Disclaimer:</strong> This database is for informational and research purposes only. It does not constitute medical, legal, or financial advice. Denial rates are aggregated national figures that vary by state, plan, and service type. Individual experiences may differ. Always verify current metrics directly with your health plan.</div>
+            {/* Metrics CTA card */}
+            <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 20, marginTop: 12, marginBottom: 12 }}>
+              <div style={{ fontSize: 15, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>Explore plan-level prior authorization data</div>
+              <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 14 }}>Compare denial rates, appeal success, and published 2025 metrics across major U.S. health plans.</div>
+              <button
+                onClick={() => handleNavigate("metrics")}
+                style={{
+                  padding: "10px 20px",
+                  background: "#1a365d",
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: 6,
+                  fontSize: 13,
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  fontFamily: "'IBM Plex Sans', sans-serif",
+                }}
+              >
+                View Metrics &rarr;
+              </button>
             </div>
           </>
         )}
+
+        {/* METRICS PAGE */}
+        {page === "metrics" && <MetricsPage onNavigate={handleNavigate} />}
 
         {/* CMS COMPLIANCE TRACKER PAGE */}
         {page === "tracker" && <ComplianceTracker />}
 
         {/* NEWSLETTER PAGE */}
-        {page === "newsletter" && (   <NewsletterPage     onNavigate={handleNavigate}     status={status}     setStatus={setStatus}   /> )}
+        {page === "newsletter" && (
+          <NewsletterPage
+            onNavigate={handleNavigate}
+            status={status}
+            setStatus={setStatus}
+          />
+        )}
 
         <div style={{ textAlign: "center", padding: "28px 0 0", color: "#bbb", fontSize: 10, fontFamily: "'IBM Plex Mono', monospace" }}>The PriorAuth Index | Built by Ashley Murray | 2026</div>
       </div>
