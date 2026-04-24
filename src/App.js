@@ -320,17 +320,95 @@ function ComplianceTracker() {
   );
 }
 
-function NewsletterPage({ onNavigate }) {
+function NewsletterPage({ onNavigate, status, setStatus }) {
   return (
     <div>
       <div style={{ marginBottom: 16 }}>
-        <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7 }}>This isn't another healthcare newsletter.</div>
-        <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7 }}>It tracks what health plans actually publish — and what they don't.</div>
-        <div style={{ fontSize: 12, color: "#999", lineHeight: 1.7, marginTop: 6, fontFamily: "'IBM Plex Mono', monospace" }}>No spin. No vendor agenda. Just the data.</div>
+<div style={{ fontSize: 16, fontWeight: 700, color: "#1a365d", marginBottom: 4 }}>
+  The Prior Auth Report
+</div>
+
+<div style={{ fontSize: 18, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>
+  How health plans actually behave.
+</div>
+
+<div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 14 }}>
+  Weekly, data-backed analysis of prior authorization trends across U.S. health plans.
+</div>
       </div>
 
       <div className="pai-embed-wrap" style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: "24px 20px", marginBottom: 20 }}>
-        <form   onSubmit={async (e) => {     e.preventDefault();     const email = e.target.email.value;      try {       const res = await fetch("/api/subscribe", {         method: "POST",         headers: {           "Content-Type": "application/json",         },         body: JSON.stringify({ email }),       });        const data = await res.json();        if (!res.ok) {         alert(data.error || "Something went wrong");         return;       }        alert("You're subscribed!");       e.target.reset();     } catch (err) {       alert("Something went wrong");     }   }}   style={{ display: "flex", flexDirection: "column", gap: 10 }} >   <input     name="email"     type="email"     placeholder="Enter your email"     required     style={{       padding: "12px",       borderRadius: 6,       border: "1px solid #d1d5db",       fontSize: 14,     }}   />    <button     type="submit"     style={{       padding: "12px",       background: "#1a365d",       color: "#fff",       border: "none",       borderRadius: 6,       fontWeight: 600,       cursor: "pointer",     }}   >     Join the Waitlist   </button> </form>
+        <form
+  onSubmit={async (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+
+    setStatus("loading");
+
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setStatus("error");
+        return;
+      }
+
+      setStatus("success");
+      e.target.reset();
+    } catch (err) {
+      setStatus("error");
+    }
+  }}
+  style={{ display: "flex", flexDirection: "column", gap: 10 }}
+>
+  <input
+    name="email"
+    type="email"
+    placeholder="Enter your email"
+    required
+    style={{
+      padding: "12px",
+      borderRadius: 6,
+      border: "1px solid #d1d5db",
+      fontSize: 14,
+    }}
+  />
+
+  <button
+    type="submit"
+    style={{
+      padding: "12px",
+      background: "#1a365d",
+      color: "#fff",
+      border: "none",
+      borderRadius: 6,
+      fontWeight: 600,
+      cursor: "pointer",
+    }}
+  >
+    {status === "loading" ? "Joining..." : "Join the Waitlist"}
+  </button>
+
+  {status === "success" && (
+    <p style={{ color: "green", fontSize: 13 }}>
+      You're subscribed.
+    </p>
+  )}
+
+  {status === "error" && (
+    <p style={{ color: "red", fontSize: 13 }}>
+      Something went wrong. Try again.
+    </p>
+  )}
+</form>
       </div>
 
       <div style={{ textAlign: "center", marginTop: 16 }}>
@@ -343,6 +421,7 @@ function NewsletterPage({ onNavigate }) {
 }
 
 export default function PriorAuthIndex() {
+  const [status, setStatus] = useState(null);
   const [page, setPage] = useState("home");
   const [activeTab, setActiveTab] = useState("denials");
   const tabs = [
@@ -422,8 +501,89 @@ export default function PriorAuthIndex() {
         {page === "home" && (
           <>
             {/* Newsletter embed */}
+          <div style={{ fontSize: 16, fontWeight: 700, color: "#1a365d", marginBottom: 4 }}>
+  The Prior Auth Report
+</div>
+
+<div style={{ fontSize: 18, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>
+  How health plans actually behave.
+</div>
+
+<div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 14 }}>
+  Weekly, data-backed analysis of prior authorization trends across U.S. health plans.
+</div>
             <div className="pai-embed-wrap" style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: "22px 20px", marginBottom: 20 }}>
-              <form   onSubmit={async (e) => {     e.preventDefault();     const email = e.target.email.value;      try {       const res = await fetch("/api/subscribe", {         method: "POST",         headers: {           "Content-Type": "application/json",         },         body: JSON.stringify({ email }),       });        const data = await res.json();        if (!res.ok) {         alert(data.error || "Something went wrong");         return;       }        alert("You're subscribed!");       e.target.reset();     } catch (err) {       alert("Something went wrong");     }   }}   style={{ display: "flex", flexDirection: "column", gap: 10 }} >   <input     name="email"     type="email"     placeholder="Enter your email"     required     style={{       padding: "12px",       borderRadius: 6,       border: "1px solid #d1d5db",       fontSize: 14,     }}   />    <button     type="submit"     style={{       padding: "12px",       background: "#1a365d",       color: "#fff",       border: "none",       borderRadius: 6,       fontWeight: 600,       cursor: "pointer",     }}   >     Join the Waitlist   </button> </form>
+             <form
+  onSubmit={async (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+
+    setStatus("loading");
+
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setStatus("error");
+        return;
+      }
+
+      setStatus("success");
+      e.target.reset();
+    } catch (err) {
+      setStatus("error");
+    }
+  }}
+  style={{ display: "flex", flexDirection: "column", gap: 10 }}
+>
+  <input
+    name="email"
+    type="email"
+    placeholder="Enter your email"
+    required
+    style={{
+      padding: "12px",
+      borderRadius: 6,
+      border: "1px solid #d1d5db",
+      fontSize: 14,
+    }}
+  />
+
+  <button
+    type="submit"
+    style={{
+      padding: "12px",
+      background: "#1a365d",
+      color: "#fff",
+      border: "none",
+      borderRadius: 6,
+      fontWeight: 600,
+      cursor: "pointer",
+    }}
+  >
+    {status === "loading" ? "Joining..." : "Join the Waitlist"}
+  </button>
+
+  {status === "success" && (
+    <p style={{ color: "green", fontSize: 13 }}>
+      You're subscribed.
+    </p>
+  )}
+
+  {status === "error" && (
+    <p style={{ color: "red", fontSize: 13 }}>
+      Something went wrong. Try again.
+    </p>
+  )}
+</form>
             </div>
 
             <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 18, marginBottom: 8 }}>
@@ -605,7 +765,7 @@ export default function PriorAuthIndex() {
         {page === "tracker" && <ComplianceTracker />}
 
         {/* NEWSLETTER PAGE */}
-        {page === "newsletter" && <NewsletterPage onNavigate={handleNavigate} />}
+        {page === "newsletter" && (   <NewsletterPage     onNavigate={handleNavigate}     status={status}     setStatus={setStatus}   /> )}
 
         <div style={{ textAlign: "center", padding: "28px 0 0", color: "#bbb", fontSize: 10, fontFamily: "'IBM Plex Mono', monospace" }}>The PriorAuth Index | Built by Ashley Murray | 2026</div>
       </div>
