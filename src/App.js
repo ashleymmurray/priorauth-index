@@ -585,6 +585,100 @@ function NewsletterPage({ onNavigate, status, setStatus }) {
   );
 }
 
+function InsightsPage({ onNavigate }) {
+  return (
+    <div>
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", marginBottom: 12 }}>Insights</div>
+      </div>
+      <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 20, marginBottom: 12 }}>
+        <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7 }}>
+          <p style={{ margin: 0, marginBottom: 10 }}>Insights are launching soon.</p>
+          <p style={{ margin: 0 }}>This section will include structured analysis of prior authorization trends, payer behavior, and compliance patterns as more data becomes available.</p>
+        </div>
+      </div>
+      <div style={{ textAlign: "center", marginTop: 16 }}>
+        <button onClick={() => onNavigate("home")} style={{ background: "none", border: "none", color: "#1a365d", fontSize: 12, fontFamily: "'IBM Plex Mono', monospace", cursor: "pointer", textDecoration: "underline" }}>
+          &larr; Back to the Index
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function AboutPage({ onNavigate }) {
+  return (
+    <div>
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", marginBottom: 12 }}>About The PriorAuth Index</div>
+      </div>
+      <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 20, marginBottom: 12 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: "#1a365d", marginBottom: 10 }}>About the project</div>
+        <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7 }}>
+          <p style={{ margin: 0, marginBottom: 10 }}>The PriorAuth Index is an independent project focused on making prior authorization data easier to access and understand.</p>
+          <p style={{ margin: 0, marginBottom: 10 }}>As new federal reporting requirements roll out, health plans are starting to publish metrics on how prior authorization requests are handled. This includes approval rates, denial rates, and decision timelines.</p>
+          <p style={{ margin: 0 }}>The problem is that the data is scattered, inconsistent, and not easy to compare. This index aggregates that information and presents it in a structured way.</p>
+        </div>
+      </div>
+      <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 20, marginBottom: 12 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: "#1a365d", marginBottom: 10 }}>Why this exists</div>
+        <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7 }}>
+          <p style={{ margin: 0, marginBottom: 10 }}>Prior authorization plays a major role in whether patients receive care, but there has been very little visibility into how different plans actually perform.</p>
+          <p style={{ margin: 0, marginBottom: 10 }}>The goal of The PriorAuth Index is simple:</p>
+          <ul style={{ margin: 0, paddingLeft: 20 }}>
+            <li>make the data visible</li>
+            <li>make it comparable</li>
+            <li>make it usable</li>
+          </ul>
+          <p style={{ margin: 0, marginTop: 10 }}>without adding noise or distorting what is actually being reported.</p>
+        </div>
+      </div>
+      <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 20, marginBottom: 12 }}>
+        <div style={{ fontSize: 14, fontWeight: 700, color: "#1a365d", marginBottom: 10 }}>About me</div>
+        <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7 }}>
+          <p style={{ margin: 0, marginBottom: 10 }}>My name is Ashley Murray.</p>
+          <p style={{ margin: 0, marginBottom: 10 }}>I built The PriorAuth Index because I wanted to understand how prior authorization actually works across different insurers and make that information available to other people.</p>
+          <p style={{ margin: 0, marginBottom: 10 }}>I am also building BridgeChart, an early-stage healthtech startup focused on creating a universal health record platform that is not tied to any one system or provider. The goal is simple: patients own their data.</p>
+          <p style={{ margin: 0 }}>I am a huge data nerd and I like working with messy systems and complex datasets that most people do not want to deal with.</p>
+        </div>
+      </div>
+      <div style={{ textAlign: "center", marginTop: 16 }}>
+        <button onClick={() => onNavigate("home")} style={{ background: "none", border: "none", color: "#1a365d", fontSize: 12, fontFamily: "'IBM Plex Mono', monospace", cursor: "pointer", textDecoration: "underline" }}>
+          &larr; Back to the Index
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function ContactPage({ onNavigate }) {
+  return (
+    <div>
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", marginBottom: 12 }}>Contact</div>
+      </div>
+      <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 20, marginBottom: 12 }}>
+        <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7, marginBottom: 16 }}>
+          Have a question, correction, source, or data lead? You can reach me here.
+        </div>
+        <div style={{ marginBottom: 12 }}>
+          <div style={{ fontSize: 12, color: "#888", fontFamily: "'IBM Plex Mono', monospace", marginBottom: 4 }}>Email</div>
+          <a href="mailto:ashley@bridgechart.com" style={{ fontSize: 13, color: "#1a365d", textDecoration: "underline", fontFamily: "'IBM Plex Mono', monospace" }}>ashley@bridgechart.com</a>
+        </div>
+        <div>
+          <div style={{ fontSize: 12, color: "#888", fontFamily: "'IBM Plex Mono', monospace", marginBottom: 4 }}>LinkedIn</div>
+          <a href="https://www.linkedin.com/in/ashley-murray-73ab73136/" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: "#1a365d", textDecoration: "underline", fontFamily: "'IBM Plex Mono', monospace" }}>LinkedIn</a>
+        </div>
+      </div>
+      <div style={{ textAlign: "center", marginTop: 16 }}>
+        <button onClick={() => onNavigate("home")} style={{ background: "none", border: "none", color: "#1a365d", fontSize: 12, fontFamily: "'IBM Plex Mono', monospace", cursor: "pointer", textDecoration: "underline" }}>
+          &larr; Back to the Index
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function PriorAuthIndex() {
   const [status, setStatus] = useState(null);
   const [page, setPage] = useState("home");
@@ -595,6 +689,9 @@ export default function PriorAuthIndex() {
     { id: "metrics", label: "Metrics" },
     { id: "tracker", label: "CMS Compliance Tracker" },
     { id: "newsletter", label: "The Prior Auth Report" },
+    { id: "insights", label: "Insights" },
+    { id: "about", label: "About" },
+    { id: "contact", label: "Contact" },
   ];
 
   const handleNavigate = (pageId) => {
@@ -802,6 +899,34 @@ export default function PriorAuthIndex() {
               No. There are hundreds of health plans in the United States. This database currently includes the major national insurers for which public data is available. It does not yet include most regional plans, smaller Medicaid managed care plans, employer-sponsored plans (which are not required to publicly report this data), or individual state-level BCBS affiliates. As more plans publish their data under the new federal reporting rule, this database will be updated. The goal is for this to grow into a comprehensive resource over time.
             </Collapsible>
 
+            {/* Why this matters */}
+            <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 20, marginTop: 12, marginBottom: 12 }}>
+              <div style={{ fontSize: 14, fontWeight: 700, color: "#1a365d", marginBottom: 10 }}>Why this matters</div>
+              <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7 }}>
+                <p style={{ margin: 0, marginBottom: 10 }}>Prior authorization decisions directly impact whether patients receive care and how long it takes.</p>
+                <p style={{ margin: 0, marginBottom: 10 }}>For a long time, this data has not been accessible in a way that is easy to understand or compare. Even now, as reporting requirements go into effect, the data is inconsistent, fragmented, and often difficult to interpret.</p>
+                <p style={{ margin: 0 }}>The PriorAuth Index exists to make that information visible, structured, and usable so people can actually see how different plans behave.</p>
+              </div>
+            </div>
+
+            <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 20, marginBottom: 12 }}>
+              <div style={{ fontSize: 14, fontWeight: 700, color: "#1a365d", marginBottom: 10 }}>Who this is for</div>
+              <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7 }}>
+                <p style={{ margin: 0, marginBottom: 10 }}>This index is for anyone trying to understand how prior authorization works in practice:</p>
+                <ul style={{ margin: 0, paddingLeft: 20 }}>
+                  <li>Patients who want to know how often care is approved or denied</li>
+                  <li>Providers dealing with authorization delays and payer behavior</li>
+                  <li>Operators and founders building in healthcare</li>
+                  <li>Researchers and journalists analyzing payer trends</li>
+                  <li>Anyone who wants more transparency into how the system actually functions</li>
+                </ul>
+              </div>
+            </div>
+
+            <div style={{ fontSize: 10, color: "#aaa", textAlign: "center", marginBottom: 12, fontFamily: "'IBM Plex Mono', monospace" }}>
+              Built to track real-world prior authorization behavior as new data becomes available.
+            </div>
+
             {/* Metrics CTA card */}
             <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 20, marginTop: 12, marginBottom: 12 }}>
               <div style={{ fontSize: 15, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>Explore plan-level prior authorization data</div>
@@ -840,6 +965,15 @@ export default function PriorAuthIndex() {
             setStatus={setStatus}
           />
         )}
+
+        {/* INSIGHTS PAGE */}
+        {page === "insights" && <InsightsPage onNavigate={handleNavigate} />}
+
+        {/* ABOUT PAGE */}
+        {page === "about" && <AboutPage onNavigate={handleNavigate} />}
+
+        {/* CONTACT PAGE */}
+        {page === "contact" && <ContactPage onNavigate={handleNavigate} />}
 
         <div style={{ textAlign: "center", padding: "28px 0 0", color: "#bbb", fontSize: 10, fontFamily: "'IBM Plex Mono', monospace" }}>The PriorAuth Index | Built by Ashley Murray | 2026</div>
       </div>
