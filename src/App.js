@@ -638,7 +638,7 @@ function AboutPage({ onNavigate }) {
         <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7 }}>
           <p style={{ margin: 0, marginBottom: 10 }}>My name is Ashley Murray.</p>
           <p style={{ margin: 0, marginBottom: 10 }}>I built The PriorAuth Index because I wanted to understand how prior authorization actually works across different insurers and make that information available to other people.</p>
-          <p style={{ margin: 0, marginBottom: 10 }}>I am also building BridgeChart, an early-stage healthtech startup focused on creating a universal health record platform that is not tied to any one system or provider. The goal is simple: patients own their data.</p>
+          <p style={{ margin: 0, marginBottom: 10 }}>I am a co-founder of BridgeChart, an early-stage healthtech startup focused on creating a universal health record platform that is not tied to any one system or provider. The goal is simple: patients own their data.</p>
           <p style={{ margin: 0 }}>I am a huge data nerd and I like working with messy systems and complex datasets that most people do not want to deal with.</p>
         </div>
       </div>
