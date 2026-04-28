@@ -21,25 +21,25 @@ const ACA_2024 = [
 ];
 
 const CY2025_DATA = [
-  { insurer: "UnitedHealthcare", approvalRate: 91.7, denialRate: 8.3, avgDecisionTime: "24 hours", note: "98% of claims did not require prior authorization. Nearly half of all PAs approved in real time.", sourceLabel: "UnitedHealthcare CMS Compliance Page", sourceUrl: "https://www.uhc.com/legal/cms-interoperability-prior-authorization" },
-  { insurer: "Cigna (Standard Requests)", approvalRate: 73.0, denialRate: 27.0, avgDecisionTime: "3.95 days", note: "ACA Marketplace / Individual plans on the federal exchange. Appeal overturn rate: 16%.", sourceLabel: "Cigna CMS Prior Authorization Disclosure Report (PDF)", sourceUrl: "https://www.cigna.com/static/www-cigna-com/docs/cms-annual-prior-authorization-statistics-2025.pdf" },
-  { insurer: "Cigna (Expedited Requests)", approvalRate: 78.0, denialRate: 22.0, avgDecisionTime: "1.53 days", note: "Expedited (urgent) requests for ACA Marketplace / Individual plans on the federal exchange.", sourceLabel: "Cigna CMS Prior Authorization Disclosure Report (PDF)", sourceUrl: "https://www.cigna.com/static/www-cigna-com/docs/cms-annual-prior-authorization-statistics-2025.pdf" },
-  { insurer: "Aetna (CVS Health)", approvalRate: 95.0, denialRate: 5.0, avgDecisionTime: "Under 24 hours", note: "Company-reported CVS Health/Aetna statement: more than 95% of eligible prior authorizations approved within 24 hours, with 77% of electronic PAs approved in real time. This is not presented as a standardized CMS disclosure table.", sourceLabel: "CVS Health Press Release, Jan 2026", sourceUrl: "https://www.cvshealth.com/news/company-news/cvs-health-makes-health-insurance-simpler-and-more-affordable-for-americans.html" },
-  { insurer: "Oscar Health (All Markets - Standard Requests)", approvalRate: 81.69, denialRate: 18.31, avgDecisionTime: "3.7 days", note: "2025 All Markets prior authorization utilization statistics. Standard prior authorizations approved: 81.69%. Standard adverse determinations (including total and partial): 18.31%. Prior authorization appeals approved: 42.69%.", sourceLabel: "Oscar Health 2025 All Markets Prior Authorization Utilization Statistics (PDF)", sourceUrl: "https://www.hioscar.com/prior-authorization-statistics" },
-  { insurer: "Oscar Health (All Markets - Expedited Requests)", approvalRate: 82.39, denialRate: 17.61, avgDecisionTime: "1.4 days", note: "2025 All Markets prior authorization utilization statistics. Expedited prior authorizations approved: 82.39%. Expedited adverse determinations (including total and partial): 17.61%. Prior authorization appeals approved: 42.69%.", sourceLabel: "Oscar Health 2025 All Markets Prior Authorization Utilization Statistics (PDF)", sourceUrl: "https://www.hioscar.com/prior-authorization-statistics" },
-  { insurer: "Braven Health (Medicare Advantage - Standard Requests)", approvalRate: 99.5, denialRate: 0.5, avgDecisionTime: "3 days", note: "2025 prior authorization metrics. Standard prior authorizations approved: 99.5%. Denied: 0.5%. Appeals approved: 96.2%.", sourceLabel: "Horizon Blue Cross Blue Shield NJ Prior Authorization Reports", sourceUrl: "https://www.horizonblue.com/prior-authorization-reports" },
-  { insurer: "Braven Health (Medicare Advantage - Expedited Requests)", approvalRate: 99.8, denialRate: 0.2, avgDecisionTime: "1 day", note: "2025 prior authorization metrics. Expedited prior authorizations approved: 99.8%. Denied: 0.2%. Appeals approved: 96.2%.", sourceLabel: "Horizon Blue Cross Blue Shield NJ Prior Authorization Reports", sourceUrl: "https://www.horizonblue.com/prior-authorization-reports" },
-  { insurer: "Horizon NJ FamilyCare (Medicaid - Standard Requests)", approvalRate: 82.3, denialRate: 17.7, avgDecisionTime: "7 days", note: "2025 prior authorization metrics. Standard prior authorizations approved: 82.3%. Denied: 17.7%. Appeals approved: 25.3%.", sourceLabel: "Horizon Blue Cross Blue Shield NJ Prior Authorization Reports", sourceUrl: "https://www.horizonblue.com/prior-authorization-reports" },
-  { insurer: "Horizon NJ FamilyCare (Medicaid - Expedited Requests)", approvalRate: 90.7, denialRate: 9.3, avgDecisionTime: "2 days", note: "2025 prior authorization metrics. Expedited prior authorizations approved: 90.7%. Denied: 9.3%. Appeals approved: 25.3%.", sourceLabel: "Horizon Blue Cross Blue Shield NJ Prior Authorization Reports", sourceUrl: "https://www.horizonblue.com/prior-authorization-reports" },
-  { insurer: "Horizon NJ TotalCare (HMO D-SNP - Standard Requests)", approvalRate: 97.3, denialRate: 2.7, avgDecisionTime: "6 days", note: "2025 prior authorization metrics. Standard prior authorizations approved: 97.3%. Denied: 2.7%. Appeals approved: 74.4%.", sourceLabel: "Horizon Blue Cross Blue Shield NJ Prior Authorization Reports", sourceUrl: "https://www.horizonblue.com/prior-authorization-reports" },
-  { insurer: "Horizon NJ TotalCare (HMO D-SNP - Expedited Requests)", approvalRate: 99.9, denialRate: 0.1, avgDecisionTime: "1 day", note: "2025 prior authorization metrics. Expedited prior authorizations approved: 99.9%. Denied: 0.1%. Appeals approved: 74.4%.", sourceLabel: "Horizon Blue Cross Blue Shield NJ Prior Authorization Reports", sourceUrl: "https://www.horizonblue.com/prior-authorization-reports" },
-  { insurer: "Alabama Medicaid (Standard Requests)", approvalRate: 90.0, denialRate: 10.0, avgDecisionTime: "2 days", note: "2025 prior authorization metrics. Standard prior authorizations approved: 90%. Denied: 10%. Appeals data was suppressed or unavailable due to low volume.", sourceLabel: "Alabama Medicaid Prior Authorization Metrics 2025 (PDF)", sourceUrl: "https://medicaid.alabama.gov/content/2.0_Newsroom/2.9_CMS_Required_Reports/2.9.1_Prior_Authorization_Metrics.aspx" },
-  { insurer: "Alabama Medicaid (Expedited Requests)", approvalRate: 81.0, denialRate: 19.0, avgDecisionTime: "Same day", note: "2025 prior authorization metrics. Expedited prior authorizations approved: 81%. Denied: 19%. Decision time reported as same day.", sourceLabel: "Alabama Medicaid Prior Authorization Metrics 2025 (PDF)", sourceUrl: "https://medicaid.alabama.gov/content/2.0_Newsroom/2.9_CMS_Required_Reports/2.9.1_Prior_Authorization_Metrics.aspx" },
-  { insurer: "Security Health Plan (BadgerCare Medicaid - Standard Requests)", approvalRate: 87.7, denialRate: 12.3, avgDecisionTime: "1 day", note: "2025 prior authorization metrics. Standard prior authorizations approved: 87.7%. Denied: 12.3%. Appeals approved: 690 requests.", sourceLabel: "Security Health Plan Prior Authorization Metrics 2025 (PDF)", sourceUrl: "https://www.securityhealth.org/" },
-  { insurer: "Security Health Plan (BadgerCare Medicaid - Expedited Requests)", approvalRate: 92.2, denialRate: 7.8, avgDecisionTime: "0.6 days", note: "2025 prior authorization metrics. Expedited prior authorizations approved: 92.2%. Denied: 7.8%. Appeals approved: 34 requests.", sourceLabel: "Security Health Plan Prior Authorization Metrics 2025 (PDF)", sourceUrl: "https://www.securityhealth.org/" },
-  { insurer: "Wyoming Medicaid CME / Magellan (Standard Requests)", approvalRate: 100.0, denialRate: 0.0, avgDecisionTime: "8 calendar days", note: "2025 prior authorization metrics. Standard prior authorizations approved: 100%. Denied: 0%. No expedited requests were reported.", sourceLabel: "Wyoming Medicaid Prior Authorization Metrics 2025 (PDF)", sourceUrl: "https://health.wyo.gov/healthcarefin/medicaid/cms-interoperability-prior-authorization-rule-compliance/" },
-  { insurer: "Wyoming Medicaid Utilization Management (Standard Requests)", approvalRate: 87.0, denialRate: 13.0, avgDecisionTime: "3 days", note: "2025 prior authorization metrics. Standard prior authorizations approved: 87%. Denied: 13%. Appeals approved: 25%. No expedited requests reported.", sourceLabel: "Wyoming Medicaid Prior Authorization Metrics 2025 (PDF)", sourceUrl: "https://health.wyo.gov/healthcarefin/medicaid/cms-interoperability-prior-authorization-rule-compliance/" },
-  { insurer: "Wyoming Medicaid HCBS (Standard Requests)", approvalRate: 100.0, denialRate: 0.0, avgDecisionTime: "<24 hours", note: "2025 prior authorization metrics. Standard prior authorizations approved: 100%. Denied: 0%. No expedited process reported.", sourceLabel: "Wyoming Medicaid Prior Authorization Metrics 2025 (PDF)", sourceUrl: "https://health.wyo.gov/healthcarefin/medicaid/cms-interoperability-prior-authorization-rule-compliance/" },
+  { insurer: "UnitedHealthcare", approvalRate: 91.7, denialRate: 8.3, avgDecisionTime: "24 hours", note: "98% of claims did not require prior authorization. Nearly half of all PAs approved in real time.", sourceLabel: "UnitedHealthcare CMS Compliance Page", sourceUrl: "https://www.uhc.com/legal/cms-interoperability-prior-authorization", dataStatus: "CMS disclosure" },
+  { insurer: "Cigna (Standard Requests)", approvalRate: 73.0, denialRate: 27.0, avgDecisionTime: "3.95 days", note: "ACA Marketplace / Individual plans on the federal exchange. Appeal overturn rate: 16%.", sourceLabel: "Cigna CMS Prior Authorization Disclosure Report (PDF)", sourceUrl: "https://www.cigna.com/static/www-cigna-com/docs/cms-annual-prior-authorization-statistics-2025.pdf", dataStatus: "CMS disclosure" },
+  { insurer: "Cigna (Expedited Requests)", approvalRate: 78.0, denialRate: 22.0, avgDecisionTime: "1.53 days", note: "Expedited (urgent) requests for ACA Marketplace / Individual plans on the federal exchange.", sourceLabel: "Cigna CMS Prior Authorization Disclosure Report (PDF)", sourceUrl: "https://www.cigna.com/static/www-cigna-com/docs/cms-annual-prior-authorization-statistics-2025.pdf", dataStatus: "CMS disclosure" },
+  { insurer: "Aetna (CVS Health)", approvalRate: 95.0, denialRate: 5.0, avgDecisionTime: "Under 24 hours", note: "Company-reported CVS Health/Aetna statement: more than 95% of eligible prior authorizations approved within 24 hours, with 77% of electronic PAs approved in real time. This is not presented as a standardized CMS disclosure table.", sourceLabel: "CVS Health Press Release, Jan 2026", sourceUrl: "https://www.cvshealth.com/news/company-news/cvs-health-makes-health-insurance-simpler-and-more-affordable-for-americans.html", dataStatus: "Company-reported data" },
+  { insurer: "Oscar Health (All Markets - Standard Requests)", approvalRate: 81.69, denialRate: 18.31, avgDecisionTime: "3.7 days", note: "2025 All Markets prior authorization utilization statistics. Standard prior authorizations approved: 81.69%. Standard adverse determinations (including total and partial): 18.31%. Prior authorization appeals approved: 42.69%.", sourceLabel: "Oscar Health 2025 All Markets Prior Authorization Utilization Statistics (PDF)", sourceUrl: "https://www.hioscar.com/prior-authorization-statistics", dataStatus: "CMS disclosure" },
+  { insurer: "Oscar Health (All Markets - Expedited Requests)", approvalRate: 82.39, denialRate: 17.61, avgDecisionTime: "1.4 days", note: "2025 All Markets prior authorization utilization statistics. Expedited prior authorizations approved: 82.39%. Expedited adverse determinations (including total and partial): 17.61%. Prior authorization appeals approved: 42.69%.", sourceLabel: "Oscar Health 2025 All Markets Prior Authorization Utilization Statistics (PDF)", sourceUrl: "https://www.hioscar.com/prior-authorization-statistics", dataStatus: "CMS disclosure" },
+  { insurer: "Braven Health (Medicare Advantage - Standard Requests)", approvalRate: 99.5, denialRate: 0.5, avgDecisionTime: "3 days", note: "2025 prior authorization metrics. Standard prior authorizations approved: 99.5%. Denied: 0.5%. Appeals approved: 96.2%.", sourceLabel: "Horizon Blue Cross Blue Shield NJ Prior Authorization Reports", sourceUrl: "https://www.horizonblue.com/prior-authorization-reports", dataStatus: "Plan-reported data" },
+  { insurer: "Braven Health (Medicare Advantage - Expedited Requests)", approvalRate: 99.8, denialRate: 0.2, avgDecisionTime: "1 day", note: "2025 prior authorization metrics. Expedited prior authorizations approved: 99.8%. Denied: 0.2%. Appeals approved: 96.2%.", sourceLabel: "Horizon Blue Cross Blue Shield NJ Prior Authorization Reports", sourceUrl: "https://www.horizonblue.com/prior-authorization-reports", dataStatus: "Plan-reported data" },
+  { insurer: "Horizon NJ FamilyCare (Medicaid - Standard Requests)", approvalRate: 82.3, denialRate: 17.7, avgDecisionTime: "7 days", note: "2025 prior authorization metrics. Standard prior authorizations approved: 82.3%. Denied: 17.7%. Appeals approved: 25.3%.", sourceLabel: "Horizon Blue Cross Blue Shield NJ Prior Authorization Reports", sourceUrl: "https://www.horizonblue.com/prior-authorization-reports", dataStatus: "Plan-reported data" },
+  { insurer: "Horizon NJ FamilyCare (Medicaid - Expedited Requests)", approvalRate: 90.7, denialRate: 9.3, avgDecisionTime: "2 days", note: "2025 prior authorization metrics. Expedited prior authorizations approved: 90.7%. Denied: 9.3%. Appeals approved: 25.3%.", sourceLabel: "Horizon Blue Cross Blue Shield NJ Prior Authorization Reports", sourceUrl: "https://www.horizonblue.com/prior-authorization-reports", dataStatus: "Plan-reported data" },
+  { insurer: "Horizon NJ TotalCare (HMO D-SNP - Standard Requests)", approvalRate: 97.3, denialRate: 2.7, avgDecisionTime: "6 days", note: "2025 prior authorization metrics. Standard prior authorizations approved: 97.3%. Denied: 2.7%. Appeals approved: 74.4%.", sourceLabel: "Horizon Blue Cross Blue Shield NJ Prior Authorization Reports", sourceUrl: "https://www.horizonblue.com/prior-authorization-reports", dataStatus: "Plan-reported data" },
+  { insurer: "Horizon NJ TotalCare (HMO D-SNP - Expedited Requests)", approvalRate: 99.9, denialRate: 0.1, avgDecisionTime: "1 day", note: "2025 prior authorization metrics. Expedited prior authorizations approved: 99.9%. Denied: 0.1%. Appeals approved: 74.4%.", sourceLabel: "Horizon Blue Cross Blue Shield NJ Prior Authorization Reports", sourceUrl: "https://www.horizonblue.com/prior-authorization-reports", dataStatus: "Plan-reported data" },
+  { insurer: "Alabama Medicaid (Standard Requests)", approvalRate: 90.0, denialRate: 10.0, avgDecisionTime: "2 days", note: "2025 prior authorization metrics. Standard prior authorizations approved: 90%. Denied: 10%. Appeals data was suppressed or unavailable due to low volume.", sourceLabel: "Alabama Medicaid Prior Authorization Metrics 2025 (PDF)", sourceUrl: "https://medicaid.alabama.gov/content/2.0_Newsroom/2.9_CMS_Required_Reports/2.9.1_Prior_Authorization_Metrics.aspx", dataStatus: "CMS disclosure" },
+  { insurer: "Alabama Medicaid (Expedited Requests)", approvalRate: 81.0, denialRate: 19.0, avgDecisionTime: "Same day", note: "2025 prior authorization metrics. Expedited prior authorizations approved: 81%. Denied: 19%. Decision time reported as same day.", sourceLabel: "Alabama Medicaid Prior Authorization Metrics 2025 (PDF)", sourceUrl: "https://medicaid.alabama.gov/content/2.0_Newsroom/2.9_CMS_Required_Reports/2.9.1_Prior_Authorization_Metrics.aspx", dataStatus: "CMS disclosure" },
+  { insurer: "Security Health Plan (BadgerCare Medicaid - Standard Requests)", approvalRate: 87.7, denialRate: 12.3, avgDecisionTime: "1 day", note: "2025 prior authorization metrics. Standard prior authorizations approved: 87.7%. Denied: 12.3%. Appeals approved: 690 requests.", sourceLabel: "Security Health Plan Prior Authorization Metrics 2025 (PDF)", sourceUrl: "https://www.securityhealth.org/", dataStatus: "Plan-reported data" },
+  { insurer: "Security Health Plan (BadgerCare Medicaid - Expedited Requests)", approvalRate: 92.2, denialRate: 7.8, avgDecisionTime: "0.6 days", note: "2025 prior authorization metrics. Expedited prior authorizations approved: 92.2%. Denied: 7.8%. Appeals approved: 34 requests.", sourceLabel: "Security Health Plan Prior Authorization Metrics 2025 (PDF)", sourceUrl: "https://www.securityhealth.org/", dataStatus: "Plan-reported data" },
+  { insurer: "Wyoming Medicaid CME / Magellan (Standard Requests)", approvalRate: 100.0, denialRate: 0.0, avgDecisionTime: "8 calendar days", note: "2025 prior authorization metrics. Standard prior authorizations approved: 100%. Denied: 0%. No expedited requests were reported.", sourceLabel: "Wyoming Medicaid Prior Authorization Metrics 2025 (PDF)", sourceUrl: "https://health.wyo.gov/healthcarefin/medicaid/cms-interoperability-prior-authorization-rule-compliance/", dataStatus: "CMS disclosure" },
+  { insurer: "Wyoming Medicaid Utilization Management (Standard Requests)", approvalRate: 87.0, denialRate: 13.0, avgDecisionTime: "3 days", note: "2025 prior authorization metrics. Standard prior authorizations approved: 87%. Denied: 13%. Appeals approved: 25%. No expedited requests reported.", sourceLabel: "Wyoming Medicaid Prior Authorization Metrics 2025 (PDF)", sourceUrl: "https://health.wyo.gov/healthcarefin/medicaid/cms-interoperability-prior-authorization-rule-compliance/", dataStatus: "CMS disclosure" },
+  { insurer: "Wyoming Medicaid HCBS (Standard Requests)", approvalRate: 100.0, denialRate: 0.0, avgDecisionTime: "<24 hours", note: "2025 prior authorization metrics. Standard prior authorizations approved: 100%. Denied: 0%. No expedited process reported.", sourceLabel: "Wyoming Medicaid Prior Authorization Metrics 2025 (PDF)", sourceUrl: "https://health.wyo.gov/healthcarefin/medicaid/cms-interoperability-prior-authorization-rule-compliance/", dataStatus: "CMS disclosure" },
 ];
 
 function Bar({ rate, max = 30 }) {
@@ -77,6 +77,24 @@ function Collapsible({ title, children }) {
       </button>
       {open && <div style={{ padding: "0 18px 16px", fontSize: 13, color: "#555", lineHeight: 1.7 }}>{children}</div>}
     </div>
+  );
+}
+
+function DataStatusPill({ status }) {
+  return (
+    <span style={{
+      background: "#f0f4f8",
+      border: "1px solid #dbe3ec",
+      color: "#1a365d",
+      fontSize: 10,
+      fontFamily: "'IBM Plex Mono', monospace",
+      borderRadius: 999,
+      padding: "4px 8px",
+      whiteSpace: "nowrap",
+      flexShrink: 0,
+    }}>
+      {status}
+    </span>
   );
 }
 
@@ -175,6 +193,8 @@ function ComplianceTracker() {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [mrFilter, setMrFilter] = useState("all");
+  const [sortKey, setSortKey] = useState(null);
+  const [sortDirection, setSortDirection] = useState("asc");
 
   useEffect(() => {
     fetch("https://artificerhealth.com/payer_publication_status.json")
@@ -214,23 +234,90 @@ function ComplianceTracker() {
   const generatedAt = data?.generated_at || data?.generatedAt || data?.timestamp || null;
   const totalCount = data?.count || payers.length;
 
+  const isPublished = (p) => p.published === true || p.published === "true" || p.status === "published";
+  const isMachineReadable = (p) => p.machine_readable === true || p.machine_readable === "true";
+  const getPayerName = (p) => p.name || p.payer || p.organization || "Unknown";
+  const getUrl = (p) => p.url || p.source_url || p.link || null;
+  const getLastUpdate = (p) => p.last_update || p.last_updated || p.updated_at || null;
+
+  // Compliance snapshot calculations
+  const totalPayers = payers.length;
+  const publishedCount = payers.filter(p => isPublished(p)).length;
+  const notPublishedCount = totalPayers - publishedCount;
+  const machineReadableCount = payers.filter(p => isMachineReadable(p)).length;
+
+  // Weekly status: payers published AND updated within past 7 days
+  const now = new Date();
+  const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+  const recentlyUpdated = payers.filter(p => {
+    if (!isPublished(p)) return false;
+    const lastUp = getLastUpdate(p);
+    if (!lastUp) return false;
+    const d = new Date(lastUp);
+    return !isNaN(d.getTime()) && d >= sevenDaysAgo;
+  });
+  const weeklyCount = recentlyUpdated.length;
+
   const filtered = payers.filter(p => {
-    const name = (p.name || p.payer || p.organization || "").toLowerCase();
+    const name = getPayerName(p).toLowerCase();
     if (search && !name.includes(search.toLowerCase())) return false;
-    const isPublished = p.published === true || p.published === "true" || p.status === "published";
-    if (statusFilter === "published" && !isPublished) return false;
-    if (statusFilter === "not_published" && isPublished) return false;
-    const isMR = p.machine_readable === true || p.machine_readable === "true";
-    if (mrFilter === "yes" && !isMR) return false;
-    if (mrFilter === "no" && isMR) return false;
+    const pub = isPublished(p);
+    if (statusFilter === "published" && !pub) return false;
+    if (statusFilter === "not_published" && pub) return false;
+    const mr = isMachineReadable(p);
+    if (mrFilter === "yes" && !mr) return false;
+    if (mrFilter === "no" && mr) return false;
     return true;
   });
 
-  const getPayerName = (p) => p.name || p.payer || p.organization || "Unknown";
-  const isPublished = (p) => p.published === true || p.published === "true" || p.status === "published";
-  const isMachineReadable = (p) => p.machine_readable === true || p.machine_readable === "true";
-  const getUrl = (p) => p.url || p.source_url || p.link || null;
-  const getLastUpdate = (p) => p.last_update || p.last_updated || p.updated_at || null;
+  // Sort after filtering
+  const sorted = sortKey
+    ? [...filtered].sort((a, b) => {
+        let aVal, bVal;
+        if (sortKey === "payer") {
+          aVal = getPayerName(a).toLowerCase();
+          bVal = getPayerName(b).toLowerCase();
+        } else if (sortKey === "status") {
+          aVal = isPublished(a) ? 1 : 0;
+          bVal = isPublished(b) ? 1 : 0;
+        } else if (sortKey === "machine_readable") {
+          aVal = isMachineReadable(a) ? 1 : 0;
+          bVal = isMachineReadable(b) ? 1 : 0;
+        } else if (sortKey === "last_updated") {
+          const da = getLastUpdate(a);
+          const db = getLastUpdate(b);
+          aVal = da ? new Date(da).getTime() : 0;
+          bVal = db ? new Date(db).getTime() : 0;
+        }
+        if (aVal < bVal) return sortDirection === "asc" ? -1 : 1;
+        if (aVal > bVal) return sortDirection === "asc" ? 1 : -1;
+        return 0;
+      })
+    : filtered;
+
+  const handleSort = (key) => {
+    if (sortKey === key) {
+      setSortDirection(d => d === "asc" ? "desc" : "asc");
+    } else {
+      setSortKey(key);
+      setSortDirection("asc");
+    }
+  };
+
+  const SortIndicator = ({ col }) => {
+    if (sortKey !== col) return <span style={{ color: "rgba(255,255,255,0.3)", marginLeft: 4 }}>↕</span>;
+    return <span style={{ marginLeft: 4 }}>{sortDirection === "asc" ? "↑" : "↓"}</span>;
+  };
+
+  const thStyle = (col) => ({
+    padding: "10px 14px",
+    textAlign: col === "payer" ? "left" : "center",
+    fontWeight: 600,
+    fontSize: 12,
+    cursor: "pointer",
+    userSelect: "none",
+    whiteSpace: "nowrap",
+  });
 
   const selectStyle = { padding: "8px 12px", borderRadius: 6, border: "1px solid #d1d5db", background: "#fff", fontSize: 12, color: "#1a365d", cursor: "pointer" };
 
@@ -240,11 +327,43 @@ function ComplianceTracker() {
         <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 16 }}>
           On March 31, 2026, health plans were required to begin publicly reporting prior authorization data under CMS rule CMS-0057-F. This tracker monitors which payers have published their data and whether it is machine-readable.
         </div>
+
+        {/* Compliance Snapshot Card */}
+        <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 16, marginBottom: 12 }}>
+          <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: 1.5, color: "#888", fontFamily: "'IBM Plex Mono', monospace", marginBottom: 12 }}>Compliance Snapshot</div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(110px, 1fr))", gap: 12 }}>
+            {[
+              { label: "Total Payers", value: totalPayers.toLocaleString() },
+              { label: "Published", value: publishedCount.toLocaleString() },
+              { label: "Not Published", value: notPublishedCount.toLocaleString() },
+              { label: "Machine-Readable", value: machineReadableCount.toLocaleString() },
+              ...(generatedAt ? [{ label: "Dataset Refreshed", value: new Date(generatedAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) }] : []),
+            ].map((item, i) => (
+              <div key={i} style={{ padding: "10px 12px", background: "#f8fafc", borderRadius: 6, border: "1px solid #eef0f4" }}>
+                <div style={{ fontSize: 10, color: "#888", fontFamily: "'IBM Plex Mono', monospace", marginBottom: 4, lineHeight: 1.3 }}>{item.label}</div>
+                <div style={{ fontSize: 18, fontWeight: 700, color: "#1a365d", fontFamily: "'IBM Plex Mono', monospace", lineHeight: 1.2 }}>{item.value}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Weekly Status Card */}
+        <div style={{ background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: 8, padding: 14, marginBottom: 16 }}>
+          <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: 1.5, color: "#64748b", fontFamily: "'IBM Plex Mono', monospace", marginBottom: 6 }}>Weekly Status</div>
+          <div style={{ fontSize: 13, color: "#334155", lineHeight: 1.6 }}>
+            {weeklyCount > 0
+              ? `${weeklyCount} newly published payer report${weeklyCount === 1 ? "" : "s"} detected in the latest refresh.`
+              : "No newly published payer reports detected in the latest refresh."
+            }
+          </div>
+        </div>
+
         <div style={{ padding: 14, background: "#f0f4f8", border: "1px solid #e2e8f0", borderRadius: 8, marginBottom: 16, fontSize: 12, color: "#555", lineHeight: 1.6 }}>
           <strong>Regularly updated.</strong>
           {generatedAt && <span> Last dataset refresh: {new Date(generatedAt).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}.</span>}
           <span> Tracking {totalCount.toLocaleString()} payers.</span>
         </div>
+
         <input
           type="text"
           placeholder="Search payers..."
@@ -264,11 +383,12 @@ function ComplianceTracker() {
             <option value="no">Not machine-readable</option>
           </select>
           <div style={{ display: "flex", alignItems: "center", fontSize: 12, color: "#888", fontFamily: "'IBM Plex Mono', monospace", marginLeft: "auto" }}>
-            {filtered.length.toLocaleString()} of {totalCount.toLocaleString()} payers
+            {sorted.length.toLocaleString()} of {totalCount.toLocaleString()} payers
           </div>
         </div>
       </div>
-      {filtered.length === 0 ? (
+
+      {sorted.length === 0 ? (
         <div style={{ padding: 28, background: "#f7f8fa", border: "1px solid #e2e8f0", borderRadius: 10, textAlign: "center", color: "#999", fontSize: 13 }}>
           No payers match your current search or filters.
         </div>
@@ -277,15 +397,23 @@ function ComplianceTracker() {
           <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 600, fontSize: 13 }}>
             <thead>
               <tr style={{ background: "#1a365d", color: "#fff" }}>
-                <th style={{ padding: "10px 14px", textAlign: "left", fontWeight: 600, fontSize: 12 }}>Payer</th>
-                <th style={{ padding: "10px 14px", textAlign: "center", fontWeight: 600, fontSize: 12 }}>Status</th>
-                <th style={{ padding: "10px 14px", textAlign: "center", fontWeight: 600, fontSize: 12 }}>Machine-readable</th>
+                <th style={thStyle("payer")} onClick={() => handleSort("payer")}>
+                  Payer <SortIndicator col="payer" />
+                </th>
+                <th style={thStyle("status")} onClick={() => handleSort("status")}>
+                  Status <SortIndicator col="status" />
+                </th>
+                <th style={thStyle("machine_readable")} onClick={() => handleSort("machine_readable")}>
+                  Machine-readable <SortIndicator col="machine_readable" />
+                </th>
                 <th style={{ padding: "10px 14px", textAlign: "center", fontWeight: 600, fontSize: 12 }}>Source</th>
-                <th style={{ padding: "10px 14px", textAlign: "center", fontWeight: 600, fontSize: 12 }}>Last Updated</th>
+                <th style={thStyle("last_updated")} onClick={() => handleSort("last_updated")}>
+                  Last Updated <SortIndicator col="last_updated" />
+                </th>
               </tr>
             </thead>
             <tbody>
-              {filtered.map((p, i) => {
+              {sorted.map((p, i) => {
                 const pub = isPublished(p);
                 const mr = isMachineReadable(p);
                 const url = getUrl(p);
@@ -453,7 +581,10 @@ function MetricsPage({ onNavigate }) {
           </div>
           {[...CY2025_DATA].sort((a, b) => a.insurer.localeCompare(b.insurer)).map((plan, i) => (
             <div key={i} style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 18, marginBottom: 10 }}>
-              <div style={{ fontWeight: 700, fontSize: 20, color: "#1a365d", marginBottom: 10 }}>{plan.insurer}</div>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 10, flexWrap: "wrap", marginBottom: 10 }}>
+                <div style={{ fontWeight: 700, fontSize: 20, color: "#1a365d" }}>{plan.insurer}</div>
+                <DataStatusPill status={plan.dataStatus} />
+              </div>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginBottom: 12 }}>
                 <div style={{ padding: 10, background: "#f7f8fa", borderRadius: 6, border: "1px solid #eef0f4" }}>
                   <div style={{ fontSize: 10, color: "#888", fontFamily: "'IBM Plex Mono', monospace", marginBottom: 2 }}>Approval Rate</div>
@@ -679,6 +810,8 @@ function ContactPage({ onNavigate }) {
   );
 }
 
+const TRUST_BADGES = ["Independent", "Source-linked", "Regularly updated", "No payer sponsorship"];
+
 export default function PriorAuthIndex() {
   const [status, setStatus] = useState(null);
   const [page, setPage] = useState("home");
@@ -809,11 +942,28 @@ export default function PriorAuthIndex() {
         <div style={{ maxWidth: 720, margin: "0 auto" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
             <div style={{ width: 18, height: 3, background: "#1a365d", borderRadius: 2 }} />
-            <span style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: 2.5, color: "#1a365d", fontWeight: 700, fontFamily: "'IBM Plex Mono', monospace" }}>Public Database</span>
+            <span style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: 2.5, color: "#1a365d", fontWeight: 700, fontFamily: "'IBM Plex Mono', monospace" }}>Independent Data Index</span>
           </div>
           <h1 style={{ fontSize: 30, fontWeight: 700, lineHeight: 1.15, margin: 0, color: "#1a365d" }}>The PriorAuth Index</h1>
           <p style={{ color: "#333", fontSize: 14, marginTop: 10, lineHeight: 1.5, maxWidth: 580, fontWeight: 500 }}>A free, centralized database of health plan prior authorization metrics. Comparable and sourced from public data.</p>
           <p style={{ color: "#aaa", fontSize: 10, marginTop: 10, fontFamily: "'IBM Plex Mono', monospace" }}>Created by Ashley Murray | Updated monthly | Last updated April 2026</p>
+          {/* Trust Badges */}
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 14 }}>
+            {TRUST_BADGES.map((badge) => (
+              <span key={badge} style={{
+                background: "#fff",
+                border: "1px solid #dbe3ec",
+                color: "#1a365d",
+                fontSize: 11,
+                fontFamily: "'IBM Plex Mono', monospace",
+                borderRadius: 999,
+                padding: "5px 9px",
+                display: "inline-block",
+              }}>
+                {badge}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
 
