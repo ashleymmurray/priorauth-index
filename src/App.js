@@ -1027,7 +1027,7 @@ export default function PriorAuthIndex() {
           </div>
           <h1 style={{ fontSize: 30, fontWeight: 700, lineHeight: 1.15, margin: 0, color: "#1a365d" }}>The PriorAuth Index</h1>
           <p style={{ color: "#333", fontSize: 14, marginTop: 10, lineHeight: 1.5, maxWidth: 580, fontWeight: 500 }}>A free, centralized database of health plan prior authorization metrics. Comparable and sourced from public data.</p>
-          <p style={{ color: "#aaa", fontSize: 10, marginTop: 10, fontFamily: "'IBM Plex Mono', monospace" }}>Created by Ashley Murray | Updated monthly | Last updated April 2026</p>
+          <p style={{ color: "#aaa", fontSize: 10, marginTop: 10, fontFamily: "'IBM Plex Mono', monospace" }}>Created by Ashley Murray | Updated monthly | Last updated May 2026</p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 14 }}>
             {TRUST_BADGES.map((badge) => (
               <span key={badge} style={{ background: "#fff", border: "1px solid #dbe3ec", color: "#1a365d", fontSize: 11, fontFamily: "'IBM Plex Mono', monospace", borderRadius: 999, padding: "5px 9px", display: "inline-block" }}>{badge}</span>
