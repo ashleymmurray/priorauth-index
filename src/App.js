@@ -42,6 +42,146 @@ const CY2025_DATA = [
   { insurer: "Wyoming Medicaid HCBS (Standard Requests)", approvalRate: 100.0, denialRate: 0.0, avgDecisionTime: "<24 hours", note: "2025 prior authorization metrics. Standard prior authorizations approved: 100%. Denied: 0%. No expedited process reported.", sourceLabel: "Wyoming Medicaid Prior Authorization Metrics 2025 (PDF)", sourceUrl: "https://health.wyo.gov/healthcarefin/medicaid/cms-interoperability-prior-authorization-rule-compliance/", dataStatus: "CMS disclosure" },
 ];
 
+// ─── INSIGHTS DATA ────────────────────────────────────────────────────────────
+
+const SECTION_HEADINGS = [
+  "What CMS Actually Required",
+  "What the Data Actually Shows",
+  "The Concentration Problem",
+  "Why This Matters Beyond the Numbers",
+  "What This Actually Means",
+];
+
+const SUB_HEADINGS = [
+  "Category 1: No page exists at all.",
+  "Category 2: A page exists but contains the wrong data.",
+  "Category 3: A page exists but is functionally inaccessible.",
+  "Category 4: The data exists but is not machine-readable or comparable.",
+];
+
+const INSIGHTS_POSTS = [
+  {
+    slug: "prior-auth-transparency-is-live",
+    title: "Prior Auth Transparency Is Live. Most of It Isn't Usable.",
+    date: "April 2026",
+    readTime: "8 min read",
+    excerpt: "Original analysis from 1,300+ health plan entries on what is actually missing from the first year of CMS prior authorization transparency reporting.",
+    content: `CMS required health plans to publish prior authorization metrics for the first time ever. Approval rates. Denial rates. Decision timelines. Appeal outcomes. All of it, publicly available, by March 31, 2026.
+
+The reporting deadline has passed. The data now technically exists.
+
+So I built a database to track it across 1,300+ health plan entries. What I found was far messier than the mandate implied.
+
+What CMS Actually Required
+
+Before getting into what plans published, it helps to understand what they were supposed to publish.
+
+Under the 2024 CMS Interoperability and Prior Authorization Final Rule (CMS-0057-F), impacted payers, including Medicare Advantage organizations, Medicaid managed care plans, CHIP managed care entities, and qualified health plan issuers on the federal exchanges, were required to publicly post the following metrics for calendar year 2025 by March 31, 2026:
+
+The percentage of standard prior authorization requests approved. The percentage denied. The percentage approved after appeal. The percentage of expedited requests approved and denied. Average decision timeframes.
+
+That is a specific, defined list. Not vague. Not open to interpretation. A plan either published those numbers or it did not.
+
+Most have not.
+
+What the Data Actually Shows
+
+Over 90% of plans in the dataset have not published usable prior authorization metrics. But that number only tells part of the story, because non-compliance is not one thing. It is several things, and they are worth separating.
+
+Category 1: No page exists at all.
+
+Some plans have nothing. No URL, no page, no attempt. The requirement exists, the deadline passed, and the page does not. This is the most straightforward category, and it is the largest one.
+
+Category 2: A page exists but contains the wrong data.
+
+This is where it gets interesting. Some plans have published something, just not prior authorization metrics. Machine-readable pricing files. Provider directories. General transparency pages that technically exist but contain none of the required fields. When you open the link, there is no approval rate. No denial rate. No decision timeline. No appeal outcome. The requirement gets satisfied on paper. The data does not exist.
+
+Category 3: A page exists but is functionally inaccessible.
+
+Some pages fail to load consistently. Some return errors. A page that cannot be accessed by the public is not a public page, regardless of what the URL says.
+
+Category 4: The data exists but is not machine-readable or comparable.
+
+Even among plans that published the right metrics, the format varies wildly. Some published clean HTML tables. Some published nine-page PDFs with metrics buried in footnotes. Some published numbers without definitions, so you cannot tell whether their denial rate includes partial denials, administrative denials, or only clinical denials. The number exists. What it means is unclear.
+
+This is where the gap between a publication standard and a usability standard becomes real.
+
+The Concentration Problem
+
+Then there is the issue that changes how you read the compliant plans entirely.
+
+Among the plans that have published usable data, a disproportionate share traces back to a single underlying source. UnitedHealthcare, Optum, Peoples Health, and related entities frequently reference the same prior authorization reporting page across dozens of separate contract IDs. Every contract that points to that page gets counted as a separate published plan in a surface level tracker.
+
+On paper: broad coverage across many plans. In practice: one dataset, counted many times.
+
+This is not necessarily a violation. A payer can legally centralize reporting across contracts. But it means the number of published plans is not the same as the number of unique usable datasets. Those are very different things, and conflating them produces a distorted picture of how much actual information is available to the public.
+
+The PriorAuth Index does not count it that way. When multiple contracts point back to the same underlying source, that dataset is represented once. Not once per contract ID.
+
+Why This Matters Beyond the Numbers
+
+For patients, the transparency requirement was supposed to make plan comparison possible. Which plan approves more requests? How long do decisions take? What happens when something gets denied? These are not abstract questions. They are the questions people ask when they are choosing coverage or fighting a denial. The data was supposed to start answering them. For the vast majority of plans, it does not.
+
+For providers and healthtech builders, the dataset that exists is mostly empty and partially distorted. The plans that have published usable data are not necessarily the plans creating the most administrative burden. The ones with the heaviest PA volume may be exactly the ones that have not published anything.
+
+The structural problem is this: the mandate set a publication standard, not a usability standard. A placeholder page satisfies the same regulatory requirement as a clean, complete, machine-readable table. Until CMS defines what usable looks like and enforces against it, the incentive is to publish something rather than something meaningful. That distinction is what the PriorAuth Index exists to surface.
+
+What This Actually Means
+
+The current state of prior authorization transparency is not simply a refusal to comply. In many cases, plans are attempting to assemble reporting pipelines from fragmented legacy systems that were never designed to produce this data publicly. For smaller plans especially, the engineering lift is real. The deadline was not realistic for everyone.
+
+But the result is the same regardless of the reason. A mandate that required transparency produced a dataset that is mostly unavailable, partially duplicated, and difficult to interpret without significant cleanup work.
+
+Published does not mean usable. Usable does not mean comparable. And comparable does not mean the whole story.
+
+We are at step one. The data is starting to exist. Making it mean something is the work that comes next. That is what The PriorAuth Index is here to do.
+
+The PriorAuth Index tracks prior authorization transparency data across 1,300+ health plans and is updated as new data becomes available. If you want ongoing analysis of prior authorization transparency data in your inbox, the newsletter launches in July. The waitlist is open on the site.`,
+  },
+];
+
+// ─── ARTICLE RENDERER ────────────────────────────────────────────────────────
+
+function ArticleBody({ content }) {
+  const lines = content.split("\n").map(l => l.trim()).filter(l => l.length > 0);
+  return (
+    <div style={{ maxWidth: 680, margin: "0 auto" }}>
+      {lines.map((line, i) => {
+        if (SECTION_HEADINGS.includes(line)) {
+          return (
+            <h2 key={i} style={{
+              fontSize: 19, fontWeight: 700, color: "#1a365d",
+              marginTop: 36, marginBottom: 14, lineHeight: 1.3,
+              fontFamily: "'IBM Plex Sans', sans-serif",
+              borderTop: "2px solid #e2e8f0", paddingTop: 24,
+            }}>
+              {line}
+            </h2>
+          );
+        }
+        if (SUB_HEADINGS.includes(line)) {
+          return (
+            <h3 key={i} style={{
+              fontSize: 14, fontWeight: 700, color: "#1a365d",
+              marginTop: 22, marginBottom: 8, lineHeight: 1.4,
+              fontFamily: "'IBM Plex Sans', sans-serif",
+            }}>
+              {line}
+            </h3>
+          );
+        }
+        return (
+          <p key={i} style={{ fontSize: 15, color: "#2d3748", lineHeight: 1.8, marginBottom: 18, marginTop: 0 }}>
+            {line}
+          </p>
+        );
+      })}
+    </div>
+  );
+}
+
+// ─── SHARED COMPONENTS ───────────────────────────────────────────────────────
+
 function Bar({ rate, max = 30 }) {
   const w = Math.min((rate / max) * 100, 100);
   const c = rate > 20 ? "#dc2626" : rate > 10 ? "#ea580c" : rate > 7 ? "#d97706" : "#16a34a";
@@ -83,20 +223,16 @@ function Collapsible({ title, children }) {
 function DataStatusPill({ status }) {
   return (
     <span style={{
-      background: "#f0f4f8",
-      border: "1px solid #dbe3ec",
-      color: "#1a365d",
-      fontSize: 10,
-      fontFamily: "'IBM Plex Mono', monospace",
-      borderRadius: 999,
-      padding: "4px 8px",
-      whiteSpace: "nowrap",
-      flexShrink: 0,
+      background: "#f0f4f8", border: "1px solid #dbe3ec", color: "#1a365d",
+      fontSize: 10, fontFamily: "'IBM Plex Mono', monospace", borderRadius: 999,
+      padding: "4px 8px", whiteSpace: "nowrap", flexShrink: 0,
     }}>
       {status}
     </span>
   );
 }
+
+// ─── COMPARE SECTION ─────────────────────────────────────────────────────────
 
 function CompareSection() {
   const allPlans = [
@@ -186,6 +322,8 @@ function CompareSection() {
   );
 }
 
+// ─── COMPLIANCE TRACKER ──────────────────────────────────────────────────────
+
 function ComplianceTracker() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -198,18 +336,9 @@ function ComplianceTracker() {
 
   useEffect(() => {
     fetch("https://artificerhealth.com/payer_publication_status.json")
-      .then(res => {
-        if (!res.ok) throw new Error("Failed to fetch");
-        return res.json();
-      })
-      .then(json => {
-        setData(json);
-        setLoading(false);
-      })
-      .catch(() => {
-        setError(true);
-        setLoading(false);
-      });
+      .then(res => { if (!res.ok) throw new Error("Failed to fetch"); return res.json(); })
+      .then(json => { setData(json); setLoading(false); })
+      .catch(() => { setError(true); setLoading(false); });
   }, []);
 
   if (loading) {
@@ -221,13 +350,8 @@ function ComplianceTracker() {
       </div>
     );
   }
-
   if (error) {
-    return (
-      <div style={{ padding: 40, textAlign: "center", color: "#888", fontSize: 14, background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8 }}>
-        Unable to load compliance data right now.
-      </div>
-    );
+    return <div style={{ padding: 40, textAlign: "center", color: "#888", fontSize: 14, background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8 }}>Unable to load compliance data right now.</div>;
   }
 
   const payers = Array.isArray(data) ? data : (data?.payers || data?.data || []);
@@ -240,23 +364,20 @@ function ComplianceTracker() {
   const getUrl = (p) => p.url || p.source_url || p.link || null;
   const getLastUpdate = (p) => p.last_update || p.last_updated || p.updated_at || null;
 
-  // Compliance snapshot calculations
   const totalPayers = payers.length;
   const publishedCount = payers.filter(p => isPublished(p)).length;
   const notPublishedCount = totalPayers - publishedCount;
   const machineReadableCount = payers.filter(p => isMachineReadable(p)).length;
 
-  // Weekly status: payers published AND updated within past 7 days
   const now = new Date();
   const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-  const recentlyUpdated = payers.filter(p => {
+  const weeklyCount = payers.filter(p => {
     if (!isPublished(p)) return false;
     const lastUp = getLastUpdate(p);
     if (!lastUp) return false;
     const d = new Date(lastUp);
     return !isNaN(d.getTime()) && d >= sevenDaysAgo;
-  });
-  const weeklyCount = recentlyUpdated.length;
+  }).length;
 
   const filtered = payers.filter(p => {
     const name = getPayerName(p).toLowerCase();
@@ -270,24 +391,15 @@ function ComplianceTracker() {
     return true;
   });
 
-  // Sort after filtering
   const sorted = sortKey
     ? [...filtered].sort((a, b) => {
         let aVal, bVal;
-        if (sortKey === "payer") {
-          aVal = getPayerName(a).toLowerCase();
-          bVal = getPayerName(b).toLowerCase();
-        } else if (sortKey === "status") {
-          aVal = isPublished(a) ? 1 : 0;
-          bVal = isPublished(b) ? 1 : 0;
-        } else if (sortKey === "machine_readable") {
-          aVal = isMachineReadable(a) ? 1 : 0;
-          bVal = isMachineReadable(b) ? 1 : 0;
-        } else if (sortKey === "last_updated") {
-          const da = getLastUpdate(a);
-          const db = getLastUpdate(b);
-          aVal = da ? new Date(da).getTime() : 0;
-          bVal = db ? new Date(db).getTime() : 0;
+        if (sortKey === "payer") { aVal = getPayerName(a).toLowerCase(); bVal = getPayerName(b).toLowerCase(); }
+        else if (sortKey === "status") { aVal = isPublished(a) ? 1 : 0; bVal = isPublished(b) ? 1 : 0; }
+        else if (sortKey === "machine_readable") { aVal = isMachineReadable(a) ? 1 : 0; bVal = isMachineReadable(b) ? 1 : 0; }
+        else if (sortKey === "last_updated") {
+          const da = getLastUpdate(a); const db = getLastUpdate(b);
+          aVal = da ? new Date(da).getTime() : 0; bVal = db ? new Date(db).getTime() : 0;
         }
         if (aVal < bVal) return sortDirection === "asc" ? -1 : 1;
         if (aVal > bVal) return sortDirection === "asc" ? 1 : -1;
@@ -296,12 +408,8 @@ function ComplianceTracker() {
     : filtered;
 
   const handleSort = (key) => {
-    if (sortKey === key) {
-      setSortDirection(d => d === "asc" ? "desc" : "asc");
-    } else {
-      setSortKey(key);
-      setSortDirection("asc");
-    }
+    if (sortKey === key) setSortDirection(d => d === "asc" ? "desc" : "asc");
+    else { setSortKey(key); setSortDirection("asc"); }
   };
 
   const SortIndicator = ({ col }) => {
@@ -309,16 +417,7 @@ function ComplianceTracker() {
     return <span style={{ marginLeft: 4 }}>{sortDirection === "asc" ? "↑" : "↓"}</span>;
   };
 
-  const thStyle = (col) => ({
-    padding: "10px 14px",
-    textAlign: col === "payer" ? "left" : "center",
-    fontWeight: 600,
-    fontSize: 12,
-    cursor: "pointer",
-    userSelect: "none",
-    whiteSpace: "nowrap",
-  });
-
+  const thStyle = (col) => ({ padding: "10px 14px", textAlign: col === "payer" ? "left" : "center", fontWeight: 600, fontSize: 12, cursor: "pointer", userSelect: "none", whiteSpace: "nowrap" });
   const selectStyle = { padding: "8px 12px", borderRadius: 6, border: "1px solid #d1d5db", background: "#fff", fontSize: 12, color: "#1a365d", cursor: "pointer" };
 
   return (
@@ -328,7 +427,6 @@ function ComplianceTracker() {
           On March 31, 2026, health plans were required to begin publicly reporting prior authorization data under CMS rule CMS-0057-F. This tracker monitors which payers have published their data and whether it is machine-readable.
         </div>
 
-        {/* Compliance Snapshot Card */}
         <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 16, marginBottom: 12 }}>
           <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: 1.5, color: "#888", fontFamily: "'IBM Plex Mono', monospace", marginBottom: 12 }}>Compliance Snapshot</div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(110px, 1fr))", gap: 12 }}>
@@ -347,14 +445,10 @@ function ComplianceTracker() {
           </div>
         </div>
 
-        {/* Weekly Status Card */}
         <div style={{ background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: 8, padding: 14, marginBottom: 16 }}>
           <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: 1.5, color: "#64748b", fontFamily: "'IBM Plex Mono', monospace", marginBottom: 6 }}>Weekly Status</div>
           <div style={{ fontSize: 13, color: "#334155", lineHeight: 1.6 }}>
-            {weeklyCount > 0
-              ? `${weeklyCount} newly published payer report${weeklyCount === 1 ? "" : "s"} detected in the latest refresh.`
-              : "No newly published payer reports detected in the latest refresh."
-            }
+            {weeklyCount > 0 ? `${weeklyCount} newly published payer report${weeklyCount === 1 ? "" : "s"} detected in the latest refresh.` : "No newly published payer reports detected in the latest refresh."}
           </div>
         </div>
 
@@ -364,13 +458,8 @@ function ComplianceTracker() {
           <span> Tracking {totalCount.toLocaleString()} payers.</span>
         </div>
 
-        <input
-          type="text"
-          placeholder="Search payers..."
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-          style={{ width: "100%", padding: "10px 14px", borderRadius: 6, border: "1px solid #d1d5db", background: "#fff", fontSize: 13, color: "#1a365d", marginBottom: 12, boxSizing: "border-box" }}
-        />
+        <input type="text" placeholder="Search payers..." value={search} onChange={e => setSearch(e.target.value)}
+          style={{ width: "100%", padding: "10px 14px", borderRadius: 6, border: "1px solid #d1d5db", background: "#fff", fontSize: 13, color: "#1a365d", marginBottom: 12, boxSizing: "border-box" }} />
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 16 }}>
           <select value={statusFilter} onChange={e => setStatusFilter(e.target.value)} style={selectStyle}>
             <option value="all">All statuses</option>
@@ -389,57 +478,34 @@ function ComplianceTracker() {
       </div>
 
       {sorted.length === 0 ? (
-        <div style={{ padding: 28, background: "#f7f8fa", border: "1px solid #e2e8f0", borderRadius: 10, textAlign: "center", color: "#999", fontSize: 13 }}>
-          No payers match your current search or filters.
-        </div>
+        <div style={{ padding: 28, background: "#f7f8fa", border: "1px solid #e2e8f0", borderRadius: 10, textAlign: "center", color: "#999", fontSize: 13 }}>No payers match your current search or filters.</div>
       ) : (
         <div style={{ overflowX: "auto", borderRadius: 8, border: "1px solid #e2e8f0" }}>
           <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 600, fontSize: 13 }}>
             <thead>
               <tr style={{ background: "#1a365d", color: "#fff" }}>
-                <th style={thStyle("payer")} onClick={() => handleSort("payer")}>
-                  Payer <SortIndicator col="payer" />
-                </th>
-                <th style={thStyle("status")} onClick={() => handleSort("status")}>
-                  Status <SortIndicator col="status" />
-                </th>
-                <th style={thStyle("machine_readable")} onClick={() => handleSort("machine_readable")}>
-                  Machine-readable <SortIndicator col="machine_readable" />
-                </th>
+                <th style={thStyle("payer")} onClick={() => handleSort("payer")}>Payer <SortIndicator col="payer" /></th>
+                <th style={thStyle("status")} onClick={() => handleSort("status")}>Status <SortIndicator col="status" /></th>
+                <th style={thStyle("machine_readable")} onClick={() => handleSort("machine_readable")}>Machine-readable <SortIndicator col="machine_readable" /></th>
                 <th style={{ padding: "10px 14px", textAlign: "center", fontWeight: 600, fontSize: 12 }}>Source</th>
-                <th style={thStyle("last_updated")} onClick={() => handleSort("last_updated")}>
-                  Last Updated <SortIndicator col="last_updated" />
-                </th>
+                <th style={thStyle("last_updated")} onClick={() => handleSort("last_updated")}>Last Updated <SortIndicator col="last_updated" /></th>
               </tr>
             </thead>
             <tbody>
               {sorted.map((p, i) => {
-                const pub = isPublished(p);
-                const mr = isMachineReadable(p);
-                const url = getUrl(p);
-                const lastUp = getLastUpdate(p);
+                const pub = isPublished(p); const mr = isMachineReadable(p);
+                const url = getUrl(p); const lastUp = getLastUpdate(p);
                 return (
                   <tr key={i} style={{ background: i % 2 === 0 ? "#fff" : "#fafbfc", borderBottom: "1px solid #eef0f4" }}>
                     <td style={{ padding: "10px 14px", fontWeight: 500, color: "#1a365d" }}>{getPayerName(p)}</td>
                     <td style={{ padding: "10px 14px", textAlign: "center" }}>
-                      <span style={{
-                        display: "inline-block", padding: "3px 10px", borderRadius: 4, fontSize: 11, fontWeight: 600,
-                        fontFamily: "'IBM Plex Mono', monospace",
-                        background: pub ? "#dcfce7" : "#fee2e2",
-                        color: pub ? "#166534" : "#991b1b"
-                      }}>
+                      <span style={{ display: "inline-block", padding: "3px 10px", borderRadius: 4, fontSize: 11, fontWeight: 600, fontFamily: "'IBM Plex Mono', monospace", background: pub ? "#dcfce7" : "#fee2e2", color: pub ? "#166534" : "#991b1b" }}>
                         {pub ? "Published" : "Not Published"}
                       </span>
                     </td>
-                    <td style={{ padding: "10px 14px", textAlign: "center", fontSize: 12, color: mr ? "#166534" : "#991b1b", fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600 }}>
-                      {mr ? "Yes" : "No"}
-                    </td>
+                    <td style={{ padding: "10px 14px", textAlign: "center", fontSize: 12, color: mr ? "#166534" : "#991b1b", fontFamily: "'IBM Plex Mono', monospace", fontWeight: 600 }}>{mr ? "Yes" : "No"}</td>
                     <td style={{ padding: "10px 14px", textAlign: "center" }}>
-                      {url ? (
-                        <a href={url} target="_blank" rel="noopener noreferrer" style={{ color: "#1a365d", textDecoration: "underline", fontSize: 12, fontFamily: "'IBM Plex Mono', monospace" }}>View source</a>
-                      ) : (
-                        <span style={{ color: "#ccc" }}>&mdash;</span>
-                      )}
+                      {url ? <a href={url} target="_blank" rel="noopener noreferrer" style={{ color: "#1a365d", textDecoration: "underline", fontSize: 12, fontFamily: "'IBM Plex Mono', monospace" }}>View source</a> : <span style={{ color: "#ccc" }}>&mdash;</span>}
                     </td>
                     <td style={{ padding: "10px 14px", textAlign: "center", fontSize: 12, color: "#888", fontFamily: "'IBM Plex Mono', monospace" }}>
                       {lastUp ? new Date(lastUp).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : <span style={{ color: "#ccc" }}>&mdash;</span>}
@@ -458,6 +524,8 @@ function ComplianceTracker() {
   );
 }
 
+// ─── METRICS PAGE ────────────────────────────────────────────────────────────
+
 function MetricsPage({ onNavigate }) {
   const [activeTab, setActiveTab] = useState("denials");
   const tabs = [
@@ -470,9 +538,7 @@ function MetricsPage({ onNavigate }) {
   return (
     <div>
       <div style={{ marginBottom: 16 }}>
-        <button onClick={() => onNavigate("home")} style={{ background: "none", border: "none", color: "#1a365d", fontSize: 12, fontFamily: "'IBM Plex Mono', monospace", cursor: "pointer", textDecoration: "underline", padding: 0, marginBottom: 12, display: "block" }}>
-          &larr; Back to the Index
-        </button>
+        <button onClick={() => onNavigate("home")} style={{ background: "none", border: "none", color: "#1a365d", fontSize: 12, fontFamily: "'IBM Plex Mono', monospace", cursor: "pointer", textDecoration: "underline", padding: 0, marginBottom: 12, display: "block" }}>&larr; Back to the Index</button>
         <div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>Prior Authorization Metrics</div>
         <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6 }}>Compare denial rates, appeal success, and published 2025 metrics across major U.S. health plans.</div>
       </div>
@@ -499,13 +565,7 @@ function MetricsPage({ onNavigate }) {
 
       <div style={{ display: "flex", gap: 0, marginBottom: 20, borderRadius: 8, overflow: "hidden", border: "1px solid #d1d5db", flexWrap: "wrap" }}>
         {tabs.map((tab, i) => (
-          <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{
-            flex: 1, minWidth: 100, padding: "12px 8px", border: "none",
-            borderRight: i < tabs.length - 1 ? "1px solid #d1d5db" : "none",
-            background: activeTab === tab.id ? "#1a365d" : "#fff",
-            color: activeTab === tab.id ? "#fff" : "#555",
-            fontSize: 12, fontWeight: 600, cursor: "pointer"
-          }}>{tab.label}</button>
+          <button key={tab.id} onClick={() => setActiveTab(tab.id)} style={{ flex: 1, minWidth: 100, padding: "12px 8px", border: "none", borderRight: i < tabs.length - 1 ? "1px solid #d1d5db" : "none", background: activeTab === tab.id ? "#1a365d" : "#fff", color: activeTab === tab.id ? "#fff" : "#555", fontSize: 12, fontWeight: 600, cursor: "pointer" }}>{tab.label}</button>
         ))}
       </div>
 
@@ -640,22 +700,19 @@ function MetricsPage({ onNavigate }) {
   );
 }
 
+// ─── NEWSLETTER PAGE ─────────────────────────────────────────────────────────
+
 function NewsletterPage({ onNavigate, status, setStatus }) {
   return (
     <div>
       <div style={{ marginBottom: 16 }}>
-        <div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", marginBottom: 4 }}>
-          The Prior Auth Report
-        </div>
-        <div style={{ fontSize: 17, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>
-          How health plans actually behave.
-        </div>
+        <div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", marginBottom: 4 }}>The Prior Auth Report</div>
+        <div style={{ fontSize: 17, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>How health plans actually behave.</div>
         <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 14 }}>
           Weekly, data-backed analysis of prior authorization trends across U.S. health plans.
           <div style={{ fontSize: 12, color: "#777", marginTop: 6 }}>Launching July 2026. Early subscribers get the first issue.</div>
         </div>
       </div>
-
       <div className="pai-embed-wrap" style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: "24px 20px", marginBottom: 20 }}>
         <form
           onSubmit={async (e) => {
@@ -663,79 +720,96 @@ function NewsletterPage({ onNavigate, status, setStatus }) {
             const email = e.target.email.value;
             setStatus("loading");
             try {
-              const res = await fetch("/api/subscribe", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email }),
-              });
+              const res = await fetch("/api/subscribe", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email }) });
               const data = await res.json();
-              if (!res.ok) {
-                setStatus("error");
-                return;
-              }
-              setStatus("success");
-              e.target.reset();
-            } catch (err) {
-              setStatus("error");
-            }
+              if (!res.ok) { setStatus("error"); return; }
+              setStatus("success"); e.target.reset();
+            } catch (err) { setStatus("error"); }
           }}
           style={{ display: "flex", flexDirection: "column", gap: 10 }}
         >
-          <input
-            name="email"
-            type="email"
-            placeholder="Enter your email"
-            required
-            style={{ padding: "12px", borderRadius: 6, border: "1px solid #d1d5db", fontSize: 14 }}
-          />
-          <button
-            type="submit"
-            style={{ padding: "12px", background: "#1a365d", color: "#fff", border: "none", borderRadius: 6, fontWeight: 600, cursor: "pointer" }}
-          >
+          <input name="email" type="email" placeholder="Enter your email" required style={{ padding: "12px", borderRadius: 6, border: "1px solid #d1d5db", fontSize: 14 }} />
+          <button type="submit" style={{ padding: "12px", background: "#1a365d", color: "#fff", border: "none", borderRadius: 6, fontWeight: 600, cursor: "pointer" }}>
             {status === "loading" ? "Joining..." : "Join the Report Waitlist"}
           </button>
-          {status === "success" && (
-            <p style={{ color: "#1a7f37", fontSize: 13, fontWeight: 500 }}>
-              You're in. First issue drops July 2026.
-            </p>
-          )}
-          {status === "error" && (
-            <p style={{ color: "red", fontSize: 13 }}>
-              Something went wrong. Try again.
-            </p>
-          )}
+          {status === "success" && <p style={{ color: "#1a7f37", fontSize: 13, fontWeight: 500 }}>You're in. First issue drops July 2026.</p>}
+          {status === "error" && <p style={{ color: "red", fontSize: 13 }}>Something went wrong. Try again.</p>}
         </form>
       </div>
-
       <div style={{ textAlign: "center", marginTop: 16 }}>
-        <button onClick={() => onNavigate("home")} style={{ background: "none", border: "none", color: "#1a365d", fontSize: 12, fontFamily: "'IBM Plex Mono', monospace", cursor: "pointer", textDecoration: "underline" }}>
-          &larr; Back to the Index
-        </button>
+        <button onClick={() => onNavigate("home")} style={{ background: "none", border: "none", color: "#1a365d", fontSize: 12, fontFamily: "'IBM Plex Mono', monospace", cursor: "pointer", textDecoration: "underline" }}>&larr; Back to the Index</button>
       </div>
     </div>
   );
 }
 
-function InsightsPage({ onNavigate }) {
-  return (
-    <div>
-      <div style={{ marginBottom: 16 }}>
-        <div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", marginBottom: 12 }}>Insights</div>
-      </div>
-      <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 20, marginBottom: 12 }}>
-        <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7 }}>
-          <p style={{ margin: 0, marginBottom: 10 }}>Insights are launching soon.</p>
-          <p style={{ margin: 0 }}>This section will include structured analysis of prior authorization trends, payer behavior, and compliance patterns as more data becomes available.</p>
+// ─── INSIGHTS PAGE ───────────────────────────────────────────────────────────
+
+function InsightsPage({ onNavigate, selectedInsight, setSelectedInsight }) {
+  if (selectedInsight) {
+    return (
+      <div>
+        <button onClick={() => setSelectedInsight(null)} style={{ background: "none", border: "none", color: "#1a365d", fontSize: 12, fontFamily: "'IBM Plex Mono', monospace", cursor: "pointer", textDecoration: "underline", padding: 0, marginBottom: 28, display: "block" }}>
+          &larr; Back to Insights
+        </button>
+        <div style={{ maxWidth: 680, margin: "0 auto" }}>
+          <div style={{ marginBottom: 28 }}>
+            <h1 style={{ fontSize: 26, fontWeight: 700, color: "#1a365d", lineHeight: 1.25, marginBottom: 12, fontFamily: "'IBM Plex Sans', sans-serif" }}>
+              {selectedInsight.title}
+            </h1>
+            <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
+              <span style={{ fontSize: 12, color: "#888", fontFamily: "'IBM Plex Mono', monospace" }}>{selectedInsight.date}</span>
+              <span style={{ fontSize: 12, color: "#ccc" }}>·</span>
+              <span style={{ fontSize: 12, color: "#888", fontFamily: "'IBM Plex Mono', monospace" }}>{selectedInsight.readTime}</span>
+            </div>
+          </div>
+          <ArticleBody content={selectedInsight.content} />
+        </div>
+        <div style={{ marginTop: 40, paddingTop: 24, borderTop: "1px solid #e2e8f0", textAlign: "center" }}>
+          <button onClick={() => setSelectedInsight(null)} style={{ background: "none", border: "none", color: "#1a365d", fontSize: 12, fontFamily: "'IBM Plex Mono', monospace", cursor: "pointer", textDecoration: "underline" }}>
+            &larr; Back to Insights
+          </button>
         </div>
       </div>
+    );
+  }
+
+  return (
+    <div>
+      <div style={{ marginBottom: 20 }}>
+        <div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>Insights</div>
+        <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6 }}>Original analysis of prior authorization trends, payer behavior, and compliance patterns.</div>
+      </div>
+      {INSIGHTS_POSTS.map((post) => (
+        <div
+          key={post.slug}
+          style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 10, padding: 24, marginBottom: 16, transition: "box-shadow 0.15s ease" }}
+          onMouseEnter={e => e.currentTarget.style.boxShadow = "0 4px 16px rgba(26,54,93,0.08)"}
+          onMouseLeave={e => e.currentTarget.style.boxShadow = "none"}
+        >
+          <div style={{ display: "flex", gap: 10, marginBottom: 10, alignItems: "center", flexWrap: "wrap" }}>
+            <span style={{ fontSize: 11, color: "#888", fontFamily: "'IBM Plex Mono', monospace" }}>{post.date}</span>
+            <span style={{ fontSize: 11, color: "#ccc" }}>·</span>
+            <span style={{ fontSize: 11, color: "#888", fontFamily: "'IBM Plex Mono', monospace" }}>{post.readTime}</span>
+          </div>
+          <div style={{ fontSize: 18, fontWeight: 700, color: "#1a365d", lineHeight: 1.3, marginBottom: 10 }}>{post.title}</div>
+          <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7, marginBottom: 18 }}>{post.excerpt}</div>
+          <button
+            onClick={() => { setSelectedInsight(post); window.scrollTo(0, 0); }}
+            style={{ background: "#1a365d", color: "#fff", border: "none", borderRadius: 6, padding: "9px 18px", fontSize: 12, fontWeight: 600, cursor: "pointer", fontFamily: "'IBM Plex Sans', sans-serif" }}
+          >
+            Read Analysis →
+          </button>
+        </div>
+      ))}
       <div style={{ textAlign: "center", marginTop: 16 }}>
-        <button onClick={() => onNavigate("home")} style={{ background: "none", border: "none", color: "#1a365d", fontSize: 12, fontFamily: "'IBM Plex Mono', monospace", cursor: "pointer", textDecoration: "underline" }}>
-          &larr; Back to the Index
-        </button>
+        <button onClick={() => onNavigate("home")} style={{ background: "none", border: "none", color: "#1a365d", fontSize: 12, fontFamily: "'IBM Plex Mono', monospace", cursor: "pointer", textDecoration: "underline" }}>&larr; Back to the Index</button>
       </div>
     </div>
   );
 }
+
+// ─── ABOUT PAGE ──────────────────────────────────────────────────────────────
 
 function AboutPage({ onNavigate }) {
   return (
@@ -774,13 +848,13 @@ function AboutPage({ onNavigate }) {
         </div>
       </div>
       <div style={{ textAlign: "center", marginTop: 16 }}>
-        <button onClick={() => onNavigate("home")} style={{ background: "none", border: "none", color: "#1a365d", fontSize: 12, fontFamily: "'IBM Plex Mono', monospace", cursor: "pointer", textDecoration: "underline" }}>
-          &larr; Back to the Index
-        </button>
+        <button onClick={() => onNavigate("home")} style={{ background: "none", border: "none", color: "#1a365d", fontSize: 12, fontFamily: "'IBM Plex Mono', monospace", cursor: "pointer", textDecoration: "underline" }}>&larr; Back to the Index</button>
       </div>
     </div>
   );
 }
+
+// ─── CONTACT PAGE ────────────────────────────────────────────────────────────
 
 function ContactPage({ onNavigate }) {
   return (
@@ -789,9 +863,7 @@ function ContactPage({ onNavigate }) {
         <div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", marginBottom: 12 }}>Contact</div>
       </div>
       <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 20, marginBottom: 12 }}>
-        <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7, marginBottom: 16 }}>
-          Have a question, correction, source, or data lead? You can reach me here.
-        </div>
+        <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7, marginBottom: 16 }}>Have a question, correction, source, or data lead? You can reach me here.</div>
         <div style={{ marginBottom: 12 }}>
           <div style={{ fontSize: 12, color: "#888", fontFamily: "'IBM Plex Mono', monospace", marginBottom: 4 }}>Email</div>
           <a href="mailto:ashley@bridgechart.com" style={{ fontSize: 13, color: "#1a365d", textDecoration: "underline", fontFamily: "'IBM Plex Mono', monospace" }}>ashley@bridgechart.com</a>
@@ -802,20 +874,23 @@ function ContactPage({ onNavigate }) {
         </div>
       </div>
       <div style={{ textAlign: "center", marginTop: 16 }}>
-        <button onClick={() => onNavigate("home")} style={{ background: "none", border: "none", color: "#1a365d", fontSize: 12, fontFamily: "'IBM Plex Mono', monospace", cursor: "pointer", textDecoration: "underline" }}>
-          &larr; Back to the Index
-        </button>
+        <button onClick={() => onNavigate("home")} style={{ background: "none", border: "none", color: "#1a365d", fontSize: 12, fontFamily: "'IBM Plex Mono', monospace", cursor: "pointer", textDecoration: "underline" }}>&larr; Back to the Index</button>
       </div>
     </div>
   );
 }
 
+// ─── CONSTANTS ───────────────────────────────────────────────────────────────
+
 const TRUST_BADGES = ["Independent", "Source-linked", "Regularly updated", "No payer sponsorship"];
+
+// ─── ROOT COMPONENT ──────────────────────────────────────────────────────────
 
 export default function PriorAuthIndex() {
   const [status, setStatus] = useState(null);
   const [page, setPage] = useState("home");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [selectedInsight, setSelectedInsight] = useState(null);
 
   const navItems = [
     { id: "home", label: "Home" },
@@ -830,6 +905,13 @@ export default function PriorAuthIndex() {
   const handleNavigate = (pageId) => {
     setPage(pageId);
     setMobileMenuOpen(false);
+    if (pageId !== "insights") setSelectedInsight(null);
+    window.scrollTo(0, 0);
+  };
+
+  const openArticle = (post) => {
+    setSelectedInsight(post);
+    setPage("insights");
     window.scrollTo(0, 0);
   };
 
@@ -838,15 +920,9 @@ export default function PriorAuthIndex() {
       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
       <style>{`
         @media (max-width: 600px) {
-          .pai-nav-desktop {
-            display: none !important;
-          }
-          .pai-nav-hamburger {
-            display: block !important;
-          }
-          .pai-embed-wrap {
-            padding: 14px 10px !important;
-          }
+          .pai-nav-desktop { display: none !important; }
+          .pai-nav-hamburger { display: block !important; }
+          .pai-embed-wrap { padding: 14px 10px !important; }
         }
       `}</style>
 
@@ -855,80 +931,37 @@ export default function PriorAuthIndex() {
         <div style={{ maxWidth: 720, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <div className="pai-nav-desktop" style={{ display: "flex", gap: 0, flexWrap: "wrap" }}>
             {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => handleNavigate(item.id)}
-                className="pai-nav-btn"
-                style={{
-                  padding: "12px 16px",
-                  background: page === item.id ? "rgba(255,255,255,0.12)" : "transparent",
-                  border: "none",
-                  borderBottom: page === item.id ? "2px solid #fff" : "2px solid transparent",
-                  color: page === item.id ? "#fff" : "rgba(255,255,255,0.65)",
-                  fontSize: 12,
-                  fontWeight: 600,
-                  cursor: "pointer",
-                  fontFamily: "'IBM Plex Sans', sans-serif",
-                  transition: "all 0.15s ease",
-                  whiteSpace: "nowrap",
-                }}
-              >
+              <button key={item.id} onClick={() => handleNavigate(item.id)} style={{
+                padding: "12px 16px",
+                background: page === item.id ? "rgba(255,255,255,0.12)" : "transparent",
+                border: "none",
+                borderBottom: page === item.id ? "2px solid #fff" : "2px solid transparent",
+                color: page === item.id ? "#fff" : "rgba(255,255,255,0.65)",
+                fontSize: 12, fontWeight: 600, cursor: "pointer",
+                fontFamily: "'IBM Plex Sans', sans-serif",
+                transition: "all 0.15s ease", whiteSpace: "nowrap",
+              }}>
                 {item.label}
               </button>
             ))}
           </div>
-
-          <button
-            className="pai-nav-hamburger"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Open navigation menu"
-            aria-expanded={mobileMenuOpen}
-            style={{
-              display: "none",
-              background: "transparent",
-              border: "none",
-              color: "#fff",
-              fontSize: 24,
-              lineHeight: 1,
-              padding: "12px 0",
-              cursor: "pointer",
-              fontFamily: "'IBM Plex Sans', sans-serif",
-            }}
-          >
+          <button className="pai-nav-hamburger" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Open navigation menu" aria-expanded={mobileMenuOpen}
+            style={{ display: "none", background: "transparent", border: "none", color: "#fff", fontSize: 24, lineHeight: 1, padding: "12px 0", cursor: "pointer" }}>
             ☰
           </button>
         </div>
 
         {mobileMenuOpen && (
-          <div style={{
-            position: "absolute",
-            top: "100%",
-            left: 0,
-            right: 0,
-            background: "#1a365d",
-            borderTop: "1px solid rgba(255,255,255,0.12)",
-            zIndex: 100,
-            boxShadow: "0 8px 18px rgba(15,23,42,0.18)"
-          }}>
+          <div style={{ position: "absolute", top: "100%", left: 0, right: 0, background: "#1a365d", borderTop: "1px solid rgba(255,255,255,0.12)", zIndex: 100, boxShadow: "0 8px 18px rgba(15,23,42,0.18)" }}>
             <div style={{ maxWidth: 720, margin: "0 auto", padding: "4px 20px 10px" }}>
               {navItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => handleNavigate(item.id)}
-                  style={{
-                    width: "100%",
-                    padding: "13px 0",
-                    background: "transparent",
-                    border: "none",
-                    borderBottom: "1px solid rgba(255,255,255,0.10)",
-                    color: page === item.id ? "#fff" : "rgba(255,255,255,0.78)",
-                    textAlign: "left",
-                    fontSize: 13,
-                    fontWeight: page === item.id ? 700 : 600,
-                    cursor: "pointer",
-                    fontFamily: "'IBM Plex Sans', sans-serif",
-                  }}
-                >
+                <button key={item.id} onClick={() => handleNavigate(item.id)} style={{
+                  width: "100%", padding: "13px 0", background: "transparent", border: "none",
+                  borderBottom: "1px solid rgba(255,255,255,0.10)",
+                  color: page === item.id ? "#fff" : "rgba(255,255,255,0.78)",
+                  textAlign: "left", fontSize: 13, fontWeight: page === item.id ? 700 : 600,
+                  cursor: "pointer", fontFamily: "'IBM Plex Sans', sans-serif",
+                }}>
                   {item.label}
                 </button>
               ))}
@@ -947,21 +980,9 @@ export default function PriorAuthIndex() {
           <h1 style={{ fontSize: 30, fontWeight: 700, lineHeight: 1.15, margin: 0, color: "#1a365d" }}>The PriorAuth Index</h1>
           <p style={{ color: "#333", fontSize: 14, marginTop: 10, lineHeight: 1.5, maxWidth: 580, fontWeight: 500 }}>A free, centralized database of health plan prior authorization metrics. Comparable and sourced from public data.</p>
           <p style={{ color: "#aaa", fontSize: 10, marginTop: 10, fontFamily: "'IBM Plex Mono', monospace" }}>Created by Ashley Murray | Updated monthly | Last updated April 2026</p>
-          {/* Trust Badges */}
           <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 14 }}>
             {TRUST_BADGES.map((badge) => (
-              <span key={badge} style={{
-                background: "#fff",
-                border: "1px solid #dbe3ec",
-                color: "#1a365d",
-                fontSize: 11,
-                fontFamily: "'IBM Plex Mono', monospace",
-                borderRadius: 999,
-                padding: "5px 9px",
-                display: "inline-block",
-              }}>
-                {badge}
-              </span>
+              <span key={badge} style={{ background: "#fff", border: "1px solid #dbe3ec", color: "#1a365d", fontSize: 11, fontFamily: "'IBM Plex Mono', monospace", borderRadius: 999, padding: "5px 9px", display: "inline-block" }}>{badge}</span>
             ))}
           </div>
         </div>
@@ -972,13 +993,41 @@ export default function PriorAuthIndex() {
         {/* HOME PAGE */}
         {page === "home" && (
           <>
+            {/* Latest Insight Feature Card */}
+            <div style={{
+              background: "#fff",
+              border: "1px solid #d1dce8",
+              borderLeft: "4px solid #1a365d",
+              borderRadius: 10,
+              padding: "22px 24px",
+              marginBottom: 24,
+              boxShadow: "0 2px 10px rgba(26,54,93,0.06)",
+            }}>
+              <div style={{ marginBottom: 12 }}>
+                <span style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: 1.8, color: "#1a365d", fontWeight: 700, fontFamily: "'IBM Plex Mono', monospace" }}>Latest Insight</span>
+              </div>
+              <div style={{ fontSize: 17, fontWeight: 700, color: "#1a365d", lineHeight: 1.3, marginBottom: 10 }}>
+                {INSIGHTS_POSTS[0].title}
+              </div>
+              <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7, marginBottom: 18 }}>
+                {INSIGHTS_POSTS[0].excerpt}
+              </div>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 10 }}>
+                <button
+                  onClick={() => openArticle(INSIGHTS_POSTS[0])}
+                  style={{ background: "#1a365d", color: "#fff", border: "none", borderRadius: 6, padding: "10px 20px", fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "'IBM Plex Sans', sans-serif" }}
+                >
+                  Read Analysis →
+                </button>
+                <span style={{ fontSize: 11, color: "#aaa", fontFamily: "'IBM Plex Mono', monospace" }}>
+                  {INSIGHTS_POSTS[0].date} · {INSIGHTS_POSTS[0].readTime}
+                </span>
+              </div>
+            </div>
+
             {/* Newsletter section */}
-            <div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", marginBottom: 4 }}>
-              The Prior Auth Report
-            </div>
-            <div style={{ fontSize: 17, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>
-              How health plans actually behave.
-            </div>
+            <div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", marginBottom: 4 }}>The Prior Auth Report</div>
+            <div style={{ fontSize: 17, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>How health plans actually behave.</div>
             <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 14 }}>
               Weekly, data-backed analysis of prior authorization trends across U.S. health plans.
               <div style={{ fontSize: 12, color: "#777", marginTop: 6 }}>Launching July 2026. Early subscribers get the first issue.</div>
@@ -990,47 +1039,20 @@ export default function PriorAuthIndex() {
                   const email = e.target.email.value;
                   setStatus("loading");
                   try {
-                    const res = await fetch("/api/subscribe", {
-                      method: "POST",
-                      headers: { "Content-Type": "application/json" },
-                      body: JSON.stringify({ email }),
-                    });
+                    const res = await fetch("/api/subscribe", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email }) });
                     const data = await res.json();
-                    if (!res.ok) {
-                      setStatus("error");
-                      return;
-                    }
-                    setStatus("success");
-                    e.target.reset();
-                  } catch (err) {
-                    setStatus("error");
-                  }
+                    if (!res.ok) { setStatus("error"); return; }
+                    setStatus("success"); e.target.reset();
+                  } catch (err) { setStatus("error"); }
                 }}
                 style={{ display: "flex", flexDirection: "column", gap: 10 }}
               >
-                <input
-                  name="email"
-                  type="email"
-                  placeholder="Enter your email"
-                  required
-                  style={{ padding: "12px", borderRadius: 6, border: "1px solid #d1d5db", fontSize: 14 }}
-                />
-                <button
-                  type="submit"
-                  style={{ padding: "12px", background: "#1a365d", color: "#fff", border: "none", borderRadius: 6, fontWeight: 600, cursor: "pointer" }}
-                >
+                <input name="email" type="email" placeholder="Enter your email" required style={{ padding: "12px", borderRadius: 6, border: "1px solid #d1d5db", fontSize: 14 }} />
+                <button type="submit" style={{ padding: "12px", background: "#1a365d", color: "#fff", border: "none", borderRadius: 6, fontWeight: 600, cursor: "pointer" }}>
                   {status === "loading" ? "Joining..." : "Join the Report Waitlist"}
                 </button>
-                {status === "success" && (
-                  <p style={{ color: "#1a7f37", fontSize: 13, fontWeight: 500 }}>
-                    You're in. First issue drops July 2026.
-                  </p>
-                )}
-                {status === "error" && (
-                  <p style={{ color: "red", fontSize: 13 }}>
-                    Something went wrong. Try again.
-                  </p>
-                )}
+                {status === "success" && <p style={{ color: "#1a7f37", fontSize: 13, fontWeight: 500 }}>You're in. First issue drops July 2026.</p>}
+                {status === "error" && <p style={{ color: "red", fontSize: 13 }}>Something went wrong. Try again.</p>}
               </form>
             </div>
 
@@ -1049,7 +1071,6 @@ export default function PriorAuthIndex() {
               No. There are hundreds of health plans in the United States. This database currently includes the major national insurers for which public data is available. It does not yet include most regional plans, smaller Medicaid managed care plans, employer-sponsored plans (which are not required to publicly report this data), or individual state-level BCBS affiliates. As more plans publish their data under the new federal reporting rule, this database will be updated. The goal is for this to grow into a comprehensive resource over time.
             </Collapsible>
 
-            {/* Why this matters */}
             <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 20, marginTop: 12, marginBottom: 12 }}>
               <div style={{ fontSize: 14, fontWeight: 700, color: "#1a365d", marginBottom: 10 }}>Why this matters</div>
               <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7 }}>
@@ -1077,52 +1098,27 @@ export default function PriorAuthIndex() {
               Built to track real-world prior authorization behavior as new data becomes available.
             </div>
 
-            {/* Metrics CTA card */}
             <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 20, marginTop: 12, marginBottom: 12 }}>
               <div style={{ fontSize: 15, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>Explore plan-level prior authorization data</div>
               <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 14 }}>Compare denial rates, appeal success, and published 2025 metrics across major U.S. health plans.</div>
-              <button
-                onClick={() => handleNavigate("metrics")}
-                style={{
-                  padding: "10px 20px",
-                  background: "#1a365d",
-                  color: "#fff",
-                  border: "none",
-                  borderRadius: 6,
-                  fontSize: 13,
-                  fontWeight: 600,
-                  cursor: "pointer",
-                  fontFamily: "'IBM Plex Sans', sans-serif",
-                }}
-              >
-                View Metrics &rarr;
+              <button onClick={() => handleNavigate("metrics")} style={{ padding: "10px 20px", background: "#1a365d", color: "#fff", border: "none", borderRadius: 6, fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "'IBM Plex Sans', sans-serif" }}>
+                View Metrics →
               </button>
             </div>
           </>
         )}
 
-        {/* METRICS PAGE */}
         {page === "metrics" && <MetricsPage onNavigate={handleNavigate} />}
-
-        {/* CMS COMPLIANCE TRACKER PAGE */}
         {page === "tracker" && <ComplianceTracker />}
-
-        {/* NEWSLETTER PAGE */}
-        {page === "newsletter" && (
-          <NewsletterPage
+        {page === "newsletter" && <NewsletterPage onNavigate={handleNavigate} status={status} setStatus={setStatus} />}
+        {page === "insights" && (
+          <InsightsPage
             onNavigate={handleNavigate}
-            status={status}
-            setStatus={setStatus}
+            selectedInsight={selectedInsight}
+            setSelectedInsight={(post) => { setSelectedInsight(post); if (post) window.scrollTo(0, 0); }}
           />
         )}
-
-        {/* INSIGHTS PAGE */}
-        {page === "insights" && <InsightsPage onNavigate={handleNavigate} />}
-
-        {/* ABOUT PAGE */}
         {page === "about" && <AboutPage onNavigate={handleNavigate} />}
-
-        {/* CONTACT PAGE */}
         {page === "contact" && <ContactPage onNavigate={handleNavigate} />}
 
         <div style={{ textAlign: "center", padding: "28px 0 0", color: "#bbb", fontSize: 10, fontFamily: "'IBM Plex Mono', monospace" }}>The PriorAuth Index | Built by Ashley Murray | 2026</div>
