@@ -112,7 +112,9 @@ Then there is the issue that changes how you read the compliant plans entirely.
 
 Among the plans that have published usable data, a disproportionate share traces back to a single underlying source. UnitedHealthcare, Optum, Peoples Health, and related entities frequently reference the same prior authorization reporting page across dozens of separate contract IDs. Every contract that points to that page gets counted as a separate published plan in a surface level tracker.
 
-On paper: broad coverage across many plans. In practice: one dataset, counted many times.
+On paper: broad coverage across many plans. 
+
+In practice: one dataset, counted many times.
 
 This is not necessarily a violation. A payer can legally centralize reporting across contracts. But it means the number of published plans is not the same as the number of unique usable datasets. Those are very different things, and conflating them produces a distorted picture of how much actual information is available to the public.
 
