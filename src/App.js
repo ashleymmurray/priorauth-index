@@ -63,7 +63,7 @@ const INSIGHTS_POSTS = [
   {
     slug: "prior-auth-transparency-is-live",
     title: "Prior Auth Transparency Is Live. Most of It Isn't Usable.",
-    date: "April 2026",
+    date: "May 11, 2026",
     readTime: "8 min read",
     excerpt: "Original analysis from 1,300+ health plan entries on what is actually missing from the first year of CMS prior authorization transparency reporting.",
     content: `CMS required health plans to publish prior authorization metrics for the first time ever. Approval rates. Denial rates. Decision timelines. Appeal outcomes. All of it, publicly available, by March 31, 2026.
@@ -138,7 +138,7 @@ Published does not mean usable. Usable does not mean comparable. And comparable 
 
 We are at step one. The data is starting to exist. Making it mean something is the work that comes next. That is what The PriorAuth Index is here to do.
 
-The PriorAuth Index tracks prior authorization transparency data across 1,300+ health plans and is updated as new data becomes available. If you want ongoing analysis of prior authorization transparency data in your inbox, the newsletter launches in July. The waitlist is open on the site.`,
+The PriorAuth Index tracks prior authorization transparency data across 1,300+ health plans and is updated as new data becomes available. If you want ongoing analysis of prior authorization transparency data in your inbox, the newsletter launches in July. The waitlist is below.`,
   },
 ];
 
@@ -745,6 +745,35 @@ function NewsletterPage({ onNavigate, status, setStatus }) {
   );
 }
 
+// ─── ARTICLE NEWSLETTER FORM (article view only) ─────────────────────────────
+
+function ArticleNewsletterForm() {
+  const [articleStatus, setArticleStatus] = useState(null);
+  return (
+    <form
+      onSubmit={async (e) => {
+        e.preventDefault();
+        const email = e.target.email.value;
+        setArticleStatus("loading");
+        try {
+          const res = await fetch("/api/subscribe", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email }) });
+          const data = await res.json();
+          if (!res.ok) { setArticleStatus("error"); return; }
+          setArticleStatus("success"); e.target.reset();
+        } catch (err) { setArticleStatus("error"); }
+      }}
+      style={{ display: "flex", flexDirection: "column", gap: 10 }}
+    >
+      <input name="email" type="email" placeholder="Enter your email" required style={{ padding: "12px", borderRadius: 6, border: "1px solid #d1d5db", fontSize: 14, textAlign: "center" }} />
+      <button type="submit" style={{ padding: "12px", background: "#1a365d", color: "#fff", border: "none", borderRadius: 6, fontWeight: 600, cursor: "pointer", fontSize: 13 }}>
+        {articleStatus === "loading" ? "Joining..." : "Join the Report Waitlist"}
+      </button>
+      {articleStatus === "success" && <p style={{ color: "#1a7f37", fontSize: 13, fontWeight: 500, margin: 0 }}>You're in. First issue drops July 2026.</p>}
+      {articleStatus === "error" && <p style={{ color: "red", fontSize: 13, margin: 0 }}>Something went wrong. Try again.</p>}
+    </form>
+  );
+}
+
 // ─── INSIGHTS PAGE ───────────────────────────────────────────────────────────
 
 function InsightsPage({ onNavigate, selectedInsight, setSelectedInsight }) {
@@ -767,7 +796,24 @@ function InsightsPage({ onNavigate, selectedInsight, setSelectedInsight }) {
           </div>
           <ArticleBody content={selectedInsight.content} />
         </div>
-        <div style={{ marginTop: 40, paddingTop: 24, borderTop: "1px solid #e2e8f0", textAlign: "center" }}>
+        {/* Article-end divider */}
+        <div style={{ marginTop: 52, borderTop: "1px solid #e2e8f0" }} />
+
+        {/* Newsletter waitlist CTA — article view only */}
+        <div style={{ maxWidth: 560, margin: "40px auto 0", background: "#fff", border: "1px solid #e2e8f0", borderRadius: 10, padding: "32px 28px", textAlign: "center" }}>
+          <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: 2, color: "#1a365d", fontWeight: 700, fontFamily: "'IBM Plex Mono', monospace", marginBottom: 12 }}>
+            The Prior Auth Report
+          </div>
+          <div style={{ fontSize: 18, fontWeight: 700, color: "#1a365d", lineHeight: 1.3, marginBottom: 10 }}>
+            Get future analysis in your inbox.
+          </div>
+          <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7, marginBottom: 22, maxWidth: 440, margin: "0 auto 22px" }}>
+            Weekly, data-backed analysis of prior authorization trends, payer behavior, compliance patterns, and emerging operational insights across U.S. health plans.
+          </div>
+          <ArticleNewsletterForm />
+        </div>
+
+        <div style={{ marginTop: 32, textAlign: "center" }}>
           <button onClick={() => setSelectedInsight(null)} style={{ background: "none", border: "none", color: "#1a365d", fontSize: 12, fontFamily: "'IBM Plex Mono', monospace", cursor: "pointer", textDecoration: "underline" }}>
             &larr; Back to Insights
           </button>
