@@ -63,7 +63,7 @@ const INSIGHTS_POSTS = [
   {
     slug: "prior-auth-transparency-is-live",
     title: "Prior Auth Transparency Is Live. Most of It Isn't Usable.",
-    date: "May 11, 2026",
+    date: "May 10, 2026",
     readTime: "8 min read",
     excerpt: "Original analysis from 1,300+ health plan entries on what is actually missing from the first year of CMS prior authorization transparency reporting.",
     content: `CMS required health plans to publish prior authorization metrics for the first time ever. Approval rates. Denial rates. Decision timelines. Appeal outcomes. All of it, publicly available, by March 31, 2026.
