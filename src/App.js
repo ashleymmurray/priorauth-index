@@ -45,11 +45,17 @@ const CY2025_DATA = [
 // ─── INSIGHTS DATA ────────────────────────────────────────────────────────────
 
 const SECTION_HEADINGS = [
+  // Older article headings
   "What CMS Actually Required",
   "What the Data Actually Shows",
   "The Concentration Problem",
   "Why This Matters Beyond the Numbers",
   "What This Actually Means",
+  // New UHC article headings
+  "What UnitedHealthcare Actually Changed",
+  "Why the Impact Depends on What Was Removed",
+  "What This Announcement Does and Does Not Address",
+  "Follow the Data",
 ];
 
 const SUB_HEADINGS = [
@@ -60,6 +66,44 @@ const SUB_HEADINGS = [
 ];
 
 const INSIGHTS_POSTS = [
+  {
+    slug: "unitedhealthcare-cutting-prior-auth-30-percent",
+    title: "UnitedHealthcare Is Cutting Prior Auth for 30% of Services. Here's What That Actually Covers.",
+    date: "May 17, 2026",
+    readTime: "6 min read",
+    excerpt: "UnitedHealthcare's 30% prior authorization reduction sounds broad, but the impact depends on the denominator: prior authorization applies to about 2% of its medical services. This analysis looks at what the announcement changes, what it does not, and why service-level reporting matters.",
+    content: `UnitedHealthcare announced it will eliminate prior authorization requirements for 30% of services by the end of 2026. That sounds like a major rollback. But the most important number is not 30%. It is the denominator underneath it. Prior authorization currently applies to about 2% of UnitedHealthcare medical services, which means the announcement affects a subset of an already narrow category.
+
+What UnitedHealthcare Actually Changed
+
+UnitedHealthcare says prior authorization applies to roughly 2% of its medical services. That context changes how the 30% figure should be read. The announcement does not mean prior authorization is being removed from 30% of all care. It means requirements are being removed from 30% of services that currently require prior authorization.
+
+The services being removed also matter. UnitedHealthcare has described prior reductions as focused on services that "already demonstrate consistent adherence to evidence-based guidelines and are almost always approved." That framing suggests the company is targeting categories where prior authorization was unlikely to change the final decision very often.
+
+UnitedHealthcare has also reported that 92% of prior authorization requests are approved, with most decisions made within 24 hours. That aggregate approval rate is useful, but limited. It does not show which services are approved quickly, which are denied more often, or where appeals are concentrated. Without service-level reporting, the overall picture is available but the distribution within it is not.
+
+Why the Impact Depends on What Was Removed
+
+For patients, this change is not meaningless. If a service no longer requires prior authorization, that removes a step between the physician's order and the patient receiving care. For routine services that were already likely to be approved, that can still reduce delays, paperwork, and uncertainty. The patient does not care whether the service was statistically low-risk from the payer's perspective. They care that they no longer have to wait for an approval that was probably coming anyway. In that sense, the announcement does improve access for some people.
+
+For providers, the operational impact is more specific. Prior authorization burden is not evenly distributed across all services. Some requests are simple and move quickly. Others require documentation gathering, follow-up calls, peer-to-peer reviews, resubmissions, and appeals. Removing routine services from review reduces total request volume. But the work associated with the most time-consuming cases is unlikely to change proportionally. A smaller number of complex requests can still consume more staff time than a larger number of routine approvals.
+
+The system-level issue is granularity. Current public reporting provides aggregate approval rates, denial rates, appeal outcomes, and decision timeframes. Those metrics are useful, but they do not show where prior authorization is creating the most strain. A plan can report a high overall approval rate while still having specific service categories that are frequently denied or appealed. Without approval and denial rates broken down by service category, procedure type, or clinical area, it is not possible to determine whether reform is reaching the areas where patients and providers experience the greatest burden.
+
+What This Announcement Does and Does Not Address
+
+Removing prior authorization from services that are almost always approved reduces unnecessary process and may improve access for the patients affected. Those are real outcomes.
+
+What it does not show is whether anything changes for complex, high-cost, or frequently contested services. Those categories, where denials are more common, appeals are more likely, and administrative burden is highest, are not addressed by this announcement. The aggregate data currently available does not identify them by name. That is the limitation this announcement makes visible.
+
+The next phase of prior authorization transparency is not just whether plans publish metrics. It is whether those metrics are specific enough to show where review requirements are still creating meaningful delay or denial. A reduction in low-complexity volume is a measurable step. Whether it corresponds to a reduction in patient or provider burden depends on data that is not yet publicly available.
+
+Follow the Data
+
+The Prior Auth Index tracks prior authorization transparency data across U.S. health plans, including published metrics, compliance status, and source-level reporting at thepriorauth.com.
+
+The Prior Auth Report launches in July 2026 with monthly, data-backed analysis of prior authorization trends across U.S. health plans. The waitlist is open on the site.`,
+  },
   {
     slug: "prior-auth-transparency-is-live",
     title: "Prior Auth Transparency Is Live. Most of It Isn't Usable.",
@@ -118,7 +162,7 @@ In practice: one dataset, counted many times.
 
 This is not necessarily a violation. A payer can legally centralize reporting across contracts. But it means the number of published plans is not the same as the number of unique usable datasets. Those are very different things, and conflating them produces a distorted picture of how much actual information is available to the public.
 
-The PriorAuth Index does not count it that way. When multiple contracts point back to the same underlying source, that dataset is represented once. Not once per contract ID.
+The Prior Auth Index does not count it that way. When multiple contracts point back to the same underlying source, that dataset is represented once. Not once per contract ID.
 
 Why This Matters Beyond the Numbers
 
@@ -126,7 +170,7 @@ For patients, the transparency requirement was supposed to make plan comparison 
 
 For providers and healthtech builders, the dataset that exists is mostly empty and partially distorted. The plans that have published usable data are not necessarily the plans creating the most administrative burden. The ones with the heaviest PA volume may be exactly the ones that have not published anything.
 
-The structural problem is this: the mandate set a publication standard, not a usability standard. A placeholder page satisfies the same regulatory requirement as a clean, complete, machine-readable table. Until CMS defines what usable looks like and enforces against it, the incentive is to publish something rather than something meaningful. That distinction is what the PriorAuth Index exists to surface.
+The structural problem is this: the mandate set a publication standard, not a usability standard. A placeholder page satisfies the same regulatory requirement as a clean, complete, machine-readable table. Until CMS defines what usable looks like and enforces against it, the incentive is to publish something rather than something meaningful. That distinction is what The Prior Auth Index exists to surface.
 
 What This Actually Means
 
@@ -136,9 +180,9 @@ But the result is the same regardless of the reason. A mandate that required tra
 
 Published does not mean usable. Usable does not mean comparable. And comparable does not mean the whole story.
 
-We are at step one. The data is starting to exist. Making it mean something is the work that comes next. That is what The PriorAuth Index is here to do.
+We are at step one. The data is starting to exist. Making it mean something is the work that comes next. That is what The Prior Auth Index is here to do.
 
-The PriorAuth Index tracks prior authorization transparency data across 1,300+ health plans and is updated as new data becomes available. If you want ongoing analysis of prior authorization transparency data in your inbox, the newsletter launches in July. The waitlist is below.`,
+The Prior Auth Index tracks prior authorization transparency data across 1,300+ health plans and is updated as new data becomes available. If you want ongoing analysis of prior authorization transparency data in your inbox, the newsletter launches in July. The waitlist is below.`,
   },
 ];
 
@@ -711,7 +755,7 @@ function NewsletterPage({ onNavigate, status, setStatus }) {
         <div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", marginBottom: 4 }}>The Prior Auth Report</div>
         <div style={{ fontSize: 17, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>How health plans actually behave.</div>
         <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 14 }}>
-          Weekly, data-backed analysis of prior authorization trends across U.S. health plans.
+          Monthly, data-backed analysis of prior authorization trends across U.S. health plans.
           <div style={{ fontSize: 12, color: "#777", marginTop: 6 }}>Launching July 2026. Early subscribers get the first issue.</div>
         </div>
       </div>
@@ -808,7 +852,7 @@ function InsightsPage({ onNavigate, selectedInsight, setSelectedInsight }) {
             Get future analysis in your inbox.
           </div>
           <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7, marginBottom: 22, maxWidth: 440, margin: "0 auto 22px" }}>
-            Weekly, data-backed analysis of prior authorization trends, payer behavior, compliance patterns, and emerging operational insights across U.S. health plans.
+            Monthly, data-backed analysis of prior authorization trends, payer behavior, compliance patterns, and emerging operational insights across U.S. health plans.
           </div>
           <ArticleNewsletterForm />
         </div>
@@ -863,12 +907,12 @@ function AboutPage({ onNavigate }) {
   return (
     <div>
       <div style={{ marginBottom: 16 }}>
-        <div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", marginBottom: 12 }}>About The PriorAuth Index</div>
+        <div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", marginBottom: 12 }}>About The Prior Auth Index</div>
       </div>
       <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 20, marginBottom: 12 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: "#1a365d", marginBottom: 10 }}>About the project</div>
         <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7 }}>
-          <p style={{ margin: 0, marginBottom: 10 }}>The PriorAuth Index is an independent project focused on making prior authorization data easier to access and understand.</p>
+          <p style={{ margin: 0, marginBottom: 10 }}>The Prior Auth Index is an independent project focused on making prior authorization data easier to access and understand.</p>
           <p style={{ margin: 0, marginBottom: 10 }}>As new federal reporting requirements roll out, health plans are starting to publish metrics on how prior authorization requests are handled. This includes approval rates, denial rates, and decision timelines.</p>
           <p style={{ margin: 0 }}>The problem is that the data is scattered, inconsistent, and not easy to compare. This index aggregates that information and presents it in a structured way.</p>
         </div>
@@ -877,7 +921,7 @@ function AboutPage({ onNavigate }) {
         <div style={{ fontSize: 14, fontWeight: 700, color: "#1a365d", marginBottom: 10 }}>Why this exists</div>
         <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7 }}>
           <p style={{ margin: 0, marginBottom: 10 }}>Prior authorization plays a major role in whether patients receive care, but there has been very little visibility into how different plans actually perform.</p>
-          <p style={{ margin: 0, marginBottom: 10 }}>The goal of The PriorAuth Index is simple:</p>
+          <p style={{ margin: 0, marginBottom: 10 }}>The goal of The Prior Auth Index is simple:</p>
           <ul style={{ margin: 0, paddingLeft: 20 }}>
             <li>make the data visible</li>
             <li>make it comparable</li>
@@ -890,7 +934,7 @@ function AboutPage({ onNavigate }) {
         <div style={{ fontSize: 14, fontWeight: 700, color: "#1a365d", marginBottom: 10 }}>About me</div>
         <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7 }}>
           <p style={{ margin: 0, marginBottom: 10 }}>My name is Ashley Murray.</p>
-          <p style={{ margin: 0, marginBottom: 10 }}>I built The PriorAuth Index because I wanted to understand how prior authorization actually works across different insurers and make that information available to other people.</p>
+          <p style={{ margin: 0, marginBottom: 10 }}>I built The Prior Auth Index because I wanted to understand how prior authorization actually works across different insurers and make that information available to other people.</p>
           <p style={{ margin: 0, marginBottom: 10 }}>I am a co-founder of BridgeChart, an early-stage healthtech startup focused on creating a universal health record platform that is not tied to any one system or provider. The goal is simple: patients own their data.</p>
           <p style={{ margin: 0 }}>I am a huge data nerd and I like working with messy systems and complex datasets that most people do not want to deal with.</p>
         </div>
@@ -1025,7 +1069,7 @@ export default function PriorAuthIndex() {
             <div style={{ width: 18, height: 3, background: "#1a365d", borderRadius: 2 }} />
             <span style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: 2.5, color: "#1a365d", fontWeight: 700, fontFamily: "'IBM Plex Mono', monospace" }}>Independent Data Index</span>
           </div>
-          <h1 style={{ fontSize: 30, fontWeight: 700, lineHeight: 1.15, margin: 0, color: "#1a365d" }}>The PriorAuth Index</h1>
+          <h1 style={{ fontSize: 30, fontWeight: 700, lineHeight: 1.15, margin: 0, color: "#1a365d" }}>The Prior Auth Index</h1>
           <p style={{ color: "#333", fontSize: 14, marginTop: 10, lineHeight: 1.5, maxWidth: 580, fontWeight: 500 }}>A free, centralized database of health plan prior authorization metrics. Comparable and sourced from public data.</p>
           <p style={{ color: "#aaa", fontSize: 10, marginTop: 10, fontFamily: "'IBM Plex Mono', monospace" }}>Created by Ashley Murray | Updated monthly | Last updated May 2026</p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 14 }}>
@@ -1077,7 +1121,7 @@ export default function PriorAuthIndex() {
             <div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", marginBottom: 4 }}>The Prior Auth Report</div>
             <div style={{ fontSize: 17, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>How health plans actually behave.</div>
             <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 14 }}>
-              Weekly, data-backed analysis of prior authorization trends across U.S. health plans.
+              Monthly, data-backed analysis of prior authorization trends across U.S. health plans.
               <div style={{ fontSize: 12, color: "#777", marginTop: 6 }}>Launching July 2026. Early subscribers get the first issue.</div>
             </div>
             <div className="pai-embed-wrap" style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: "22px 20px", marginBottom: 20 }}>
@@ -1110,7 +1154,7 @@ export default function PriorAuthIndex() {
             </div>
 
             <Collapsible title="What is this site?">
-              As of March 31, 2026, health plans are required by federal law (CMS rule CMS-0057-F) to publicly report how often they approve, deny, and overturn prior authorization requests. The problem is that each plan posts this data on its own website in its own format, making it difficult to find and nearly impossible to compare across plans. The PriorAuth Index brings that data together in one place.
+              As of March 31, 2026, health plans are required by federal law (CMS rule CMS-0057-F) to publicly report how often they approve, deny, and overturn prior authorization requests. The problem is that each plan posts this data on its own website in its own format, making it difficult to find and nearly impossible to compare across plans. The Prior Auth Index brings that data together in one place.
             </Collapsible>
             <Collapsible title="Why do some companies appear more than once?">
               Many insurance companies sell more than one type of plan. For example, UnitedHealthcare offers both <strong>Medicare Advantage</strong> plans (for people 65 and older or those with certain disabilities) and <strong>ACA Marketplace</strong> plans (for people under 65 who buy insurance through HealthCare.gov). The same company can have very different denial rates depending on the type of plan. That is why you may see a company listed under both categories with different numbers.
@@ -1124,7 +1168,7 @@ export default function PriorAuthIndex() {
               <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7 }}>
                 <p style={{ margin: 0, marginBottom: 10 }}>Prior authorization decisions directly impact whether patients receive care and how long it takes.</p>
                 <p style={{ margin: 0, marginBottom: 10 }}>For a long time, this data has not been accessible in a way that is easy to understand or compare. Even now, as reporting requirements go into effect, the data is inconsistent, fragmented, and often difficult to interpret.</p>
-                <p style={{ margin: 0 }}>The PriorAuth Index exists to make that information visible, structured, and usable so people can actually see how different plans behave.</p>
+                <p style={{ margin: 0 }}>The Prior Auth Index exists to make that information visible, structured, and usable so people can actually see how different plans behave.</p>
               </div>
             </div>
 
@@ -1169,7 +1213,7 @@ export default function PriorAuthIndex() {
         {page === "about" && <AboutPage onNavigate={handleNavigate} />}
         {page === "contact" && <ContactPage onNavigate={handleNavigate} />}
 
-        <div style={{ textAlign: "center", padding: "28px 0 0", color: "#bbb", fontSize: 10, fontFamily: "'IBM Plex Mono', monospace" }}>The PriorAuth Index | Built by Ashley Murray | 2026</div>
+        <div style={{ textAlign: "center", padding: "28px 0 0", color: "#bbb", fontSize: 10, fontFamily: "'IBM Plex Mono', monospace" }}>The Prior Auth Index | Built by Ashley Murray | 2026</div>
       </div>
     </div>
   );
