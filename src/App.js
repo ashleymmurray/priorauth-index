@@ -45,13 +45,11 @@ const CY2025_DATA = [
 // ─── INSIGHTS DATA ────────────────────────────────────────────────────────────
 
 const SECTION_HEADINGS = [
-  // Older article headings
   "What CMS Actually Required",
   "What the Data Actually Shows",
   "The Concentration Problem",
   "Why This Matters Beyond the Numbers",
   "What This Actually Means",
-  // New UHC article headings
   "What UnitedHealthcare Actually Changed",
   "Why the Impact Depends on What Was Removed",
   "What This Announcement Does and Does Not Address",
@@ -415,16 +413,6 @@ function ComplianceTracker() {
   const notPublishedCount = totalPayers - publishedCount;
   const machineReadableCount = payers.filter(p => isMachineReadable(p)).length;
 
-  const now = new Date();
-  const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-  const weeklyCount = payers.filter(p => {
-    if (!isPublished(p)) return false;
-    const lastUp = getLastUpdate(p);
-    if (!lastUp) return false;
-    const d = new Date(lastUp);
-    return !isNaN(d.getTime()) && d >= sevenDaysAgo;
-  }).length;
-
   const filtered = payers.filter(p => {
     const name = getPayerName(p).toLowerCase();
     if (search && !name.includes(search.toLowerCase())) return false;
@@ -491,10 +479,14 @@ function ComplianceTracker() {
           </div>
         </div>
 
+        {/* ── REPLACED: Weekly Status block removed. New: Data refresh status ── */}
         <div style={{ background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: 8, padding: 14, marginBottom: 16 }}>
-          <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: 1.5, color: "#64748b", fontFamily: "'IBM Plex Mono', monospace", marginBottom: 6 }}>Weekly Status</div>
-          <div style={{ fontSize: 13, color: "#334155", lineHeight: 1.6 }}>
-            {weeklyCount > 0 ? `${weeklyCount} newly published payer report${weeklyCount === 1 ? "" : "s"} detected in the latest refresh.` : "No newly published payer reports detected in the latest refresh."}
+          <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: 1.5, color: "#64748b", fontFamily: "'IBM Plex Mono', monospace", marginBottom: 6 }}>Data Refresh Status</div>
+          <div style={{ fontSize: 13, color: "#334155", lineHeight: 1.6, marginBottom: 8 }}>
+            The compliance tracker is refreshed from the latest available source file. Publication status may change as payer pages are discovered, updated, or corrected.
+          </div>
+          <div style={{ fontSize: 11, color: "#64748b", lineHeight: 1.6 }}>
+            Compliance data powered by <a href="https://artificerhealth.com" target="_blank" rel="noopener noreferrer" style={{ color: "#1a365d", textDecoration: "underline" }}>Artificer Health</a>.
           </div>
         </div>
 
@@ -563,9 +555,6 @@ function ComplianceTracker() {
           </table>
         </div>
       )}
-      <div style={{ marginTop: 16, padding: 12, background: "#fafbfc", border: "1px solid #eef0f4", borderRadius: 6, fontSize: 11, color: "#999", lineHeight: 1.7, textAlign: "center" }}>
-        Compliance data powered by <a href="https://artificerhealth.com" target="_blank" rel="noopener noreferrer" style={{ color: "#1a365d", textDecoration: "underline" }}>Artificer Health</a>
-      </div>
     </div>
   );
 }
@@ -840,10 +829,7 @@ function InsightsPage({ onNavigate, selectedInsight, setSelectedInsight }) {
           </div>
           <ArticleBody content={selectedInsight.content} />
         </div>
-        {/* Article-end divider */}
         <div style={{ marginTop: 52, borderTop: "1px solid #e2e8f0" }} />
-
-        {/* Newsletter waitlist CTA — article view only */}
         <div style={{ maxWidth: 560, margin: "40px auto 0", background: "#fff", border: "1px solid #e2e8f0", borderRadius: 10, padding: "32px 28px", textAlign: "center" }}>
           <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: 2, color: "#1a365d", fontWeight: 700, fontFamily: "'IBM Plex Mono', monospace", marginBottom: 12 }}>
             The Prior Auth Report
@@ -856,7 +842,6 @@ function InsightsPage({ onNavigate, selectedInsight, setSelectedInsight }) {
           </div>
           <ArticleNewsletterForm />
         </div>
-
         <div style={{ marginTop: 32, textAlign: "center" }}>
           <button onClick={() => setSelectedInsight(null)} style={{ background: "none", border: "none", color: "#1a365d", fontSize: 12, fontFamily: "'IBM Plex Mono', monospace", cursor: "pointer", textDecoration: "underline" }}>
             &larr; Back to Insights
@@ -1018,7 +1003,6 @@ export default function PriorAuthIndex() {
         }
       `}</style>
 
-      {/* Top nav */}
       <div style={{ background: "#1a365d", padding: "0 20px", position: "relative" }}>
         <div style={{ maxWidth: 720, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <div className="pai-nav-desktop" style={{ display: "flex", gap: 0, flexWrap: "wrap" }}>
@@ -1062,7 +1046,6 @@ export default function PriorAuthIndex() {
         )}
       </div>
 
-      {/* Header */}
       <div style={{ background: "#fff", borderBottom: "3px solid #1a365d", padding: "28px 20px 22px" }}>
         <div style={{ maxWidth: 720, margin: "0 auto" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
@@ -1082,42 +1065,27 @@ export default function PriorAuthIndex() {
 
       <div style={{ maxWidth: 720, margin: "0 auto", padding: "20px 20px 48px" }}>
 
-        {/* HOME PAGE */}
         {page === "home" && (
           <>
-            {/* Latest Insight Feature Card */}
             <div style={{
-              background: "#fff",
-              border: "1px solid #d1dce8",
-              borderLeft: "4px solid #1a365d",
-              borderRadius: 10,
-              padding: "22px 24px",
-              marginBottom: 24,
+              background: "#fff", border: "1px solid #d1dce8", borderLeft: "4px solid #1a365d",
+              borderRadius: 10, padding: "22px 24px", marginBottom: 24,
               boxShadow: "0 2px 10px rgba(26,54,93,0.06)",
             }}>
               <div style={{ marginBottom: 12 }}>
                 <span style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: 1.8, color: "#1a365d", fontWeight: 700, fontFamily: "'IBM Plex Mono', monospace" }}>Latest Insight</span>
               </div>
-              <div style={{ fontSize: 17, fontWeight: 700, color: "#1a365d", lineHeight: 1.3, marginBottom: 10 }}>
-                {INSIGHTS_POSTS[0].title}
-              </div>
-              <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7, marginBottom: 18 }}>
-                {INSIGHTS_POSTS[0].excerpt}
-              </div>
+              <div style={{ fontSize: 17, fontWeight: 700, color: "#1a365d", lineHeight: 1.3, marginBottom: 10 }}>{INSIGHTS_POSTS[0].title}</div>
+              <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7, marginBottom: 18 }}>{INSIGHTS_POSTS[0].excerpt}</div>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 10 }}>
-                <button
-                  onClick={() => openArticle(INSIGHTS_POSTS[0])}
-                  style={{ background: "#1a365d", color: "#fff", border: "none", borderRadius: 6, padding: "10px 20px", fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "'IBM Plex Sans', sans-serif" }}
-                >
+                <button onClick={() => openArticle(INSIGHTS_POSTS[0])}
+                  style={{ background: "#1a365d", color: "#fff", border: "none", borderRadius: 6, padding: "10px 20px", fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "'IBM Plex Sans', sans-serif" }}>
                   Read Analysis →
                 </button>
-                <span style={{ fontSize: 11, color: "#aaa", fontFamily: "'IBM Plex Mono', monospace" }}>
-                  {INSIGHTS_POSTS[0].date} · {INSIGHTS_POSTS[0].readTime}
-                </span>
+                <span style={{ fontSize: 11, color: "#aaa", fontFamily: "'IBM Plex Mono', monospace" }}>{INSIGHTS_POSTS[0].date} · {INSIGHTS_POSTS[0].readTime}</span>
               </div>
             </div>
 
-            {/* Newsletter section */}
             <div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", marginBottom: 4 }}>The Prior Auth Report</div>
             <div style={{ fontSize: 17, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>How health plans actually behave.</div>
             <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 14 }}>
