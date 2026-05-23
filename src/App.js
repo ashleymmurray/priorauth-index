@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Analytics } from "@vercel/analytics/react";
 
 const MA_2024 = [
   { insurer: "UnitedHealthcare", denialRate: 12.8, approvalRate: 87.2, appealOverturnRate: 80.7, sourceUrl: "https://www.kff.org/medicare/medicare-advantage-insurers-made-nearly-53-million-prior-authorization-determinations-in-2024/" },
@@ -458,7 +459,7 @@ function ComplianceTracker() {
     <div>
       <div style={{ marginBottom: 20 }}>
         <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 16 }}>
-          On March 31, 2026, health plans were required to begin publicly reporting prior authorization data under CMS rule CMS-0057-F. This tracker monitors which payers have published their data and whether it is machine-readable.
+          CMS rule CMS-0057-F required health plans to begin publicly reporting prior authorization metrics as of March 31, 2026. This tracker monitors which payers have published, whether the data is machine-readable, and where publication gaps remain. Most payers have not published usable data.
         </div>
 
         <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 16, marginBottom: 12 }}>
@@ -575,7 +576,7 @@ function MetricsPage({ onNavigate }) {
       <div style={{ marginBottom: 16 }}>
         <button onClick={() => onNavigate("home")} style={{ background: "none", border: "none", color: "#1a365d", fontSize: 12, fontFamily: "'IBM Plex Mono', monospace", cursor: "pointer", textDecoration: "underline", padding: 0, marginBottom: 12, display: "block" }}>&larr; Back to the Index</button>
         <div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>Prior Authorization Metrics</div>
-        <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6 }}>Compare denial rates, appeal success, and published 2025 metrics across major U.S. health plans.</div>
+        <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6 }}>Denial rates, appeal overturn patterns, and published 2025 disclosures across major U.S. health plans. Sourced from CMS data, KFF analysis, and individual plan reporting.</div>
       </div>
 
       <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 18, marginBottom: 16 }}>
@@ -744,7 +745,7 @@ function NewsletterPage({ onNavigate, status, setStatus }) {
         <div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", marginBottom: 4 }}>The Prior Auth Report</div>
         <div style={{ fontSize: 17, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>How health plans actually behave.</div>
         <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 14 }}>
-          Monthly, data-backed analysis of prior authorization trends across U.S. health plans.
+          Monthly analysis of prior authorization reporting patterns, payer behavior, workflow friction, and what the public data is and is not showing across U.S. health plans.
           <div style={{ fontSize: 12, color: "#777", marginTop: 6 }}>Launching July 2026. Early subscribers get the first issue.</div>
         </div>
       </div>
@@ -838,7 +839,7 @@ function InsightsPage({ onNavigate, selectedInsight, setSelectedInsight }) {
             Get future analysis in your inbox.
           </div>
           <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7, marginBottom: 22, maxWidth: 440, margin: "0 auto 22px" }}>
-            Monthly, data-backed analysis of prior authorization trends, payer behavior, compliance patterns, and emerging operational insights across U.S. health plans.
+            Monthly analysis of prior authorization reporting patterns, payer behavior, workflow friction, and what the public data does and does not show across U.S. health plans.
           </div>
           <ArticleNewsletterForm />
         </div>
@@ -855,7 +856,7 @@ function InsightsPage({ onNavigate, selectedInsight, setSelectedInsight }) {
     <div>
       <div style={{ marginBottom: 20 }}>
         <div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>Insights</div>
-        <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6 }}>Original analysis of prior authorization trends, payer behavior, and compliance patterns.</div>
+        <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6 }}>Original analysis of prior authorization reporting patterns, payer behavior, workflow fragmentation, and what the public data does and does not show.</div>
       </div>
       {INSIGHTS_POSTS.map((post) => (
         <div
@@ -897,20 +898,20 @@ function AboutPage({ onNavigate }) {
       <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 20, marginBottom: 12 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: "#1a365d", marginBottom: 10 }}>About the project</div>
         <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7 }}>
-          <p style={{ margin: 0, marginBottom: 10 }}>The Prior Auth Index is an independent project focused on making prior authorization data easier to access and understand.</p>
-          <p style={{ margin: 0, marginBottom: 10 }}>As new federal reporting requirements roll out, health plans are starting to publish metrics on how prior authorization requests are handled. This includes approval rates, denial rates, and decision timelines.</p>
-          <p style={{ margin: 0 }}>The problem is that the data is scattered, inconsistent, and not easy to compare. This index aggregates that information and presents it in a structured way.</p>
+          <p style={{ margin: 0, marginBottom: 10 }}>The Prior Auth Index is an independent project analyzing how prior authorization reporting, payer behavior patterns, and workflow fragmentation are emerging across U.S. health plans.</p>
+          <p style={{ margin: 0, marginBottom: 10 }}>Under CMS rule CMS-0057-F, health plans are now required to publicly disclose prior authorization metrics including approval rates, denial rates, appeal outcomes, and decision timelines. The reporting exists. The problem is that it is scattered across hundreds of individual plan pages, in inconsistent formats, with varying definitions.</p>
+          <p style={{ margin: 0 }}>The Prior Auth Index maps that fragmentation, interprets the patterns it surfaces, and makes the underlying structure readable across plans.</p>
         </div>
       </div>
       <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 20, marginBottom: 12 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: "#1a365d", marginBottom: 10 }}>Why this exists</div>
         <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7 }}>
-          <p style={{ margin: 0, marginBottom: 10 }}>Prior authorization plays a major role in whether patients receive care, but there has been very little visibility into how different plans actually perform.</p>
-          <p style={{ margin: 0, marginBottom: 10 }}>The goal of The Prior Auth Index is simple:</p>
+          <p style={{ margin: 0, marginBottom: 10 }}>Prior authorization shapes whether patients receive care, how long they wait, and how much administrative friction providers absorb. The public reporting mandate was supposed to make that process visible. In practice, the data exists but is difficult to interpret without significant cleanup work.</p>
+          <p style={{ margin: 0, marginBottom: 10 }}>The Prior Auth Index exists to close that gap:</p>
           <ul style={{ margin: 0, paddingLeft: 20 }}>
-            <li>make the data visible</li>
-            <li>make it comparable</li>
-            <li>make it usable</li>
+            <li>map where the reporting actually lives</li>
+            <li>surface what the data does and does not show</li>
+            <li>interpret patterns across fragmented sources</li>
           </ul>
           <p style={{ margin: 0, marginTop: 10 }}>without adding noise or distorting what is actually being reported.</p>
         </div>
@@ -919,9 +920,9 @@ function AboutPage({ onNavigate }) {
         <div style={{ fontSize: 14, fontWeight: 700, color: "#1a365d", marginBottom: 10 }}>About me</div>
         <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7 }}>
           <p style={{ margin: 0, marginBottom: 10 }}>My name is Ashley Murray.</p>
-          <p style={{ margin: 0, marginBottom: 10 }}>I built The Prior Auth Index because I wanted to understand how prior authorization actually works across different insurers and make that information available to other people.</p>
-          <p style={{ margin: 0, marginBottom: 10 }}>I am a co-founder of BridgeChart, an early-stage healthtech startup focused on creating a universal health record platform that is not tied to any one system or provider. The goal is simple: patients own their data.</p>
-          <p style={{ margin: 0 }}>I am a huge data nerd and I like working with messy systems and complex datasets that most people do not want to deal with.</p>
+          <p style={{ margin: 0, marginBottom: 10 }}>I built The Prior Auth Index to map how prior authorization actually operates across health plans, starting with the public reporting that now exists and working outward into the operational patterns underneath it.</p>
+          <p style={{ margin: 0, marginBottom: 10 }}>I am a co-founder of BridgeChart, an early-stage healthtech company focused on building a universal health record infrastructure that is not tied to any one system or provider.</p>
+          <p style={{ margin: 0 }}>I work with fragmented, messy datasets that most people do not want to deal with. That is exactly the kind of problem this space has.</p>
         </div>
       </div>
       <div style={{ textAlign: "center", marginTop: 16 }}>
@@ -959,7 +960,7 @@ function ContactPage({ onNavigate }) {
 
 // ─── CONSTANTS ───────────────────────────────────────────────────────────────
 
-const TRUST_BADGES = ["Independent", "Source-linked", "Regularly updated", "No payer sponsorship"];
+const TRUST_BADGES = ["Independent", "Source-linked", "Regularly updated", "No payer sponsorship", "Operational focus"];
 
 // ─── ROOT COMPONENT ──────────────────────────────────────────────────────────
 
@@ -1050,10 +1051,10 @@ export default function PriorAuthIndex() {
         <div style={{ maxWidth: 720, margin: "0 auto" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
             <div style={{ width: 18, height: 3, background: "#1a365d", borderRadius: 2 }} />
-            <span style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: 2.5, color: "#1a365d", fontWeight: 700, fontFamily: "'IBM Plex Mono', monospace" }}>Independent Data Index</span>
+            <span style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: 2.5, color: "#1a365d", fontWeight: 700, fontFamily: "'IBM Plex Mono', monospace" }}>Independent Operational Intelligence</span>
           </div>
           <h1 style={{ fontSize: 30, fontWeight: 700, lineHeight: 1.15, margin: 0, color: "#1a365d" }}>The Prior Auth Index</h1>
-          <p style={{ color: "#333", fontSize: 14, marginTop: 10, lineHeight: 1.5, maxWidth: 580, fontWeight: 500 }}>A free, centralized database of health plan prior authorization metrics. Comparable and sourced from public data.</p>
+          <p style={{ color: "#333", fontSize: 14, marginTop: 10, lineHeight: 1.5, maxWidth: 580, fontWeight: 500 }}>Structured analysis of prior authorization reporting, payer behavior patterns, and workflow fragmentation across U.S. health plans. Built on public data. Independent.</p>
           <p style={{ color: "#aaa", fontSize: 10, marginTop: 10, fontFamily: "'IBM Plex Mono', monospace" }}>Created by Ashley Murray | Updated monthly | Last updated May 2026</p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 14 }}>
             {TRUST_BADGES.map((badge) => (
@@ -1089,7 +1090,7 @@ export default function PriorAuthIndex() {
             <div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", marginBottom: 4 }}>The Prior Auth Report</div>
             <div style={{ fontSize: 17, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>How health plans actually behave.</div>
             <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 14 }}>
-              Monthly, data-backed analysis of prior authorization trends across U.S. health plans.
+              Monthly analysis of prior authorization reporting patterns, payer behavior, and workflow friction across U.S. health plans.
               <div style={{ fontSize: 12, color: "#777", marginTop: 6 }}>Launching July 2026. Early subscribers get the first issue.</div>
             </div>
             <div className="pai-embed-wrap" style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: "22px 20px", marginBottom: 20 }}>
@@ -1118,11 +1119,11 @@ export default function PriorAuthIndex() {
 
             <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 18, marginBottom: 8 }}>
               <div style={{ fontSize: 14, fontWeight: 700, color: "#1a365d", marginBottom: 8 }}>What is prior authorization?</div>
-              <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7 }}>Prior authorization is when your insurance company requires your doctor to get approval before providing certain treatments, procedures, or medications. The insurer reviews the request and decides whether to approve or deny it. During that time, the patient waits. Sometimes days, sometimes weeks.</div>
+              <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7 }}>Prior authorization is a requirement that physicians obtain approval from an insurer before providing certain treatments, procedures, or medications. The insurer reviews the request against published clinical criteria and approves or denies it. During that review window, the patient waits. The administrative burden of that process, and what the published reporting around it actually reveals, is what The Prior Auth Index is built to analyze.</div>
             </div>
 
             <Collapsible title="What is this site?">
-              As of March 31, 2026, health plans are required by federal law (CMS rule CMS-0057-F) to publicly report how often they approve, deny, and overturn prior authorization requests. The problem is that each plan posts this data on its own website in its own format, making it difficult to find and nearly impossible to compare across plans. The Prior Auth Index brings that data together in one place.
+              Under CMS rule CMS-0057-F, health plans are required to publicly report prior authorization metrics including approval rates, denial rates, appeal outcomes, and decision timelines. The mandate took effect March 31, 2026. The problem is that each plan posts this data differently, in different formats, at different URLs, with different definitions. The Prior Auth Index maps that fragmented reporting, interprets the patterns it surfaces, and makes the underlying structure readable across plans.
             </Collapsible>
             <Collapsible title="Why do some companies appear more than once?">
               Many insurance companies sell more than one type of plan. For example, UnitedHealthcare offers both <strong>Medicare Advantage</strong> plans (for people 65 and older or those with certain disabilities) and <strong>ACA Marketplace</strong> plans (for people under 65 who buy insurance through HealthCare.gov). The same company can have very different denial rates depending on the type of plan. That is why you may see a company listed under both categories with different numbers.
@@ -1134,33 +1135,34 @@ export default function PriorAuthIndex() {
             <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 20, marginTop: 12, marginBottom: 12 }}>
               <div style={{ fontSize: 14, fontWeight: 700, color: "#1a365d", marginBottom: 10 }}>Why this matters</div>
               <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7 }}>
-                <p style={{ margin: 0, marginBottom: 10 }}>Prior authorization decisions directly impact whether patients receive care and how long it takes.</p>
-                <p style={{ margin: 0, marginBottom: 10 }}>For a long time, this data has not been accessible in a way that is easy to understand or compare. Even now, as reporting requirements go into effect, the data is inconsistent, fragmented, and often difficult to interpret.</p>
-                <p style={{ margin: 0 }}>The Prior Auth Index exists to make that information visible, structured, and usable so people can actually see how different plans behave.</p>
+                <p style={{ margin: 0, marginBottom: 10 }}>Prior authorization reporting is now a public mandate. But public does not mean usable. Plans report in different formats, at different URLs, with inconsistent definitions and varying levels of granularity.</p>
+                <p style={{ margin: 0, marginBottom: 10 }}>The result is a fragmented dataset that is technically accessible but operationally difficult to interpret without significant cleanup work.</p>
+                <p style={{ margin: 0 }}>The Prior Auth Index maps that fragmentation, surfaces what the reporting actually shows, and identifies where the gaps between publication and usability are widest.</p>
               </div>
             </div>
 
             <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 20, marginBottom: 12 }}>
               <div style={{ fontSize: 14, fontWeight: 700, color: "#1a365d", marginBottom: 10 }}>Who this is for</div>
               <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7 }}>
-                <p style={{ margin: 0, marginBottom: 10 }}>This index is for anyone trying to understand how prior authorization works in practice:</p>
+                <p style={{ margin: 0, marginBottom: 10 }}>The Prior Auth Index is built for people who need to understand prior authorization patterns, not just read headlines about them:</p>
                 <ul style={{ margin: 0, paddingLeft: 20 }}>
-                  <li>Patients who want to know how often care is approved or denied</li>
-                  <li>Providers dealing with authorization delays and payer behavior</li>
-                  <li>Operators and founders building in healthcare</li>
-                  <li>Researchers and journalists analyzing payer trends</li>
-                  <li>Anyone who wants more transparency into how the system actually functions</li>
+                  <li>Revenue cycle and utilization management teams tracking payer behavior</li>
+                  <li>Consultants and analysts researching prior auth trends across markets</li>
+                  <li>Healthtech operators building on top of payer reporting infrastructure</li>
+                  <li>Payer strategy and contracting teams benchmarking plan performance</li>
+                  <li>Journalists and researchers studying prior authorization patterns</li>
+                  <li>Anyone who needs to interpret what the public data actually shows</li>
                 </ul>
               </div>
             </div>
 
             <div style={{ fontSize: 10, color: "#aaa", textAlign: "center", marginBottom: 12, fontFamily: "'IBM Plex Mono', monospace" }}>
-              Built to track real-world prior authorization behavior as new data becomes available.
+              Mapping prior authorization reporting patterns as the public dataset matures.
             </div>
 
             <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 20, marginTop: 12, marginBottom: 12 }}>
-              <div style={{ fontSize: 15, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>Explore plan-level prior authorization data</div>
-              <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 14 }}>Compare denial rates, appeal success, and published 2025 metrics across major U.S. health plans.</div>
+              <div style={{ fontSize: 15, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>Interpret plan-level prior authorization data</div>
+              <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 14 }}>Denial rates, appeal overturn patterns, and published 2025 metrics across major U.S. health plans — sourced and structured for comparison.</div>
               <button onClick={() => handleNavigate("metrics")} style={{ padding: "10px 20px", background: "#1a365d", color: "#fff", border: "none", borderRadius: 6, fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "'IBM Plex Sans', sans-serif" }}>
                 View Metrics →
               </button>
@@ -1183,6 +1185,7 @@ export default function PriorAuthIndex() {
 
         <div style={{ textAlign: "center", padding: "28px 0 0", color: "#bbb", fontSize: 10, fontFamily: "'IBM Plex Mono', monospace" }}>The Prior Auth Index | Built by Ashley Murray | 2026</div>
       </div>
+      <Analytics />
     </div>
   );
 }
