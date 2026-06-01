@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Analytics } from "@vercel/analytics/react";
 
 const MA_2024 = [
   { insurer: "UnitedHealthcare", denialRate: 12.8, approvalRate: 87.2, appealOverturnRate: 80.7, sourceUrl: "https://www.kff.org/medicare/medicare-advantage-insurers-made-nearly-53-million-prior-authorization-determinations-in-2024/" },
@@ -45,6 +46,13 @@ const CY2025_DATA = [
 // ─── INSIGHTS DATA ────────────────────────────────────────────────────────────
 
 const SECTION_HEADINGS = [
+  "The Work That Happens Before the Answer",
+  "The Work That Happens After the Denial",
+  "What the Published Numbers Are Not Showing",
+  "What The Appeal Process Is Really Revealing",
+  "The Denial Category Is Hiding Operational Failure",
+  "The Cost Is Not Just The Denial",
+  "Why Denial Rates Alone Are Incomplete",
   "What CMS Actually Required",
   "What the Data Actually Shows",
   "The Concentration Problem",
@@ -54,10 +62,6 @@ const SECTION_HEADINGS = [
   "Why the Impact Depends on What Was Removed",
   "What This Announcement Does and Does Not Address",
   "Follow the Data",
-  "What The Appeal Process Is Really Revealing",
-  "The Denial Category Is Hiding Operational Failure",
-  "The Cost Is Not Just The Denial",
-  "Why Denial Rates Alone Are Incomplete",
 ];
 
 const SUB_HEADINGS = [
@@ -69,86 +73,58 @@ const SUB_HEADINGS = [
 
 const INSIGHTS_POSTS = [
   {
-    slug: "the-policy-didnt-change-the-submission-did",
-    title: "The Policy Didn't Change. The Submission Did.",
-    date: "May 24, 2026",
-    readTime: "7 min read",
-    excerpt: "Interviews across payer appeals, utilization management, and provider operations revealed a recurring pattern: many overturned prior authorization denials were not reversed because policy changed, but because the submission entering review changed.",
-    content: `Across multiple interviews with people working in payer appeals, utilization management, hospital operations, and prior authorization workflow, the same operational pattern surfaced repeatedly:
+    slug: "before-the-decision-and-after-it",
+    title: "Before the Decision and After It: The Hidden Labor Cost of Prior Authorization",
+    date: "May 31, 2026",
+    readTime: "6 min read",
+    excerpt: "Across interviews with utilization management and hospital operations professionals, a recurring pattern emerged: prior authorization metrics capture outcomes, while the operational burden surrounding those outcomes remains completely invisible.",
+    content: `The public conversation about prior authorization tends to focus on a single moment: the decision. A request goes in, the payer approves it or denies it, the outcome gets recorded, and the metric gets published. But the people actually operating inside these systems describe something significantly more complicated than that.
 
-many overturned prior authorization denials were not overturned because the underlying policy changed.
+Across multiple interviews with people working in utilization management and hospital operations, two patterns kept surfacing independently — one on each side of the decision. Before the decision, administrative work is being generated at a scale the outcome data does not reflect. After the decision, a denial can trigger an entirely new layer of operational burden that remains invisible in the published metrics as well.
 
-They were overturned because the submission entering the review process changed.
+Together, those two patterns suggest that prior authorization metrics are describing outcomes while leaving much of the operational structure underneath them unseen.
 
-That distinction matters because it challenges one of the core assumptions underneath the public prior authorization conversation. The common framing is simple: provider requests care, payer denies care. But the operational reality underneath many of these cases appears significantly more fragmented than that.
+The Work That Happens Before the Answer
 
-What The Appeal Process Is Really Revealing
+Mark Tate spent years working on utilization management modernization. He described a workflow problem that sits underneath many of the prior authorization metrics being publicly discussed right now.
 
-One of the clearest patterns across these conversations was that many appeal overturns involved different submissions by the time the appeal was reviewed.
+His team reviewed 100 percent of prior authorization requests. Only about 20 percent were ever denied.
 
-Not a revised policy.
+"We are doing utilization review on 100% of all the requests," he said, "but only 20% of them are the ones that end up getting denied."
 
-Not a new interpretation of medical necessity.
+The operational question his team kept returning to was not simply why denials occur. It was whether anyone could identify the denial-likely cases upfront rather than applying the same level of review across the entire request volume.
 
-A different file.
+"Is there a way we could just identify those 20% instead of having to do 100% audit?"
 
-In many cases, the appeal process introduced clinical or administrative information that was absent from the original review pathway. That changed the context surrounding the request itself.
+Nobody had cleanly solved it. They still haven't.
 
-Operationally, that creates a very different interpretation of what an overturned denial actually represents. Publicly, overturns are often treated as evidence that the original denial was inherently incorrect. But many people working inside these workflows described something more complicated: the review process frequently changed because the information entering the process changed.
+That means for every request moving through the prior authorization process — including the large majority ultimately headed toward approval — provider offices are still gathering documentation, navigating payer-specific portals, tracking authorization status, and managing communication across multiple systems before the outcome is known. The administrative burden does not scale down to reflect the likelihood of approval. It runs at full volume regardless of where the case is headed.
 
-The same pattern surfaced from multiple directions. One conversation focused heavily on incomplete clinical documentation and missing context during the original submission. Another focused on registration errors, eligibility lag, late notifications, and missing attachments creating denials before utilization review even evaluated the request. Another separated administrative denials from clinical denials entirely, describing situations where the necessary information simply never reached the correct review pathway.
+The Work That Happens After the Denial
 
-Different roles inside the system independently pointed toward the same underlying mechanism:
+The administrative burden does not stop when the denial is issued. For hospital-based teams, a denial can become the beginning of an entirely new operational process.
 
-a meaningful amount of prior authorization friction may originate upstream of the clinical decision itself.
+One hospital operations leader described it this way:
 
-The Denial Category Is Hiding Operational Failure
+"How many extra nurses do they have to pay time to look at it again? Or admin coordinators? How many people in our revenue cycle had to touch that bill again?"
 
-One of the more revealing parts of these conversations was realizing how many different failure modes collapse into the same visible outcome of "denied."
+A single denied authorization can trigger repeated chart review, appeals workflow initiation, claim reconstruction, resubmission processes, and revenue cycle intervention. Outside vendors sometimes become involved to manage the appeal, and some take a percentage of whatever they recover.
 
-To a patient, a missing attachment looks the same as a medical necessity denial. So does an eligibility issue. So does a workflow failure. So does a late notification or incomplete submission.
+And if the denial is eventually overturned, all of that additional labor happened to reach the same final outcome that could have been reached earlier in the process.
 
-Operationally, those are entirely different events.
+What the Published Numbers Are Not Showing
 
-Some denials reflect genuine disagreement over whether clinical criteria were met. Others reflect fragmentation between portals, timelines, payer requirements, provider workflows, documentation systems, and claims infrastructure.
+The CMS prior authorization transparency mandate created public visibility into prior authorization outcomes for the first time. But the workflows underneath those outcomes are considerably more operationally complex than the reporting structure implies.
 
-Once all of those failures collapse into the same visible category, the system loses the ability to distinguish clearly between policy disagreement and operational breakdown.
+The visible metrics describe the decision itself. They do not describe the amount of administrative movement surrounding the request before the outcome was reached, or the repeated operational handling that can continue long after the decision is made.
 
-That matters because the interventions are completely different. A clinical policy dispute is not solved the same way as a fragmented submission workflow. A utilization management criteria issue is not solved the same way as missing documentation. An interoperability failure is not solved the same way as inappropriate denial behavior.
+Prior authorization analysis built entirely around approval rates, denial rates, and overturn rates risks treating the visible decision itself as the complete operational story.
 
-But much of the public conversation treats those failures as though they originate from the same source.
+It is not.
 
-The Cost Is Not Just The Denial
+The Prior Auth Report launches in late July with ongoing analysis of payer behavior, workflow burden, and the operational patterns emerging underneath prior authorization transparency data.
 
-The operational burden attached to these failures is substantial.
-
-A denied or delayed authorization can trigger repeated work across multiple teams: utilization review staff resubmitting documentation, nurses re-reviewing charts, revenue cycle teams reopening claims, appeals coordinators rebuilding packets, provider offices making repeated calls, and outside vendors becoming involved to recover payment.
-
-The same request often gets touched multiple times because the information did not move correctly the first time.
-
-That is part of why interoperability and workflow standardization kept surfacing underneath these discussions. Different payers use different portals, different submission rules, different timelines, different documentation requirements, and different review pathways. In many cases, the information required for approval already existed somewhere in the system. The infrastructure surrounding the review process failed to move it reliably enough.
-
-If a meaningful share of friction is being generated by information movement failure rather than clinical disagreement alone, then denial rates by themselves become a much less complete explanation of prior authorization behavior than they initially appear.
-
-Why Denial Rates Alone Are Incomplete
-
-The deeper these conversations went, the harder it became to treat prior authorization as a simple denial-rate story.
-
-The operational reality underneath the numbers is more fragmented than that.
-
-The criteria may already exist. The approval pathway may already exist. The clinical evidence may already exist.
-
-The system simply failed to connect the pieces reliably enough the first time.
-
-That does not mean prior authorization is functioning well. Clearly, there are serious problems throughout the system. But collapsing clinical disagreements, interoperability gaps, workflow failures, documentation issues, and administrative friction into the same narrative makes it harder to identify where the breakdowns are actually occurring.
-
-Those are not the same problem.
-
-And confusing them means the system risks solving the wrong one.
-
-The Prior Auth Index tracks prior authorization transparency data across more than 1,300 health plan entries and continues evolving as new operational patterns emerge.
-
-The Prior Auth Report launches in July with ongoing analysis of payer behavior, workflow friction, and prior authorization transparency trends.`,
+If you want structured analysis delivered directly to your inbox as this reporting landscape evolves, the newsletter waitlist is below.`,
   },
   {
     slug: "unitedhealthcare-cutting-prior-auth-30-percent",
@@ -1270,6 +1246,7 @@ export default function PriorAuthIndex() {
 
         <div style={{ textAlign: "center", padding: "28px 0 0", color: "#bbb", fontSize: 10, fontFamily: "'IBM Plex Mono', monospace" }}>The Prior Auth Index | Built by Ashley Murray | 2026</div>
       </div>
+      <Analytics />
     </div>
   );
 }
