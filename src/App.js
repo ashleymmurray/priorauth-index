@@ -37,6 +37,9 @@ const CY2025_DATA = [
   { insurer: "Alabama Medicaid (Expedited Requests)", approvalRate: 81.0, denialRate: 19.0, avgDecisionTime: "Same day", note: "2025 prior authorization metrics. Expedited prior authorizations approved: 81%. Denied: 19%. Decision time reported as same day.", sourceLabel: "Alabama Medicaid Prior Authorization Metrics 2025 (PDF)", sourceUrl: "https://medicaid.alabama.gov/content/2.0_Newsroom/2.9_CMS_Required_Reports/2.9.1_Prior_Authorization_Metrics.aspx", dataStatus: "CMS disclosure" },
   { insurer: "Security Health Plan (BadgerCare Medicaid - Standard Requests)", approvalRate: 87.7, denialRate: 12.3, avgDecisionTime: "1 day", note: "2025 prior authorization metrics. Standard prior authorizations approved: 87.7%. Denied: 12.3%. Appeals approved: 690 requests.", sourceLabel: "Security Health Plan Prior Authorization Metrics 2025 (PDF)", sourceUrl: "https://www.securityhealth.org/", dataStatus: "Plan-reported data" },
   { insurer: "Security Health Plan (BadgerCare Medicaid - Expedited Requests)", approvalRate: 92.2, denialRate: 7.8, avgDecisionTime: "0.6 days", note: "2025 prior authorization metrics. Expedited prior authorizations approved: 92.2%. Denied: 7.8%. Appeals approved: 34 requests.", sourceLabel: "Security Health Plan Prior Authorization Metrics 2025 (PDF)", sourceUrl: "https://www.securityhealth.org/", dataStatus: "Plan-reported data" },
+  { insurer: "Sendero Health Plans (TX)", approvalRate: null, denialRate: null, avgDecisionTime: "Not published", note: "Sendero's published URL resolves to a Transparency in Coverage page containing machine-readable pricing files, including in-network rates and allowed amounts. Prior authorization metrics required under CMS-0057-F, including approval rates, denial rates, decision timeframes, and appeal outcomes, were not present at the reviewed location.", sourceLabel: "Sendero Health Plans Transparency in Coverage Page", sourceUrl: "https://www.senderohealth.com/transparency", dataStatus: "No CMS-0057-F metrics found" },
+  { insurer: "Utah Medicaid FFS (Standard Requests)", approvalRate: 97.0, denialRate: 3.0, avgDecisionTime: "4.81 days", note: "2025 prior authorization metrics. Standard prior authorizations approved: ~97%. Denied: ~3%. Total standard requests: 30,072. Extended requests included: 182 approved with extension (~1%), 11 denied with extension (~0%). Appeals data not separately reported.", sourceLabel: "Utah Medicaid Prior Authorization Annual Metrics Report 2025 (PDF)", sourceUrl: "https://medicaid.utah.gov/interoperability", dataStatus: "CMS disclosure" },
+  { insurer: "Utah Medicaid FFS (Expedited Requests)", approvalRate: 98.0, denialRate: 2.0, avgDecisionTime: "4.48 days", note: "2025 prior authorization metrics. Expedited prior authorizations approved: ~98% (92 of 94 requests). Denied: ~2% (2 of 94 requests). Utah Medicaid reported an average expedited decision time of 4.48 days.", sourceLabel: "Utah Medicaid Prior Authorization Annual Metrics Report 2025 (PDF)", sourceUrl: "https://medicaid.utah.gov/interoperability", dataStatus: "CMS disclosure" },
   { insurer: "Wyoming Medicaid CME / Magellan (Standard Requests)", approvalRate: 100.0, denialRate: 0.0, avgDecisionTime: "8 calendar days", note: "2025 prior authorization metrics. Standard prior authorizations approved: 100%. Denied: 0%. No expedited requests were reported.", sourceLabel: "Wyoming Medicaid Prior Authorization Metrics 2025 (PDF)", sourceUrl: "https://health.wyo.gov/healthcarefin/medicaid/cms-interoperability-prior-authorization-rule-compliance/", dataStatus: "CMS disclosure" },
   { insurer: "Wyoming Medicaid Utilization Management (Standard Requests)", approvalRate: 87.0, denialRate: 13.0, avgDecisionTime: "3 days", note: "2025 prior authorization metrics. Standard prior authorizations approved: 87%. Denied: 13%. Appeals approved: 25%. No expedited requests reported.", sourceLabel: "Wyoming Medicaid Prior Authorization Metrics 2025 (PDF)", sourceUrl: "https://health.wyo.gov/healthcarefin/medicaid/cms-interoperability-prior-authorization-rule-compliance/", dataStatus: "CMS disclosure" },
   { insurer: "Wyoming Medicaid HCBS (Standard Requests)", approvalRate: 100.0, denialRate: 0.0, avgDecisionTime: "<24 hours", note: "2025 prior authorization metrics. Standard prior authorizations approved: 100%. Denied: 0%. No expedited process reported.", sourceLabel: "Wyoming Medicaid Prior Authorization Metrics 2025 (PDF)", sourceUrl: "https://health.wyo.gov/healthcarefin/medicaid/cms-interoperability-prior-authorization-rule-compliance/", dataStatus: "CMS disclosure" },
@@ -519,7 +522,7 @@ function ComplianceTracker() {
     <div>
       <div style={{ marginBottom: 20 }}>
         <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 16 }}>
-          CMS rule CMS-0057-F required health plans to begin publicly reporting prior authorization metrics as of March 31, 2026. This tracker monitors which payers have published, whether the data is machine-readable, and where publication gaps remain. Most payers have not published usable data.
+          CMS rule CMS-0057-F required impacted health plans to begin publicly reporting prior authorization metrics as of March 31, 2026. This tracker monitors publication status, machine-readable availability, source URLs, and remaining publication gaps.
         </div>
 
         <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 16, marginBottom: 12 }}>
@@ -544,7 +547,7 @@ function ComplianceTracker() {
         <div style={{ background: "#f8fafc", border: "1px solid #cbd5e1", borderRadius: 8, padding: 14, marginBottom: 16 }}>
           <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: 1.5, color: "#64748b", fontFamily: "'IBM Plex Mono', monospace", marginBottom: 6 }}>Data Refresh Status</div>
           <div style={{ fontSize: 13, color: "#334155", lineHeight: 1.6, marginBottom: 8 }}>
-            The compliance tracker is refreshed from the latest available source file. Publication status may change as payer pages are discovered, updated, or corrected.
+            The compliance tracker is refreshed from the latest available source file. Publication status may change as payer pages are identified, updated, or corrected.
           </div>
           <div style={{ fontSize: 11, color: "#64748b", lineHeight: 1.6 }}>
             Compliance data powered by <a href="https://artificerhealth.com" target="_blank" rel="noopener noreferrer" style={{ color: "#1a365d", textDecoration: "underline" }}>Artificer Health</a>.
@@ -636,7 +639,7 @@ function MetricsPage({ onNavigate }) {
       <div style={{ marginBottom: 16 }}>
         <button onClick={() => onNavigate("home")} style={{ background: "none", border: "none", color: "#1a365d", fontSize: 12, fontFamily: "'IBM Plex Mono', monospace", cursor: "pointer", textDecoration: "underline", padding: 0, marginBottom: 12, display: "block" }}>&larr; Back to the Index</button>
         <div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>Prior Authorization Metrics</div>
-        <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6 }}>Denial rates, appeal overturn patterns, and published 2025 disclosures across major U.S. health plans. Sourced from CMS data, KFF analysis, and individual plan reporting.</div>
+        <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6 }}>Published prior authorization metrics across major U.S. health plans, sourced from CMS data, KFF analysis, and individual plan reporting.</div>
       </div>
 
       <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 18, marginBottom: 16 }}>
@@ -667,9 +670,9 @@ function MetricsPage({ onNavigate }) {
 
       {activeTab === "denials" && (
         <div>
-          <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 20 }}>The percentage of prior authorization requests each plan denied in calendar year 2024. A higher number means more requests were rejected. Plans are listed from highest denial rate to lowest.</div>
+          <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 20 }}>The percentage of prior authorization requests denied in calendar year 2024. Plans are listed from highest denial rate to lowest.</div>
           <div style={{ background: "#1a365d", color: "#fff", padding: "10px 16px", borderRadius: "8px 8px 0 0", fontSize: 14, fontWeight: 700 }}>Medicare Advantage Plans</div>
-          <div style={{ background: "#eef2f7", padding: "6px 16px", borderBottom: "1px solid #e2e8f0", fontSize: 11, color: "#666", fontFamily: "'IBM Plex Mono', monospace" }}>For people 65+ or with certain disabilities | Calendar year 2024 | Source: KFF / CMS</div>
+          <div style={{ background: "#eef2f7", padding: "6px 16px", borderBottom: "1px solid #e2e8f0", fontSize: 11, color: "#666", fontFamily: "'IBM Plex Mono', monospace" }}>Medicare Advantage | Calendar year 2024 | Source: KFF / CMS</div>
           <div style={{ display: "flex", flexDirection: "column", gap: 1, marginBottom: 28 }}>
             {[...MA_2024].sort((a, b) => b.denialRate - a.denialRate).map((plan, i) => (
               <div key={i} style={{ background: "#fff", border: "1px solid #e2e8f0", padding: "14px 16px" }}>
@@ -679,7 +682,7 @@ function MetricsPage({ onNavigate }) {
             ))}
           </div>
           <div style={{ background: "#1a365d", color: "#fff", padding: "10px 16px", borderRadius: "8px 8px 0 0", fontSize: 14, fontWeight: 700 }}>ACA Marketplace Plans</div>
-          <div style={{ background: "#eef2f7", padding: "6px 16px", borderBottom: "1px solid #e2e8f0", fontSize: 11, color: "#666", fontFamily: "'IBM Plex Mono', monospace" }}>For people under 65 buying insurance through HealthCare.gov | Plan Year 2024 | Source: CMS Transparency in Coverage</div>
+          <div style={{ background: "#eef2f7", padding: "6px 16px", borderBottom: "1px solid #e2e8f0", fontSize: 11, color: "#666", fontFamily: "'IBM Plex Mono', monospace" }}>ACA Marketplace | Plan Year 2024 | Source: CMS Transparency in Coverage</div>
           <div style={{ display: "flex", flexDirection: "column", gap: 1 }}>
             {[...ACA_2024].sort((a, b) => b.denialRate - a.denialRate).map((plan, i) => (
               <div key={i} style={{ background: "#fff", border: "1px solid #e2e8f0", padding: "14px 16px" }}>
@@ -693,10 +696,10 @@ function MetricsPage({ onNavigate }) {
 
       {activeTab === "appeals" && (
         <div>
-          <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 12 }}>When a prior authorization request is denied, patients and providers can file an appeal asking the plan to reconsider. This shows how often those appeals succeeded, meaning the original denial was reversed. A higher percentage means more denials were overturned.</div>
+          <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 12 }}>When a prior authorization request is denied, patients and providers may file an appeal requesting reconsideration. This section reports the share of appealed denials that were overturned.</div>
           <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 20 }}>Appeal data is currently only available for Medicare Advantage plans.</div>
           <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderLeft: "4px solid #1a365d", borderRadius: 4, padding: 14, marginBottom: 20 }}>
-            <div style={{ fontSize: 13, color: "#444", lineHeight: 1.7 }}>Across all Medicare Advantage plans in 2024, <strong>80.7%</strong> of appealed denials were overturned. However, only <strong>11.5%</strong> of denied requests were ever actually appealed. This means millions of patients accepted denials that may have been reversed if challenged.</div>
+            <div style={{ fontSize: 13, color: "#444", lineHeight: 1.7 }}>Across Medicare Advantage plans in 2024, <strong>80.7%</strong> of appealed denials were overturned. <strong>11.5%</strong> of denied requests were appealed.</div>
             <div style={{ fontSize: 10, color: "#999", marginTop: 6, fontFamily: "'IBM Plex Mono', monospace" }}>Source: <a href="https://www.kff.org/medicare/medicare-advantage-insurers-made-nearly-53-million-prior-authorization-determinations-in-2024/" target="_blank" rel="noopener noreferrer" style={{ color: "#1a365d" }}>KFF, Jan 2026</a></div>
           </div>
           <div style={{ background: "#1a365d", color: "#fff", padding: "10px 16px", borderRadius: "8px 8px 0 0", fontSize: 14, fontWeight: 700 }}>Medicare Advantage Plans: Appeal Overturn Rates</div>
@@ -723,17 +726,17 @@ function MetricsPage({ onNavigate }) {
 
       {activeTab === "compare" && (
         <div>
-          <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 8 }}>Select two health plans to see how they compare. Each plan is labeled with its type so you can tell them apart, even if the same company appears in both categories.</div>
-          <div style={{ fontSize: 12, color: "#999", lineHeight: 1.6, marginBottom: 20 }}>Tip: You can compare two plans of the same type, or compare the same company across different plan types to see how their numbers differ.</div>
+          <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 8 }}>Select two health plans to compare available metrics. Each plan is labeled by plan type when the same company appears in multiple categories.</div>
+          <div style={{ fontSize: 12, color: "#999", lineHeight: 1.6, marginBottom: 20 }}>Plans may be compared within the same category or across plan types where data is available.</div>
           <CompareSection />
         </div>
       )}
 
       {activeTab === "cy2025" && (
         <div>
-          <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 12 }}>On March 31, 2026, health plans were required to begin publicly reporting their prior authorization metrics for calendar year 2025. The data below reflects what has been published so far by individual plans. This section will be updated as more plans post their reports.</div>
+          <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 12 }}>As of March 31, 2026, impacted health plans were required to publicly report prior authorization metrics for calendar year 2025. The entries below reflect metrics identified from individual plan publications and related disclosure pages.</div>
           <div style={{ padding: 14, background: "#f0f4f8", border: "1px solid #e2e8f0", borderRadius: 8, marginBottom: 20, fontSize: 12, color: "#555", lineHeight: 1.6 }}>
-            <strong>Important:</strong> The data below comes from different plan types and reporting formats. These numbers are not directly comparable to each other or to the 2024 data shown in the other tabs. A standardized comparison tool for 2025 data will be added once enough plans have reported to allow for accurate, consistent comparisons.
+            <strong>Note:</strong> The data below comes from different plan types and reporting formats. These entries should not be treated as directly comparable to each other or to the 2024 data shown in other tabs. Standardized comparison will require broader and more consistent publication across plans.
           </div>
           {[...CY2025_DATA].sort((a, b) => a.insurer.localeCompare(b.insurer)).map((plan, i) => (
             <div key={i} style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 18, marginBottom: 10 }}>
@@ -744,11 +747,11 @@ function MetricsPage({ onNavigate }) {
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, marginBottom: 12 }}>
                 <div style={{ padding: 10, background: "#f7f8fa", borderRadius: 6, border: "1px solid #eef0f4" }}>
                   <div style={{ fontSize: 10, color: "#888", fontFamily: "'IBM Plex Mono', monospace", marginBottom: 2 }}>Approval Rate</div>
-                  <div style={{ fontSize: 20, fontWeight: 700, color: "#16a34a", fontFamily: "'IBM Plex Mono', monospace" }}>{plan.approvalRate}%</div>
+                  <div style={{ fontSize: 20, fontWeight: 700, color: plan.approvalRate != null ? "#16a34a" : "#ccc", fontFamily: "'IBM Plex Mono', monospace" }}>{plan.approvalRate != null ? `${plan.approvalRate}%` : "N/A"}</div>
                 </div>
                 <div style={{ padding: 10, background: "#f7f8fa", borderRadius: 6, border: "1px solid #eef0f4" }}>
                   <div style={{ fontSize: 10, color: "#888", fontFamily: "'IBM Plex Mono', monospace", marginBottom: 2 }}>Denial Rate</div>
-                  <div style={{ fontSize: 20, fontWeight: 700, color: plan.denialRate > 15 ? "#dc2626" : plan.denialRate > 8 ? "#ea580c" : "#d97706", fontFamily: "'IBM Plex Mono', monospace" }}>{plan.denialRate}%</div>
+                  <div style={{ fontSize: 20, fontWeight: 700, color: plan.denialRate != null ? (plan.denialRate > 15 ? "#dc2626" : plan.denialRate > 8 ? "#ea580c" : "#d97706") : "#ccc", fontFamily: "'IBM Plex Mono', monospace" }}>{plan.denialRate != null ? `${plan.denialRate}%` : "N/A"}</div>
                 </div>
                 <div style={{ padding: 10, background: "#f7f8fa", borderRadius: 6, border: "1px solid #eef0f4" }}>
                   <div style={{ fontSize: 10, color: "#888", fontFamily: "'IBM Plex Mono', monospace", marginBottom: 2 }}>Avg Decision Time</div>
@@ -763,10 +766,10 @@ function MetricsPage({ onNavigate }) {
       )}
 
       <div style={{ marginTop: 32, padding: 20, background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8 }}>
-        <h3 style={{ fontSize: 15, fontWeight: 700, color: "#1a365d", marginBottom: 10 }}>Where does this data come from?</h3>
+        <h3 style={{ fontSize: 15, fontWeight: 700, color: "#1a365d", marginBottom: 10 }}>Data sources and methodology</h3>
         <div style={{ fontSize: 12, color: "#555", lineHeight: 1.8 }}>
           <p>The Denial Rates, Appeal Success, and Compare Plans tabs use <strong>calendar year 2024 data</strong>. Medicare Advantage data comes from the Kaiser Family Foundation's (KFF) analysis of CMS Medicare Advantage Prior Authorization data, published in January 2026. ACA Marketplace data comes from CMS Transparency in Coverage Public Use Files for Plan Year 2024.</p>
-          <p style={{ marginTop: 8 }}>The 2025 Data tab contains metrics that individual plans have published on their own websites to comply with CMS rule CMS-0057-F, which required plans to post calendar year 2025 metrics by March 31, 2026. This section will be updated as more plans publish their reports.</p>
+          <p style={{ marginTop: 8 }}>The 2025 Data tab contains metrics identified from individual plan publications related to CMS rule CMS-0057-F, which required impacted plans to post calendar year 2025 metrics by March 31, 2026. This section is updated as additional plan reports are identified.</p>
           <p style={{ marginTop: 8 }}>ACA Marketplace data covers in-network claims for plans sold on HealthCare.gov only and does not include employer-sponsored plans, Medicare, Medicaid, or off-marketplace plans.</p>
           <p style={{ marginTop: 8 }}><strong>BCBS note:</strong> The BCBS figure shown is a national average across 36 independent affiliates. Individual state rates vary significantly. For example, Alabama BCBS has been reported at approximately 34%, while some affiliates report below 10%.</p>
         </div>
@@ -803,9 +806,9 @@ function NewsletterPage({ onNavigate, status, setStatus }) {
     <div>
       <div style={{ marginBottom: 16 }}>
         <div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", marginBottom: 4 }}>The Prior Auth Report</div>
-        <div style={{ fontSize: 17, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>How health plans actually behave.</div>
+        <div style={{ fontSize: 17, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>Prior authorization reporting and operational patterns.</div>
         <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 14 }}>
-          Monthly analysis of prior authorization reporting patterns, payer behavior, workflow friction, and what the public data is and is not showing across U.S. health plans.
+          Monthly analysis of prior authorization reporting patterns, payer behavior, workflow variation, and public disclosure trends across U.S. health plans.
           <div style={{ fontSize: 12, color: "#777", marginTop: 6 }}>Launching July 2026. Early subscribers get the first issue.</div>
         </div>
       </div>
@@ -828,8 +831,8 @@ function NewsletterPage({ onNavigate, status, setStatus }) {
           <button type="submit" style={{ padding: "12px", background: "#1a365d", color: "#fff", border: "none", borderRadius: 6, fontWeight: 600, cursor: "pointer" }}>
             {status === "loading" ? "Joining..." : "Join the Report Waitlist"}
           </button>
-          {status === "success" && <p style={{ color: "#1a7f37", fontSize: 13, fontWeight: 500 }}>You're in. First issue drops July 2026.</p>}
-          {status === "error" && <p style={{ color: "red", fontSize: 13 }}>Something went wrong. Try again.</p>}
+          {status === "success" && <p style={{ color: "#1a7f37", fontSize: 13, fontWeight: 500 }}>Subscription confirmed. First issue scheduled for July 2026.</p>}
+          {status === "error" && <p style={{ color: "red", fontSize: 13 }}>Submission failed. Please try again.</p>}
         </form>
       </div>
       <div style={{ textAlign: "center", marginTop: 16 }}>
@@ -862,8 +865,8 @@ function ArticleNewsletterForm() {
       <button type="submit" style={{ padding: "12px", background: "#1a365d", color: "#fff", border: "none", borderRadius: 6, fontWeight: 600, cursor: "pointer", fontSize: 13 }}>
         {articleStatus === "loading" ? "Joining..." : "Join the Report Waitlist"}
       </button>
-      {articleStatus === "success" && <p style={{ color: "#1a7f37", fontSize: 13, fontWeight: 500, margin: 0 }}>You're in. First issue drops July 2026.</p>}
-      {articleStatus === "error" && <p style={{ color: "red", fontSize: 13, margin: 0 }}>Something went wrong. Try again.</p>}
+      {articleStatus === "success" && <p style={{ color: "#1a7f37", fontSize: 13, fontWeight: 500, margin: 0 }}>Subscription confirmed. First issue scheduled for July 2026.</p>}
+      {articleStatus === "error" && <p style={{ color: "red", fontSize: 13, margin: 0 }}>Submission failed. Please try again.</p>}
     </form>
   );
 }
@@ -896,10 +899,10 @@ function InsightsPage({ onNavigate, selectedInsight, setSelectedInsight }) {
             The Prior Auth Report
           </div>
           <div style={{ fontSize: 18, fontWeight: 700, color: "#1a365d", lineHeight: 1.3, marginBottom: 10 }}>
-            Get future analysis in your inbox.
+            Receive future analysis by email.
           </div>
           <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7, marginBottom: 22, maxWidth: 440, margin: "0 auto 22px" }}>
-            Monthly analysis of prior authorization reporting patterns, payer behavior, workflow friction, and what the public data does and does not show across U.S. health plans.
+            Monthly analysis of prior authorization reporting patterns, payer behavior, workflow variation, and public disclosure trends across U.S. health plans.
           </div>
           <ArticleNewsletterForm />
         </div>
@@ -916,7 +919,7 @@ function InsightsPage({ onNavigate, selectedInsight, setSelectedInsight }) {
     <div>
       <div style={{ marginBottom: 20 }}>
         <div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>Insights</div>
-        <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6 }}>Original analysis of prior authorization reporting patterns, payer behavior, workflow fragmentation, and what the public data does and does not show.</div>
+        <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6 }}>Analysis of prior authorization reporting patterns, payer behavior, workflow variation, and public disclosure limitations.</div>
       </div>
       {INSIGHTS_POSTS.map((post) => (
         <div
@@ -936,7 +939,7 @@ function InsightsPage({ onNavigate, selectedInsight, setSelectedInsight }) {
             onClick={() => { setSelectedInsight(post); window.scrollTo(0, 0); }}
             style={{ background: "#1a365d", color: "#fff", border: "none", borderRadius: 6, padding: "9px 18px", fontSize: 12, fontWeight: 600, cursor: "pointer", fontFamily: "'IBM Plex Sans', sans-serif" }}
           >
-            Read Analysis →
+            Read analysis →
           </button>
         </div>
       ))}
@@ -958,31 +961,31 @@ function AboutPage({ onNavigate }) {
       <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 20, marginBottom: 12 }}>
         <div style={{ fontSize: 14, fontWeight: 700, color: "#1a365d", marginBottom: 10 }}>About the project</div>
         <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7 }}>
-          <p style={{ margin: 0, marginBottom: 10 }}>The Prior Auth Index is an independent project analyzing how prior authorization reporting, payer behavior patterns, and workflow fragmentation are emerging across U.S. health plans.</p>
-          <p style={{ margin: 0, marginBottom: 10 }}>Under CMS rule CMS-0057-F, health plans are now required to publicly disclose prior authorization metrics including approval rates, denial rates, appeal outcomes, and decision timelines. The reporting exists. The problem is that it is scattered across hundreds of individual plan pages, in inconsistent formats, with varying definitions.</p>
-          <p style={{ margin: 0 }}>The Prior Auth Index maps that fragmentation, interprets the patterns it surfaces, and makes the underlying structure readable across plans.</p>
+          <p style={{ margin: 0, marginBottom: 10 }}>The Prior Auth Index is an independent project tracking prior authorization reporting, payer publication patterns, and workflow-related metrics across U.S. health plans.</p>
+          <p style={{ margin: 0, marginBottom: 10 }}>Under CMS rule CMS-0057-F, impacted health plans are required to publicly disclose prior authorization metrics including approval rates, denial rates, appeal outcomes, and decision timelines. Published reporting is distributed across individual plan pages, multiple file formats, and varying definitions.</p>
+          <p style={{ margin: 0 }}>The Prior Auth Index maps source locations, records publication status, and summarizes available metrics and reporting limitations across plans.</p>
         </div>
       </div>
       <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 20, marginBottom: 12 }}>
-        <div style={{ fontSize: 14, fontWeight: 700, color: "#1a365d", marginBottom: 10 }}>Why this exists</div>
+        <div style={{ fontSize: 14, fontWeight: 700, color: "#1a365d", marginBottom: 10 }}>Purpose</div>
         <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7 }}>
-          <p style={{ margin: 0, marginBottom: 10 }}>Prior authorization shapes whether patients receive care, how long they wait, and how much administrative friction providers absorb. The public reporting mandate was supposed to make that process visible. In practice, the data exists but is difficult to interpret without significant cleanup work.</p>
-          <p style={{ margin: 0, marginBottom: 10 }}>The Prior Auth Index exists to close that gap:</p>
+          <p style={{ margin: 0, marginBottom: 10 }}>Prior authorization affects coverage determinations, decision timelines, and administrative workflows. CMS-0057-F created a public reporting requirement for selected prior authorization metrics. In practice, the published data is distributed across many source locations and requires cleanup before cross-plan interpretation is possible.</p>
+          <p style={{ margin: 0, marginBottom: 10 }}>The Prior Auth Index is designed to:</p>
           <ul style={{ margin: 0, paddingLeft: 20 }}>
-            <li>map where the reporting actually lives</li>
-            <li>surface what the data does and does not show</li>
-            <li>interpret patterns across fragmented sources</li>
+            <li>map where public reporting is located</li>
+            <li>summarize which metrics are and are not available</li>
+            <li>identify patterns across fragmented public sources</li>
           </ul>
-          <p style={{ margin: 0, marginTop: 10 }}>without adding noise or distorting what is actually being reported.</p>
+          <p style={{ margin: 0, marginTop: 10 }}>while preserving source links and reported context.</p>
         </div>
       </div>
       <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 20, marginBottom: 12 }}>
-        <div style={{ fontSize: 14, fontWeight: 700, color: "#1a365d", marginBottom: 10 }}>About me</div>
+        <div style={{ fontSize: 14, fontWeight: 700, color: "#1a365d", marginBottom: 10 }}>Project maintainer</div>
         <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7 }}>
-          <p style={{ margin: 0, marginBottom: 10 }}>My name is Ashley Murray.</p>
-          <p style={{ margin: 0, marginBottom: 10 }}>I built The Prior Auth Index to map how prior authorization actually operates across health plans, starting with the public reporting that now exists and working outward into the operational patterns underneath it.</p>
-          <p style={{ margin: 0, marginBottom: 10 }}>I am a co-founder of BridgeChart, an early-stage healthtech company focused on building a universal health record infrastructure that is not tied to any one system or provider.</p>
-          <p style={{ margin: 0 }}>I work with fragmented, messy datasets that most people do not want to deal with. That is exactly the kind of problem this space has.</p>
+          <p style={{ margin: 0, marginBottom: 10 }}>The Prior Auth Index was created and is maintained by Ashley Murray.</p>
+          <p style={{ margin: 0, marginBottom: 10 }}>The project began as a source-mapping effort for public prior authorization reporting and has expanded into a tracker of publication status, source availability, and reported metrics.</p>
+          <p style={{ margin: 0, marginBottom: 10 }}>Ashley is also a co-founder of BridgeChart, an early-stage healthtech project focused on patient-controlled health record access and provider communication.</p>
+          <p style={{ margin: 0 }}>This project focuses on fragmented public reporting sources and the operational structure required to make those sources easier to review.</p>
         </div>
       </div>
       <div style={{ textAlign: "center", marginTop: 16 }}>
@@ -1001,7 +1004,7 @@ function ContactPage({ onNavigate }) {
         <div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", marginBottom: 12 }}>Contact</div>
       </div>
       <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 20, marginBottom: 12 }}>
-        <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7, marginBottom: 16 }}>Have a question, correction, source, or data lead? You can reach me here.</div>
+        <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7, marginBottom: 16 }}>For corrections, source updates, data leads, or research inquiries, use the contact information below.</div>
         <div style={{ marginBottom: 12 }}>
           <div style={{ fontSize: 12, color: "#888", fontFamily: "'IBM Plex Mono', monospace", marginBottom: 4 }}>Email</div>
           <a href="mailto:ashley@bridgechart.com" style={{ fontSize: 13, color: "#1a365d", textDecoration: "underline", fontFamily: "'IBM Plex Mono', monospace" }}>ashley@bridgechart.com</a>
@@ -1020,7 +1023,7 @@ function ContactPage({ onNavigate }) {
 
 // ─── CONSTANTS ───────────────────────────────────────────────────────────────
 
-const TRUST_BADGES = ["Independent", "Source-linked", "Regularly updated", "No payer sponsorship", "Operational focus"];
+const TRUST_BADGES = ["Independent", "Source-linked", "Regularly updated", "No payer sponsorship", "Operational reporting"];
 
 // ─── ROOT COMPONENT ──────────────────────────────────────────────────────────
 
@@ -1111,11 +1114,11 @@ export default function PriorAuthIndex() {
         <div style={{ maxWidth: 720, margin: "0 auto" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
             <div style={{ width: 18, height: 3, background: "#1a365d", borderRadius: 2 }} />
-            <span style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: 2.5, color: "#1a365d", fontWeight: 700, fontFamily: "'IBM Plex Mono', monospace" }}>Independent Operational Intelligence</span>
+            <span style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: 2.5, color: "#1a365d", fontWeight: 700, fontFamily: "'IBM Plex Mono', monospace" }}>Independent Prior Authorization Data</span>
           </div>
           <h1 style={{ fontSize: 30, fontWeight: 700, lineHeight: 1.15, margin: 0, color: "#1a365d" }}>The Prior Auth Index</h1>
-          <p style={{ color: "#333", fontSize: 14, marginTop: 10, lineHeight: 1.5, maxWidth: 580, fontWeight: 500 }}>Structured analysis of prior authorization reporting, payer behavior patterns, and workflow fragmentation across U.S. health plans. Built on public data. Independent.</p>
-          <p style={{ color: "#aaa", fontSize: 10, marginTop: 10, fontFamily: "'IBM Plex Mono', monospace" }}>Created by Ashley Murray | Updated monthly | Last updated May 2026</p>
+          <p style={{ color: "#333", fontSize: 14, marginTop: 10, lineHeight: 1.5, maxWidth: 580, fontWeight: 500 }}>Structured tracking of prior authorization reporting, payer publication patterns, and workflow-related metrics across U.S. health plans. Built from public data sources.</p>
+          <p style={{ color: "#aaa", fontSize: 10, marginTop: 10, fontFamily: "'IBM Plex Mono', monospace" }}>Created by Ashley Murray | Updated monthly | Last updated June 2026</p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 14 }}>
             {TRUST_BADGES.map((badge) => (
               <span key={badge} style={{ background: "#fff", border: "1px solid #dbe3ec", color: "#1a365d", fontSize: 11, fontFamily: "'IBM Plex Mono', monospace", borderRadius: 999, padding: "5px 9px", display: "inline-block" }}>{badge}</span>
@@ -1141,16 +1144,16 @@ export default function PriorAuthIndex() {
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 10 }}>
                 <button onClick={() => openArticle(INSIGHTS_POSTS[0])}
                   style={{ background: "#1a365d", color: "#fff", border: "none", borderRadius: 6, padding: "10px 20px", fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "'IBM Plex Sans', sans-serif" }}>
-                  Read Analysis →
+                  Read analysis →
                 </button>
                 <span style={{ fontSize: 11, color: "#aaa", fontFamily: "'IBM Plex Mono', monospace" }}>{INSIGHTS_POSTS[0].date} · {INSIGHTS_POSTS[0].readTime}</span>
               </div>
             </div>
 
             <div style={{ fontSize: 20, fontWeight: 700, color: "#1a365d", marginBottom: 4 }}>The Prior Auth Report</div>
-            <div style={{ fontSize: 17, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>How health plans actually behave.</div>
+            <div style={{ fontSize: 17, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>Prior authorization reporting and operational patterns.</div>
             <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 14 }}>
-              Monthly analysis of prior authorization reporting patterns, payer behavior, and workflow friction across U.S. health plans.
+              Monthly analysis of prior authorization reporting patterns, payer behavior, and workflow variation across U.S. health plans.
               <div style={{ fontSize: 12, color: "#777", marginTop: 6 }}>Launching July 2026. Early subscribers get the first issue.</div>
             </div>
             <div className="pai-embed-wrap" style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: "22px 20px", marginBottom: 20 }}>
@@ -1172,46 +1175,46 @@ export default function PriorAuthIndex() {
                 <button type="submit" style={{ padding: "12px", background: "#1a365d", color: "#fff", border: "none", borderRadius: 6, fontWeight: 600, cursor: "pointer" }}>
                   {status === "loading" ? "Joining..." : "Join the Report Waitlist"}
                 </button>
-                {status === "success" && <p style={{ color: "#1a7f37", fontSize: 13, fontWeight: 500 }}>You're in. First issue drops July 2026.</p>}
-                {status === "error" && <p style={{ color: "red", fontSize: 13 }}>Something went wrong. Try again.</p>}
+                {status === "success" && <p style={{ color: "#1a7f37", fontSize: 13, fontWeight: 500 }}>Subscription confirmed. First issue scheduled for July 2026.</p>}
+                {status === "error" && <p style={{ color: "red", fontSize: 13 }}>Submission failed. Please try again.</p>}
               </form>
             </div>
 
             <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 18, marginBottom: 8 }}>
               <div style={{ fontSize: 14, fontWeight: 700, color: "#1a365d", marginBottom: 8 }}>What is prior authorization?</div>
-              <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7 }}>Prior authorization is a requirement that physicians obtain approval from an insurer before providing certain treatments, procedures, or medications. The insurer reviews the request against published clinical criteria and approves or denies it. During that review window, the patient waits. The administrative burden of that process, and what the published reporting around it actually reveals, is what The Prior Auth Index is built to analyze.</div>
+              <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7 }}>Prior authorization is a requirement that clinicians obtain approval from an insurer before providing certain treatments, procedures, or medications. The insurer reviews the request against applicable criteria and issues a determination. The Prior Auth Index tracks public reporting related to this process, including approval rates, denial rates, decision timelines, appeal outcomes, and source availability.</div>
             </div>
 
             <Collapsible title="What is this site?">
-              Under CMS rule CMS-0057-F, health plans are required to publicly report prior authorization metrics including approval rates, denial rates, appeal outcomes, and decision timelines. The mandate took effect March 31, 2026. The problem is that each plan posts this data differently, in different formats, at different URLs, with different definitions. The Prior Auth Index maps that fragmented reporting, interprets the patterns it surfaces, and makes the underlying structure readable across plans.
+              Under CMS rule CMS-0057-F, impacted health plans are required to publicly report prior authorization metrics including approval rates, denial rates, appeal outcomes, and decision timelines. The Prior Auth Index tracks where this reporting is available, how it is formatted, and whether required metrics are present at the reviewed source locations.
             </Collapsible>
             <Collapsible title="Why do some companies appear more than once?">
               Many insurance companies sell more than one type of plan. For example, UnitedHealthcare offers both <strong>Medicare Advantage</strong> plans (for people 65 and older or those with certain disabilities) and <strong>ACA Marketplace</strong> plans (for people under 65 who buy insurance through HealthCare.gov). The same company can have very different denial rates depending on the type of plan. That is why you may see a company listed under both categories with different numbers.
             </Collapsible>
             <Collapsible title="Is this every health plan in the country?">
-              No. There are hundreds of health plans in the United States. This database currently includes the major national insurers for which public data is available. It does not yet include most regional plans, smaller Medicaid managed care plans, employer-sponsored plans (which are not required to publicly report this data), or individual state-level BCBS affiliates. As more plans publish their data under the new federal reporting rule, this database will be updated. The goal is for this to grow into a comprehensive resource over time.
+              No. There are hundreds of health plans in the United States. This database currently includes major national insurers and selected plan-level disclosures for which public data is available. It does not yet include most regional plans, smaller Medicaid managed care plans, employer-sponsored plans that are outside the rule scope, or individual state-level BCBS affiliates. The database is updated as additional public reporting is identified.
             </Collapsible>
 
             <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 20, marginTop: 12, marginBottom: 12 }}>
-              <div style={{ fontSize: 14, fontWeight: 700, color: "#1a365d", marginBottom: 10 }}>Why this matters</div>
+              <div style={{ fontSize: 14, fontWeight: 700, color: "#1a365d", marginBottom: 10 }}>Purpose and scope</div>
               <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7 }}>
-                <p style={{ margin: 0, marginBottom: 10 }}>Prior authorization reporting is now a public mandate. But public does not mean usable. Plans report in different formats, at different URLs, with inconsistent definitions and varying levels of granularity.</p>
-                <p style={{ margin: 0, marginBottom: 10 }}>The result is a fragmented dataset that is technically accessible but operationally difficult to interpret without significant cleanup work.</p>
-                <p style={{ margin: 0 }}>The Prior Auth Index maps that fragmentation, surfaces what the reporting actually shows, and identifies where the gaps between publication and usability are widest.</p>
+                <p style={{ margin: 0, marginBottom: 10 }}>Prior authorization reporting is now subject to public disclosure requirements under CMS-0057-F. Publication status alone does not establish usability, comparability, or completeness. Plans report in different formats, at different URLs, with inconsistent definitions and varying levels of granularity.</p>
+                <p style={{ margin: 0, marginBottom: 10 }}>The result is a fragmented public dataset that requires source mapping, normalization, and review before it can be interpreted across plans.</p>
+                <p style={{ margin: 0 }}>The Prior Auth Index maps source locations, tracks publication status, summarizes available metrics, and identifies limitations in usability and comparability.</p>
               </div>
             </div>
 
             <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 20, marginBottom: 12 }}>
               <div style={{ fontSize: 14, fontWeight: 700, color: "#1a365d", marginBottom: 10 }}>Who this is for</div>
               <div style={{ fontSize: 13, color: "#555", lineHeight: 1.7 }}>
-                <p style={{ margin: 0, marginBottom: 10 }}>The Prior Auth Index is built for people who need to understand prior authorization patterns, not just read headlines about them:</p>
+                <p style={{ margin: 0, marginBottom: 10 }}>The Prior Auth Index is designed for users who need to review prior authorization reporting across operational, policy, and market contexts:</p>
                 <ul style={{ margin: 0, paddingLeft: 20 }}>
-                  <li>Revenue cycle and utilization management teams tracking payer behavior</li>
-                  <li>Consultants and analysts researching prior auth trends across markets</li>
-                  <li>Healthtech operators building on top of payer reporting infrastructure</li>
-                  <li>Payer strategy and contracting teams benchmarking plan performance</li>
+                  <li>Revenue cycle and utilization management teams tracking payer reporting patterns</li>
+                  <li>Consultants and analysts researching prior authorization reporting across markets</li>
+                  <li>Healthtech operators evaluating payer reporting infrastructure</li>
+                  <li>Payer strategy and contracting teams reviewing plan-level metrics</li>
                   <li>Journalists and researchers studying prior authorization patterns</li>
-                  <li>Anyone who needs to interpret what the public data actually shows</li>
+                  <li>Users who need to interpret published prior authorization reporting</li>
                 </ul>
               </div>
             </div>
@@ -1221,8 +1224,8 @@ export default function PriorAuthIndex() {
             </div>
 
             <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 8, padding: 20, marginTop: 12, marginBottom: 12 }}>
-              <div style={{ fontSize: 15, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>Interpret plan-level prior authorization data</div>
-              <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 14 }}>Denial rates, appeal overturn patterns, and published 2025 metrics across major U.S. health plans — sourced and structured for comparison.</div>
+              <div style={{ fontSize: 15, fontWeight: 700, color: "#1a365d", marginBottom: 6 }}>Plan-level prior authorization metrics</div>
+              <div style={{ fontSize: 13, color: "#555", lineHeight: 1.6, marginBottom: 14 }}>Denial rates, appeal overturn patterns, and published 2025 metrics across major U.S. health plans, with source links and plan-level context.</div>
               <button onClick={() => handleNavigate("metrics")} style={{ padding: "10px 20px", background: "#1a365d", color: "#fff", border: "none", borderRadius: 6, fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "'IBM Plex Sans', sans-serif" }}>
                 View Metrics →
               </button>
@@ -1243,7 +1246,7 @@ export default function PriorAuthIndex() {
         {page === "about" && <AboutPage onNavigate={handleNavigate} />}
         {page === "contact" && <ContactPage onNavigate={handleNavigate} />}
 
-        <div style={{ textAlign: "center", padding: "28px 0 0", color: "#bbb", fontSize: 10, fontFamily: "'IBM Plex Mono', monospace" }}>The Prior Auth Index | Built by Ashley Murray | 2026</div>
+        <div style={{ textAlign: "center", padding: "28px 0 0", color: "#bbb", fontSize: 10, fontFamily: "'IBM Plex Mono', monospace" }}>The Prior Auth Index | 2026</div>
       </div>
     </div>
   );
