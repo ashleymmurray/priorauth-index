@@ -56,3 +56,54 @@ export const MA_2024 = [
       "https://www.kff.org/medicare/medicare-advantage-insurers-made-nearly-53-million-prior-authorization-determinations-in-2024/",
   },
 ];
+export const ACA_2024 = [
+  {
+    insurer: "Oscar Health",
+    denialRate: 25.3,
+    approvalRate: 74.7,
+    sourceUrl:
+      "https://muni.health/blog/insurance-denial-rate-by-company-2026",
+  },
+  {
+    insurer: "Anthem / Elevance Health",
+    denialRate: 18.0,
+    approvalRate: 82.0,
+    sourceUrl:
+      "https://muni.health/blog/insurance-denial-rate-by-company-2026",
+  },
+  {
+    insurer: "Aetna (CVS Health)",
+    denialRate: 22.0,
+    approvalRate: 78.0,
+    sourceUrl:
+      "https://muni.health/blog/insurance-denial-rate-by-company-2026",
+  },
+  {
+    insurer: "Molina Healthcare",
+    denialRate: 22.0,
+    approvalRate: 78.0,
+    sourceUrl:
+      "https://muni.health/blog/insurance-denial-rate-by-company-2026",
+  },
+  {
+    insurer: "UnitedHealthcare",
+    denialRate: 20.0,
+    approvalRate: 80.0,
+    sourceUrl:
+      "https://muni.health/blog/insurance-denial-rate-by-company-2026",
+  },
+  {
+    insurer: "BCBS (National Avg)",
+    denialRate: 18.0,
+    approvalRate: 82.0,
+    sourceUrl:
+      "https://muni.health/blog/insurance-denial-rate-by-company-2026",
+  },
+  {
+    insurer: "Kaiser Permanente",
+    denialRate: 6.0,
+    approvalRate: 94.0,
+    sourceUrl:
+      "https://muni.health/blog/insurance-denial-rate-by-company-2026",
+  },
+];
