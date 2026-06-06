@@ -1,8 +1,13 @@
+import SiteHeader from "@/components/SiteHeader";
+
 export default function HomePage() {
   return (
     <main>
-      <h1>The Prior Auth Index</h1>
-      <p>Next.js migration in progress.</p>
+      <SiteHeader />
+
+      <section>
+        <p>Next.js migration in progress.</p>
+      </section>
     </main>
   );
 }
