@@ -1,4 +1,8 @@
 import "./globals.css";
+
+import SiteHeader from "@/components/SiteHeader";
+import SiteFooter from "@/components/SiteFooter";
+
 import { siteMetadata } from "@/lib/siteMetadata";
 
 export const metadata = {
@@ -9,7 +13,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <SiteHeader />
+
+        {children}
+
+        <SiteFooter />
+      </body>
     </html>
   );
 }
