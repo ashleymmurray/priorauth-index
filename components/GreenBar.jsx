@@ -2,7 +2,14 @@ export default function GreenBar({ rate }) {
   const w = Math.min((rate / 100) * 100, 100);
 
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 10, width: "100%" }}>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: 10,
+        width: "100%",
+      }}
+    >
       <div
         style={{
           flex: 1,
@@ -22,6 +29,7 @@ export default function GreenBar({ rate }) {
           }}
         />
       </div>
+
       <span
         style={{
           fontFamily: "'IBM Plex Mono', monospace",
