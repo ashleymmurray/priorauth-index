@@ -1,5 +1,6 @@
 export default function Bar({ rate, max = 30 }) {
   const w = Math.min((rate / max) * 100, 100);
+
   const c =
     rate > 20
       ? "#dc2626"
@@ -10,7 +11,14 @@ export default function Bar({ rate, max = 30 }) {
       : "#16a34a";
 
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 10, width: "100%" }}>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: 10,
+        width: "100%",
+      }}
+    >
       <div
         style={{
           flex: 1,
@@ -30,6 +38,7 @@ export default function Bar({ rate, max = 30 }) {
           }}
         />
       </div>
+
       <span
         style={{
           fontFamily: "'IBM Plex Mono', monospace",
