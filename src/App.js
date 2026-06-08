@@ -64,6 +64,9 @@ const SECTION_HEADINGS = [
   "Why the Impact Depends on What Was Removed",
   "What This Announcement Does and Does Not Address",
   "Follow the Data",
+  "When the Problem Is Not Clinical",
+  "Why the Category Matters",
+  "What Aggregate Reporting Hides",
 ];
 
 const SUB_HEADINGS = [
@@ -74,6 +77,52 @@ const SUB_HEADINGS = [
 ];
 
 const INSIGHTS_POSTS = [
+    {
+    slug: "the-denial-rate-has-a-resolution-problem",
+    title: "The Denial Rate Has a Resolution Problem",
+    date: "June 7, 2026",
+    readTime: "5 min read",
+    excerpt: "Prior authorization denial rates are reported as a single outcome category. The operational pathways producing those denials are not reported at all.",
+    content: `Prior authorization denial rates are reported as a single outcome category. The operational pathways producing those denials are not reported at all.
+
+Across multiple conversations involving utilization management and hospital operations, several examples surfaced where the denial did not originate from clinical disagreement but from workflow handling, classification structure, eligibility timing, or submission mechanics occurring elsewhere in the process. Those distinctions disappear once the event enters aggregate reporting.
+
+When the Problem Is Not Clinical
+
+One source described a preventative test denied because the service was not recognized as preventative within the claims workflow.
+
+“We had a preventative test done, and the insurance didn’t pay it because the claims person in the claims department didn’t know it was preventative.”
+
+Another described denials originating from submission pathway issues rather than from the underlying clinical request.
+
+“It doesn’t have anything to do with clinical, you just didn’t click the right button.”
+
+In both cases, the denial appeared within reporting data despite the breakdown occurring outside clinical review entirely.
+
+The correction pathway afterward depends on where the workflow failed. A classification issue may require coding correction and resubmission. A submission pathway failure may require identifying where the routing structure broke down in the first place. The reported denial outcome does not preserve those distinctions.
+
+When the Workflow and Eligibility System Disagree
+
+A utilization review executive described a separate category involving eligibility synchronization gaps between systems.
+
+“Some of our payers don’t update us on the eligibility of the patients for up to 15 days after they’ve terminated their coverage.”
+
+A patient could appear active within the provider’s operational environment while payer termination records had already updated elsewhere. The authorization pathway looked valid at the time of submission. The clinical documentation may be correct. The submission pathway may also be correct. The denial still originates from a timing discrepancy between systems that are supposed to reflect the same coverage status but do not update simultaneously.
+
+What the Denial Rate Compresses Together
+
+As public prior authorization reporting expands, denial percentages will likely become among the most visible metrics associated with payer behavior. But the operational structure underneath those denials is considerably more variable than the reporting suggests.
+
+As one source noted, the detail that explains those differences does not travel into the claims data.
+
+“You’re not going to see what we’re talking about here in the claims data.”
+
+The denial rate captures the outcome. The operational pathway that produced the denial is often much harder to see.
+
+---
+
+The Prior Auth Report launches in late July with ongoing analysis of prior authorization operations, payer workflow variation, denial activity, and the evolving transparency landscape surrounding utilization management data. The waitlist is open below.`,
+  },
   {
     slug: "before-the-decision-and-after-it",
     title: "Before the Decision and After It: The Hidden Labor Cost of Prior Authorization",
