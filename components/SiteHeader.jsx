@@ -1,96 +1,284 @@
 "use client";
 
-import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const navItems = [
   { href: "/", label: "Home" },
+  { href: "/payers", label: "Payers" },
   { href: "/metrics", label: "Metrics" },
-  { href: "/compliance-tracker", label: "CMS Compliance Tracker" },
+
+  {
+    href: "/compliance-tracker",
+    label: "Compliance",
+  },
+
   { href: "/insights", label: "Insights" },
+
+  {
+    href: "/methodology",
+    label: "Methodology",
+  },
+
+  {
+    href: "/newsletter",
+    label: "Report",
+  },
+
+  { href: "/about", label: "About" },
+
+  { href: "/contact", label: "Contact" },
 ];
 
 export default function SiteHeader() {
   const pathname = usePathname();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const [mobileMenuOpen, setMobileMenuOpen] =
+    useState(false);
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+
+    window.addEventListener(
+      "resize",
+      checkMobile
+    );
+
+    return () =>
+      window.removeEventListener(
+        "resize",
+        checkMobile
+      );
+  }, []);
+
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
 
   const isActive = (href) => {
-    if (href === "/") return pathname === "/";
+    if (href === "/") {
+      return pathname === "/";
+    }
+
     return pathname.startsWith(href);
   };
 
   return (
-    <header style={{ background: "#1a365d", borderBottom: "1px solid rgba(255,255,255,0.12)" }}>
-      <div style={{ maxWidth: 980, margin: "0 auto", padding: "14px 16px" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 16 }}>
-          <Link href="/" style={{ textDecoration: "none" }}>
-            <div style={{ color: "#fff", fontSize: 20, fontWeight: 700, lineHeight: 1.1 }}>
-              The Prior Auth Index
-            </div>
-            <div style={{ color: "rgba(255,255,255,0.7)", fontSize: 11, marginTop: 4, fontFamily: "'IBM Plex Mono', monospace" }}>
-              Independent prior authorization transparency tracking
-            </div>
-          </Link>
+    <header
+      style={{
+        background: "#1a365d",
+        borderBottom:
+          "1px solid rgba(255,255,255,0.08)",
+        position: "sticky",
+        top: 0,
+        zIndex: 100,
+      }}
+    >
+      <div
+        style={{
+          maxWidth: 820,
+          margin: "0 auto",
+          padding: "0 16px",
+        }}
+      >
+        {/* DESKTOP NAV */}
 
-          <nav style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                style={{
-                  padding: "8px 10px",
-                  borderRadius: 6,
-                  color: isActive(item.href) ? "#1a365d" : "rgba(255,255,255,0.78)",
-                  background: isActive(item.href) ? "#fff" : "transparent",
-                  textDecoration: "none",
-                  fontSize: 12,
-                  fontWeight: 600,
-                }}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        {!isMobile && (
+          <div
             style={{
-              display: "none",
-              background: "rgba(255,255,255,0.12)",
-              color: "#fff",
-              border: "1px solid rgba(255,255,255,0.2)",
-              borderRadius: 6,
-              padding: "8px 10px",
-              fontSize: 12,
-              fontWeight: 700,
+              display: "flex",
+              alignItems: "center",
+              justifyContent:
+                "space-between",
+              minHeight: 58,
+              gap: 14,
             }}
           >
-            Menu
-          </button>
-        </div>
+            <Link
+              href="/"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                flexShrink: 0,
+              }}
+            >
+              <Image
+                src="/logo-mark.png"
+                alt="The Prior Auth Index"
+                width={42}
+                height={42}
+                priority
+              />
+            </Link>
 
-        {mobileMenuOpen && (
-          <div style={{ marginTop: 12, display: "grid", gap: 6 }}>
-            {navItems.map((item) => (
+            <nav
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 0,
+                marginLeft: "auto",
+              }}
+            >
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  style={{
+                    padding:
+                      "18px 14px 17px",
+                    background: isActive(
+                      item.href
+                    )
+                      ? "rgba(255,255,255,0.08)"
+                      : "transparent",
+                    color: "#fff",
+                    textDecoration: "none",
+                    fontSize: 12,
+                    fontWeight: 600,
+                    whiteSpace: "nowrap",
+                    borderBottom: isActive(
+                      item.href
+                    )
+                      ? "2px solid rgba(255,255,255,0.16)"
+                      : "2px solid transparent",
+                    transition:
+                      "background 0.15s ease",
+                    fontFamily:
+                      "'IBM Plex Sans', sans-serif",
+                  }}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+        )}
+
+        {/* MOBILE NAV */}
+
+        {isMobile && (
+          <>
+            <div
+              style={{
+                height: 64,
+                display: "flex",
+                alignItems: "center",
+                justifyContent:
+                  "space-between",
+              }}
+            >
               <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setMobileMenuOpen(false)}
+                href="/"
                 style={{
-                  padding: "10px 12px",
-                  borderRadius: 6,
-                  color: isActive(item.href) ? "#1a365d" : "#fff",
-                  background: isActive(item.href) ? "#fff" : "rgba(255,255,255,0.08)",
-                  textDecoration: "none",
-                  fontSize: 13,
-                  fontWeight: 600,
+                  display: "flex",
+                  alignItems: "center",
                 }}
               >
-                {item.label}
+                <Image
+                  src="/logo-mark.png"
+                  alt="The Prior Auth Index"
+                  width={34}
+                  height={34}
+                  priority
+                />
               </Link>
-            ))}
-          </div>
+
+              <button
+                onClick={() =>
+                  setMobileMenuOpen(
+                    !mobileMenuOpen
+                  )
+                }
+                style={{
+                  background: "transparent",
+                  border: "none",
+                  color: "#fff",
+                  cursor: "pointer",
+                  padding: 0,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 4,
+                }}
+                aria-label="Toggle navigation"
+              >
+                <span
+                  style={{
+                    width: 24,
+                    height: 2,
+                    background: "#fff",
+                    borderRadius: 999,
+                  }}
+                />
+
+                <span
+                  style={{
+                    width: 24,
+                    height: 2,
+                    background: "#fff",
+                    borderRadius: 999,
+                  }}
+                />
+
+                <span
+                  style={{
+                    width: 24,
+                    height: 2,
+                    background: "#fff",
+                    borderRadius: 999,
+                  }}
+                />
+              </button>
+            </div>
+
+            {mobileMenuOpen && (
+              <nav
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  paddingBottom: 14,
+                }}
+              >
+                {navItems.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    style={{
+                      padding:
+                        "14px 0",
+                      color: "#fff",
+                      textDecoration:
+                        "none",
+                      fontSize: 14,
+                      fontWeight: isActive(
+                        item.href
+                      )
+                        ? 700
+                        : 500,
+                      borderBottom:
+                        "1px solid rgba(255,255,255,0.08)",
+                      fontFamily:
+                        "'IBM Plex Sans', sans-serif",
+                      opacity: isActive(
+                        item.href
+                      )
+                        ? 1
+                        : 0.9,
+                    }}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </nav>
+            )}
+          </>
         )}
       </div>
     </header>
