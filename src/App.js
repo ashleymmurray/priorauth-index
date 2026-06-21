@@ -70,6 +70,9 @@ const SECTION_HEADINGS = [
   "What Happens After a Denial",
   "How Operational Variability Accumulates",
   "The Gap Between Publication and Workflow Clarity",
+  "The Outcome Is Not the Story",
+  "What Maximus Introduces Into the Equation",
+  "What the Data Can and Cannot Tell You",
 ];
 
 const SUB_HEADINGS = [
@@ -80,6 +83,39 @@ const SUB_HEADINGS = [
 ];
 
 const INSIGHTS_POSTS = [
+    {
+    slug: "what-an-overturned-denial-is-actually-measuring",
+    title: "What an Overturned Denial Is Actually Measuring",
+    date: "June 21, 2026",
+    readTime: "5 min read",
+    excerpt:
+      "An overturned prior authorization denial is not a single operational event. It can reflect new documentation, a different interpretation, or external review, but those pathways disappear once the outcome becomes a reported rate.",
+    content: `Prior authorization transparency created public visibility into what health plans are deciding. Overturn rates are part of that picture, and as CMS enforcement expands, they are becoming one of the more closely watched numbers in the dataset. But an overturned denial is not a single operational event. It is a category that contains several different ones, and the distinction between them mostly disappears once the outcome enters reporting.
+
+The Outcome Is Not the Story
+
+When a prior authorization denial gets overturned, public reporting records one thing: the denial was reversed. That outcome enters the dataset, gets aggregated with every other overturn, and eventually surfaces as a rate.
+
+What it does not preserve is how the reversal happened, or why.
+
+An overturned denial can mean that additional clinical documentation was submitted after the initial decision. It can mean that a second reviewer interpreted the same clinical picture differently than the first. It can mean that new information surfaced during the appeal that changed the evidentiary basis of the case. From the outside, those situations are indistinguishable. The metric collapses them into a single category and moves on.
+
+What Maximus Introduces Into the Equation
+
+For Medicare Advantage appeals, cases that are not resolved internally can eventually reach Maximus for independent external review. Once a case moves outside the plan’s own review structure, it is no longer being evaluated internally. An external reviewer is examining how the denial was constructed, whether the documentation supports it, and whether it holds up against the applicable coverage criteria.
+
+An overturn at that stage occurs under different conditions than one that happened earlier in the process, and it carries different implications for Star Ratings and CMS audit exposure. Once a case reaches external review, the final decision no longer rests with the health plan.
+
+That distinction surfaced in a conversation about how appeal resolution actually works: “We don’t want this to go to Maximus.” The comment highlights a distinction the overturn rate does not preserve. A denial reversed internally and a denial reversed at external review both enter the same reporting category. The pathway that produced each outcome does not.
+
+What the Data Can and Cannot Tell You
+
+The overturn rate at any single point in time has limited analytical value on its own. The more useful question is whether it has changed, and what was happening at the same time it did. A significant shift in appeal overturn rates, upheld appeals, or total appeal volume is worth examining even without knowing the cause — because the public data can identify that a shift occurred, but determining what produced it often requires information that exists outside the reporting itself.
+
+Overturn rates describe the frequency of reversals. The circumstances that produced those reversals largely do not travel with the metric. As prior authorization reporting becomes more widely used, that distinction may become increasingly important. The data can identify that a denial was overturned. Understanding why it was overturned is often a separate question.
+
+The Prior Auth Report launches in late July with ongoing analysis of payer behavior, workflow burden, and the operational patterns emerging underneath prior authorization transparency data. If you want structured analysis delivered directly to your inbox as this reporting landscape evolves, the newsletter waitlist is below.`,
+  },
   {
   slug: "prior-authorization-requirements-and-workflow-clarity",
   title: "Prior Authorization Requirements and Workflow Clarity: Two Separate Problems",
